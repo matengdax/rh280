@@ -1,0 +1,1504 @@
+<!DOCTYPE html><html><head>
+      <title>pr280-CRC4-QA</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}@font-face{font-family:"Material Icons";font-style:normal;font-weight:400;src:local("Material Icons"),local("MaterialIcons-Regular"),url("data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAfIAAsAAAAADDAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFZW7kosY21hcAAAAYAAAADTAAACjtP6ytBnbHlmAAACVAAAAxgAAAQ4zRtvlGhlYWQAAAVsAAAALwAAADYRwZsnaGhlYQAABZwAAAAcAAAAJAeKAzxobXR4AAAFuAAAABIAAAA8OGQAAGxvY2EAAAXMAAAAIAAAACAG5AfwbWF4cAAABewAAAAfAAAAIAEfAERuYW1lAAAGDAAAAVcAAAKFkAhoC3Bvc3QAAAdkAAAAYgAAAK2vz7wkeJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkPsQ4gYGVgYOpk+kMAwNDP4RmfM1gxMjBwMDEwMrMgBUEpLmmMDgwVLy4xKzzX4chhrmK4QpQmBEkBwAZygyweJzFkr0NwjAQhZ+TEP6CRUfHBEwRUWaQTICyQbpMwRCskA5RUIONxG0RnnNpKAIV4qzPku/8c353ACYAYrIjCWCuMAh2ptf0/hiL3p/gyPUWa3osqlt0L1zu9r71z8dGrJRykFoauXQd932Lj5vhG+MjxGeYI8MKETObMpslf5EyP8tg+vHun5r539PvlvXzaVhRFVQDTPEWKVQR90KhnnC5Ek67vUKN4VuFasM/ldARj43CCkCsEjpJSoVVgRyU0GVSK6wUpFFCx8lFgX0BiXpRPQB4nE2TTWjcRhTH3xttpDhxN7uxPlp3u/FK7moRPixafRijNosxSw/LUsIwNcaEHPZggo/FmEKMCKWU4kNOOftQSlhE8alnH0Ix9BqWnHooPRrTQ0+mnu2bXTu2pPdGM9LM/6c3fwECTM4gBBMYQNqxzLrZAjqYSlqu2TAHZQA0/DQJH6FtzqGDnvbt4Ggwvzw/nL8EfH8kW0fsuRqhgWXZnY7M1picaUL7Du5BHeDzMIl83dAt016wH1qmvtSMo5R6YRJHTR//FXsff/nj/tc/5K9P5d+nP22+fFK5u7v3K39SW3y+OtDKO3L85vD09PD9z5X17a2N1g4tqk01RlqX7gyoEmnsWQtVr4rtZMmukEaFBZxzefkCn11cyKMLZgshRwgTYNoLNXCBz2ja7HvZG7hDpPSNfoo5vs0knK/9hb+rNpu+8kHPgk/Ao4kK3tWtTpSEtvkA9c+wE6UaUdwieNkaHg55tBEtRiEPw1s0+FtrtTcc9two2lhMknV7PZF/cs6+uUFTmpTGbEx7sQCPSLOttHS3GRltqp7SNzVSKzl6aWnZT/CX5k6/v9N3Hh8fHBwffJVjhrC6OgH5dkIt/tPsq+d/PD5Qz7G7efzq1THFjdZVPe/N6ulQ3JnDWSE5junsFsVIiFwL/htf1S5gJ3BfOcUxfHKLnzqpFpyfZ9cX+/5WB6a+Y0pHpzkNrYNVDwMsikK+y7WuLCRg/oFHkA8VT3rDg5ZnU6ktzzINymV0m74Xd5pfIGXyFeVEQSShkzqG7TBBa2OxVRKitLXv7h3uuftXnXq7lz2tZ/WnWa9dx9dCjDhHzmuVQATlmljr9dZErUydSo2Hbi/b1vXtrOeGCk2/8s3ZlO8+ueJT8BVlw5pGw2oYccdSiHHqx0RlabHqdNR9jAETl6PreJcPBnnfpTLnOQ8C3OV8AmQGzouV1iZdeb5SSIoVc8W8/kcDtksUH5FrU6/aqBqNWcMEzxG4DAQ14qRQhi9mWU0rzepKezbjfgCwQKxVYq5ajRgpRqy45CqwkJydcEkbTkvRz8P5/2ZpDTN4nGNgZGBgAOKb6v+/xvPbfGXgZmEAgeuB2kkI+v8bFgbmKiCXg4EJJAoAPyAKhQB4nGNgZGBg1vmvwxDDwgACQJKRARXwAwAzZQHQeJxjYQCCFAYGFgbSMQAcWACdAAAAAAAAAAwALgBgAIQAmADSAQgBIgE8AVABoAHeAfwCHHicY2BkYGDgZ7BgYGMAASYg5gJCBob/YD4DAA/hAWQAeJxlkbtuwkAURMc88gApQomUJoq0TdIQzEOpUDokKCNR0BuzBiO/tF6QSJcPyHflE9Klyyekz2CuG8cr7547M3d9JQO4xjccnJ57vid2cMHqxDWc40G4Tv1JuEF+Fm6ijRfhM+oz4Ra6eBVu4wZvvMFpXLIa40PYQQefwjVc4Uu4Tv1HuEH+FW7i1mkKn6Hj3Am3sHC6wm08Ou8tpSZGe1av1PKggjSxPd8zJtSGTuinyVGa6/Uu8kxZludCmzxMEzV0B6U004k25W35fj2yNlCBSWM1paujKFWZSbfat+7G2mzc7weiu34aczzFNYGBhgfLfcV6iQP3ACkSaj349AxXSN9IT0j16JepOb01doiKbNWt1ovippz6sVYYwsXgX2rGVFIkq7Pl2PNrI6qW6eOshj0xaSq9mpNEZIWs8LZUfOouNkVXxp/d5woqebeYIf4D2J1ywQB4nG3LOw6AIBAE0B384B+PAkgEa+QwNnYmHt+EpXSal5lkSBBnoP8oCFSo0aCFRIceA0ZMmLFAYSW88rmvtMUjG3RiQ9HvpfusM6zWNmtc5H/iPewha50tOt5PS/QBx2IeSwAA") format("woff")}.admonition{box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2);position:relative;margin:1.5625em 0;padding:0 1.2rem;border-left:.4rem solid rgba(68,138,255,.8);border-radius:.2rem;background-color:rgba(255,255,255,.05);overflow:auto}.admonition>p{margin-top:.8rem}.admonition>.admonition-title{margin:0 -1.2rem;padding:.8rem 1.2rem .8rem 3.6rem;border-bottom:1px solid rgba(68,138,255,.2);background-color:rgba(68,138,255,.1);font-weight:700}.admonition>.admonition-title:before{position:absolute;left:1.2rem;font-size:1.5rem;color:rgba(68,138,255,.8);content:"\E3C9"}.admonition>.admonition-title:before{font-family:Material Icons;font-style:normal;font-variant:normal;font-weight:400;line-height:2rem;text-transform:none;white-space:nowrap;speak:none;word-wrap:normal;direction:ltr}.admonition.abstract,.admonition.summary,.admonition.tldr{border-left-color:rgba(0,176,255,.8)}.admonition.abstract>.admonition-title,.admonition.summary>.admonition-title,.admonition.tldr>.admonition-title{background-color:rgba(0,176,255,.1);border-bottom-color:rgba(0,176,255,.2)}.admonition.abstract>.admonition-title:before,.admonition.summary>.admonition-title:before,.admonition.tldr>.admonition-title:before{color:#00b0ff;content:"\E8D2"}.admonition.hint,.admonition.tip{border-left-color:rgba(0,191,165,.8)}.admonition.hint>.admonition-title,.admonition.tip>.admonition-title{background-color:rgba(0,191,165,.1);border-bottom-color:rgba(0,191,165,.2)}.admonition.hint>.admonition-title:before,.admonition.tip>.admonition-title:before{color:#00bfa5;content:"\E80E"}.admonition.info,.admonition.todo{border-left-color:rgba(0,184,212,.8)}.admonition.info>.admonition-title,.admonition.todo>.admonition-title{background-color:rgba(0,184,212,.1);border-bottom-color:rgba(0,184,212,.2)}.admonition.info>.admonition-title:before,.admonition.todo>.admonition-title:before{color:#00b8d4;content:"\E88E"}.admonition.check,.admonition.done,.admonition.success{border-left-color:rgba(0,200,83,.8)}.admonition.check>.admonition-title,.admonition.done>.admonition-title,.admonition.success>.admonition-title{background-color:rgba(0,200,83,.1);border-bottom-color:rgba(0,200,83,.2)}.admonition.check>.admonition-title:before,.admonition.done>.admonition-title:before,.admonition.success>.admonition-title:before{color:#00c853;content:"\E876"}.admonition.faq,.admonition.help,.admonition.question{border-left-color:rgba(100,221,23,.8)}.admonition.faq>.admonition-title,.admonition.help>.admonition-title,.admonition.question>.admonition-title{background-color:rgba(100,221,23,.1);border-bottom-color:rgba(100,221,23,.2)}.admonition.faq>.admonition-title:before,.admonition.help>.admonition-title:before,.admonition.question>.admonition-title:before{color:#64dd17;content:"\E887"}.admonition.attention,.admonition.caution,.admonition.warning{border-left-color:rgba(255,145,0,.8)}.admonition.attention>.admonition-title,.admonition.caution>.admonition-title,.admonition.warning>.admonition-title{background-color:rgba(255,145,0,.1);border-bottom-color:rgba(255,145,0,.2)}.admonition.attention>.admonition-title:before{color:#ff9100;content:"\E417"}.admonition.caution>.admonition-title:before,.admonition.warning>.admonition-title:before{color:#ff9100;content:"\E002"}.admonition.fail,.admonition.failure,.admonition.missing{border-left-color:rgba(255,82,82,.8)}.admonition.fail>.admonition-title,.admonition.failure>.admonition-title,.admonition.missing>.admonition-title{background-color:rgba(255,82,82,.1);border-bottom-color:rgba(255,82,82,.2)}.admonition.fail>.admonition-title:before,.admonition.failure>.admonition-title:before,.admonition.missing>.admonition-title:before{color:#ff5252;content:"\E14C"}.admonition.bug,.admonition.danger,.admonition.error{border-left-color:rgba(255,23,68,.8)}.admonition.bug>.admonition-title,.admonition.danger>.admonition-title,.admonition.error>.admonition-title{background-color:rgba(255,23,68,.1);border-bottom-color:rgba(255,23,68,.2)}.admonition.danger>.admonition-title:before{color:#ff1744;content:"\E3E7"}.admonition.error>.admonition-title:before{color:#ff1744;content:"\E14C"}.admonition.bug>.admonition-title:before{color:#ff1744;content:"\E868"}.admonition.example,.admonition.snippet{border-left-color:rgba(0,184,212,.8)}.admonition.example>.admonition-title,.admonition.snippet>.admonition-title{background-color:rgba(0,184,212,.1);border-bottom-color:rgba(0,184,212,.2)}.admonition.example>.admonition-title:before,.admonition.snippet>.admonition-title:before{color:#00b8d4;content:"\E242"}.admonition.cite,.admonition.quote{border-left-color:rgba(158,158,158,.8)}.admonition.cite>.admonition-title,.admonition.quote>.admonition-title{background-color:rgba(158,158,158,.1);border-bottom-color:rgba(158,158,158,.2)}.admonition.cite>.admonition-title:before,.admonition.quote>.admonition-title:before{color:#9e9e9e;content:"\E244"}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      <div>
+<div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#strong-stylecolor-00b9e4p-考试说明strong" class="md-toc-link">
+            <p><strong style="color: #00B9E4">P. 考试说明</strong></p>
+
+          </a></div><details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#strong-stylecolor-00b9e4l-练习要求strong" class="md-toc-link"><p><strong style="color: #00B9E4">L. 练习要求</strong></p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#1-htpasswd" class="md-toc-link">
+            <ol>
+<li>HTPasswd</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#2-add-role-to-user" class="md-toc-link">
+            <ol start="2">
+<li>add-role-to-user</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#3-user-account" class="md-toc-link">
+            <ol start="3">
+<li>user account</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#4-use-quotas" class="md-toc-link">
+            <ol start="4">
+<li>use quotas</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#5-limitrange" class="md-toc-link">
+            <ol start="5">
+<li>LimitRange</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#6-scale" class="md-toc-link">
+            <ol start="6">
+<li>scale</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#7-scale-an-application-automatically" class="md-toc-link">
+            <ol start="7">
+<li>Scale an application automatically</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#8-route" class="md-toc-link">
+            <ol start="8">
+<li>route</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#9-deploy-an-application" class="md-toc-link">
+            <ol start="9">
+<li>Deploy an application</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#10-configure-a-secret" class="md-toc-link">
+            <ol start="10">
+<li>Configure a secret</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#11-configure-an-application-to-use-a-secret" class="md-toc-link">
+            <ol start="11">
+<li>Configure an application to use a secret</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#12-configure-a-service-account" class="md-toc-link">
+            <ol start="12">
+<li>Configure a service account</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#13-uses-the-service-account" class="md-toc-link">
+            <ol start="13">
+<li>uses the service account</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#14-request-memory" class="md-toc-link">
+            <ol start="14">
+<li>request memory</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#15-configure-application-data" class="md-toc-link">
+            <ol start="15">
+<li>Configure application data</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#16-network-policy" class="md-toc-link">
+            <ol start="16">
+<li>network policy</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#17-template" class="md-toc-link">
+            <ol start="17">
+<li>template</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#18-operator" class="md-toc-link">
+            <ol start="18">
+<li>operator</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#19-cron-job" class="md-toc-link">
+            <ol start="19">
+<li>cron job</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#20-collect-the-default-support-information" class="md-toc-link">
+            <ol start="20">
+<li>Collect the default support information</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#21-a-storage-class-has-been-configured-to-provide-nfs-storage" class="md-toc-link">
+            <ol start="21">
+<li>A storage class has been configured to provide NFS storage</li>
+</ol>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#22-liveness-probe" class="md-toc-link">
+            <ol start="22">
+<li>liveness probe</li>
+</ol>
+
+          </a></div>
+        </div>
+      </details>
+    
+</div>
+<h2 id="strong-stylecolor-00b9e4p-考试说明strong"><strong style="color: #00B9E4">P. 考试说明</strong> </h2>
+<ol>
+<li>大多数题可以使用网页做</li>
+<li>网页登录，使用的地址、帐号、密码考题中都会提供</li>
+<li>命令行，需要先 ssh 至 workbech。主机名、帐号、密码考题中都会提供</li>
+</ol>
+<h2 id="strong-stylecolor-00b9e4l-练习要求strong"><strong style="color: #00B9E4">L. 练习要求</strong> </h2>
+<h3 id="1-htpasswd">1. HTPasswd </h3>
+<blockquote>
+<p>Configure your OpenShift cluster to use an HTPasswd identity provider with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The name of the identity provider is: <code>ex280-htpasswd</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The name of the secret is: <code>ex280-idp-secret</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>armstrong</code> is present and can log in with password <code>indionce</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>collins</code> is present and can log in with password <code>veraster</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>aldrin</code> is present and can log in with password <code>roonkere</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>jobs</code> is present and can log in with password <code>sestiver</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>wozniak</code> is present and can log in with password <code>glegunge</code>, Configure <code>wozniak</code> to create a project</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Delete virtual user</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 1. </span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; htpasswd</span>
+<span class="token function">sudo</span> dnf <span class="token parameter variable">-y</span> <span class="token function">install</span> httpd-tools
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code> $ htpasswd
+	<span class="token variable"><span class="token variable">`</span>htpasswd<span class="token variable">`</span></span> -b<span class="token punctuation">[</span>cmBdpsDv<span class="token punctuation">]</span> <span class="token punctuation">[</span>-C cost<span class="token punctuation">]</span> <span class="token variable"><span class="token variable">`</span>passwordfile<span class="token variable">`</span></span> <span class="token variable"><span class="token variable">`</span>username<span class="token variable">`</span></span> <span class="token variable"><span class="token variable">`</span>password<span class="token variable">`</span></span>
+  <span class="token parameter variable">-b</span>  Use the password from the <span class="token builtin class-name">command</span> line rather than prompting <span class="token keyword keyword-for">for</span> it.
+  <span class="token punctuation">..</span>.
+
+*$ htpasswd <span class="token parameter variable">-bBc</span> htpasswd armstrong indionce
+*$ htpasswd <span class="token parameter variable">-b</span> htpasswd collins veraster
+*$ htpasswd <span class="token parameter variable">-b</span> htpasswd aldrin roonkere
+*$ htpasswd <span class="token parameter variable">-b</span> htpasswd <span class="token function">jobs</span> sestiver
+*$ htpasswd <span class="token parameter variable">-b</span> htpasswd wozniak glegunge
+
+*$ oc <span class="token parameter variable">-n</span> openshift-config <span class="token punctuation">\</span>
+     create secret generic ex280-idp-secret <span class="token punctuation">\</span>
+     --from-file <span class="token assign-left variable">htpasswd</span><span class="token operator">=</span>htpasswd
+
+ $ oc explain OAuth.spec
+ $ oc explain OAuth.spec.identityProviders
+ $ oc explain OAuth.spec.identityProviders.htpasswd
+ $ oc explain OAuth.spec.identityProviders.htpasswd.fileData
+
+*$ oc edit oauth cluster
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token punctuation">...</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">identityProviders</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">ldap</span><span class="token punctuation">:</span>
+    <span class="token punctuation">...</span>
+  <span class="token comment"># 增加 6 行</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">htpasswd</span><span class="token punctuation">:</span>
+      <span class="token key atrule">fileData</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> ex280<span class="token punctuation">-</span>idp<span class="token punctuation">-</span>secret
+    <span class="token key atrule">mappingMethod</span><span class="token punctuation">:</span> claim
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> ex280<span class="token punctuation">-</span>htpasswd
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> HTPasswd
+</code></pre><blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+</blockquote>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc adm policy add-cluster-role-to-user cluster-admin <span class="token function">jobs</span>
+
+*$ oc get clusterrolebinding <span class="token parameter variable">-o</span> wide <span class="token operator">|</span> <span class="token function">egrep</span> <span class="token string">'NAME|self'</span>
+ NAME                ROLE                          AGE   <span class="token variable"><span class="token variable">`</span><span class="token environment constant">GROUPS</span><span class="token variable">`</span></span>                      <span class="token punctuation">..</span>.
+<span class="token variable"><span class="token variable">`</span>self-provisioners<span class="token variable">`</span></span>  ClusterRole/self-provisioner  119d  <span class="token variable"><span class="token variable">`</span>system:authenticated:oauth<span class="token variable">`</span></span>  <span class="token punctuation">..</span>.
+
+*$ oc adm policy add-cluster-role-to-user self-provisioner wozniak
+
+*$ oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated:oauth
+ Warning: Your changes may get lost whenever a master is restarted, unless you prevent reconciliation of this rolebinding using the following command: <span class="token string">"oc annotate clusterrolebinding.rbac self-provisioners 'rbac.authorization.kubernetes.io/autoupdate=false' --overwrite"</span>
+<span class="token punctuation">..</span>.
+
+*$ oc annotate clusterrolebinding.rbac self-provisioner <span class="token string">'rbac.authorization.kubernetes.io/autoupdate=false'</span> <span class="token parameter variable">--overwrite</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc <span class="token parameter variable">-n</span> kube-system delete secrets kubeadmin
+
+</code></pre><h3 id="2-add-role-to-user">2. add-role-to-user </h3>
+<blockquote>
+<p>Configure your OpenShift cluster to meet the following requirements:</p>
+<p>​	The following projects exist:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> apollo</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> manhattan</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> gemini</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> bluebook</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> titan</li>
+</ul>
+<p>The user account <code>armstrong</code> is an <code>administrator</code> for project <code>apollo</code> and project <code>gemini</code></p>
+<p>The user account <code>wozniak</code> can <code>view</code> project <code>titan</code> but not administer or delete it</p>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc <span class="token parameter variable">-n</span> apollo adm policy add-role-to-user admin armstrong
+*$ ^apollo^gemini
+
+*$ oc <span class="token parameter variable">-n</span> titan adm policy add-role-to-user view wozniak
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc <span class="token parameter variable">-n</span> apollo policy who-can delete deploy <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> armstrong
+        armstrong
+$ oc <span class="token parameter variable">-n</span> gemini policy who-can delete deploy <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> armstrong
+        armstrong
+
+$ oc <span class="token parameter variable">-n</span> titan policy who-can delete pod <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> wozniak
+$ oc <span class="token parameter variable">-n</span> titan policy who-can get pod <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> wozniak
+        wozniak
+
+</code></pre><h3 id="3-user-account">3. user account </h3>
+<blockquote>
+<p>Configure your OpenShift cluster to meet the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>armstrong</code> is a member of the <code>commander</code> group</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>collins</code> is a member of the <code>pilot</code> group</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The user account <code>aldrin</code> is a member of the <code>pilot</code> group</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Members of the <code>commander</code> group have <code>edit</code> permission in the <code>apollo</code> project</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Members of the <code>pilot</code> group have <code>view</code> permission in the <code>apollo</code> project</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc adm <span class="token function">groups</span> new commander
+*$ oc adm <span class="token function">groups</span> new pilot
+
+*$ oc adm <span class="token function">groups</span> add-users commander armstrong
+*$ oc adm <span class="token function">groups</span> add-users pilot collins
+*$ oc adm <span class="token function">groups</span> add-users pilot aldrin
+
+*$ oc <span class="token parameter variable">-n</span> apollo adm policy add-role-to-group edit commander
+*$ oc <span class="token parameter variable">-n</span> apollo adm policy add-role-to-group view pilot
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc <span class="token parameter variable">-n</span> apollo policy who-can patch pod <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> commander
+Groups: <span class="token variable"><span class="token variable">`</span>commander<span class="token variable">`</span></span>
+
+$ oc <span class="token parameter variable">-n</span> apollo policy who-can patch pod <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> pilot
+$ oc <span class="token parameter variable">-n</span> apollo policy who-can get pod <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-w</span> pilot
+</code></pre><h3 id="4-use-quotas">4. use quotas </h3>
+<blockquote>
+<p>Configure your OpenShift cluster to use quotas in the <code>manhattan</code> project with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The name of the quota is: <code>ex280-quota</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The amount of memory consumed across all containers may not exceed <code>1Gi</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The total amount of CPU consumed across all containers may not exceed <code>2</code> full cores</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The maximum number of replication controllers does not exceed <code>3</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The maximum number of pods does not exceed <code>3</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The maximum number of services does not exceed <code>6</code></li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 4. </span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project manhattan
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project manhattan
+
+ $ oc create <span class="token function">quota</span> <span class="token parameter variable">-h</span>
+*$ oc create <span class="token function">quota</span> ex280-quota <span class="token punctuation">\</span>
+   <span class="token parameter variable">--hard</span><span class="token operator">=</span>cpu<span class="token operator">=</span><span class="token number">2</span>,memory<span class="token operator">=</span>1Gi,pods<span class="token operator">=</span><span class="token number">3</span>,services<span class="token operator">=</span><span class="token number">6</span>,replicationcontrollers<span class="token operator">=</span><span class="token number">3</span>
+   
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc <span class="token parameter variable">-n</span> manhattan describe <span class="token function">quota</span> ex280-quota
+Name: ex280-quota
+Namespace: manhattan
+Resource               Used Hard
+--------               ---- ----
+cpu                    <span class="token number">0</span>    <span class="token number">2</span>
+memory                 <span class="token number">0</span>    1Gi
+pods                   <span class="token number">0</span>    <span class="token number">3</span>
+replicationcontrollers <span class="token number">0</span>    <span class="token number">3</span>
+services               <span class="token number">0</span>    <span class="token number">6</span>
+</code></pre><h3 id="5-limitrange">5. LimitRange </h3>
+<blockquote>
+<p>Configure your OpenShift cluster to use limits in the <code>bluebook</code> project with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The name of the limit range is: <code>ex280-limits</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The amount of memory consumed by a single pod is between <code>5Mi</code> and <code>300Mi</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The amount of memory consumed by a single container is between <code>5Mi</code> and <code>300Mi</code> with a default request of <code>100Mi</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The amount of CPU consumed by a single pod is between <code>10m</code> and <code>500m</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The amount of CPU consumed by a single container is between <code>10m</code> and <code>500m</code> with a default request of <code>100m</code></li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 5.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project bluebook
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project bluebook
+
+ $ oc api-resources <span class="token operator">|</span> <span class="token function">egrep</span> <span class="token string">'NAME|limit'</span>
+ NAME          SHORTNAMES  APIVERSION  NAMESPACED  KIND
+ limitranges   limits     <span class="token variable"><span class="token variable">`</span>v1<span class="token variable">`</span></span>         <span class="token boolean">true</span>       <span class="token variable"><span class="token variable">`</span>LimitRange<span class="token variable">`</span></span>
+ $ oc explain limitrange
+ $ oc explain limitrange.spec
+ $ oc explain limitrange.spec.limits
+
+ $ <span class="token builtin class-name">echo</span> <span class="token builtin class-name">set</span> nu <span class="token assign-left variable">ts</span><span class="token operator">=</span><span class="token number">2</span> et <span class="token assign-left variable">sw</span><span class="token operator">=</span><span class="token number">2</span> cuc <span class="token function">paste</span> <span class="token operator">&gt;</span> ~/.vimrc
+
+*$ <span class="token function">vim</span> limitrange.yml
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> LimitRange
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ex280<span class="token punctuation">-</span>limits
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> bluebook
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">type</span><span class="token punctuation">:</span> Pod
+    <span class="token key atrule">min</span><span class="token punctuation">:</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 5Mi
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 10m
+    <span class="token key atrule">max</span><span class="token punctuation">:</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 300Mi
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 500m
+  <span class="token punctuation">-</span> <span class="token key atrule">type</span><span class="token punctuation">:</span> Container
+    <span class="token key atrule">min</span><span class="token punctuation">:</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 5Mi
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 10m
+    <span class="token key atrule">max</span><span class="token punctuation">:</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 300Mi
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 500m
+    <span class="token key atrule">defaultRequest</span><span class="token punctuation">:</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 100Mi
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 100m
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc apply <span class="token parameter variable">-f</span> limitrange.yml
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc <span class="token parameter variable">-n</span> bluebook describe limitranges
+Name:       ex280-limits
+Namespace:  bluebook
+Type        Resource  Min  Max    Default Request  Default Limit  Max Limit/Request Ratio
+----        --------  ---  ---    ---------------  -------------  --------------
+Pod         memory    5Mi  300Mi  -                -              -
+Pod         cpu       10m  500m   -                -              -
+Container   cpu       10m  500m   100m             500m           -
+Container   memory    5Mi  300Mi  100Mi            300Mi          -
+</code></pre><h3 id="6-scale">6. scale </h3>
+<blockquote>
+<p>Ensure that there are exactly <code>5</code> replicas of the minion application in the <code>gru</code> project</p>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 6.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project gru
+
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> gru create deploymentconfig minion <span class="token punctuation">\</span>
+  <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project gru
+
+*$ oc status
+ <span class="token variable"><span class="token variable">`</span>dc/minion<span class="token variable">`</span></span> deploys registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:latest
+ <span class="token punctuation">..</span>.
+
+*$ oc scale dc/minion <span class="token parameter variable">--replicas</span> <span class="token number">5</span>
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc get po
+NAME              READY   STATUS      RESTARTS   AGE
+minion-1-deploy   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          55s
+minion-1-g6rkm    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          54s
+minion-1-4w7xb    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          6s
+minion-1-684lg    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          6s
+minion-1-b8k4h    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          6s
+minion-1-s97tp    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          6s
+</code></pre><h3 id="7-scale-an-application-automatically">7. Scale an application automatically </h3>
+<blockquote>
+<p>Automatically scale the hydra deployment in the <code>lerna</code> project with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Minimum number of pods: <code>6</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Maximum number of pods: <code>9</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Target average CPU utilization per pod: <code>60</code> percent</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The pods require <code>25m</code> CPU time to operate</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The pods must not consume more than <code>100m</code> CPU time</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 7.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; porject</span>
+oc new-project lerna
+
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> lerna create deploymentconfig hydra <span class="token punctuation">\</span>
+  <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project lerna
+
+*$ oc status
+<span class="token variable"><span class="token variable">`</span>dc/hydra<span class="token variable">`</span></span> deploys registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:latest
+<span class="token punctuation">..</span>.
+
+ $ oc <span class="token builtin class-name">set</span> resources <span class="token parameter variable">-h</span>
+*$ oc <span class="token builtin class-name">set</span> resources dc/hydra <span class="token punctuation">\</span>
+   <span class="token parameter variable">--limits</span><span class="token operator">=</span>cpu<span class="token operator">=</span>100m <span class="token punctuation">\</span>
+   <span class="token parameter variable">--requests</span><span class="token operator">=</span>cpu<span class="token operator">=</span>25m
+
+ $ oc autoscale <span class="token parameter variable">-h</span>
+*$ oc autoscale deploymentconfig/hydra <span class="token punctuation">\</span>
+   <span class="token parameter variable">--min</span> <span class="token number">6</span> <span class="token punctuation">\</span>
+   <span class="token parameter variable">--max</span> <span class="token number">9</span> <span class="token punctuation">\</span>
+   --cpu-percent<span class="token operator">=</span><span class="token number">60</span>
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc get po
+NAME             READY   STATUS      RESTARTS   AGE
+hydra-1-deploy   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          3m31s
+hydra-2-deploy   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          2m49s
+hydra-2-vpwj9    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          109s
+hydra-2-cjp8s    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          77s
+hydra-2-g2jhn    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          77s
+hydra-2-gm2sc    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          77s
+hydra-2-lmmcr    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          77s
+hydra-2-xrvq6    <span class="token number">1</span>/1    <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>    <span class="token number">0</span>          77s
+</code></pre><h3 id="8-route">8. route </h3>
+<blockquote>
+<p>Configure the <code>oxcart</code> application in the <code>area51</code> project with the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application uses a secure route called <code>oxcart</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> Traffic between the client and the router is <code>encrypted</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> Traffic between the router and the service is <code>unencrypted</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The route uses a CA signed certificate with the following subject fields:<br>
+<code>/C=CN/ST=BJ/L=beijing/O=RedHat/OU=RHT/CN=classified.apps.ocp4.example.com</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application is reachable only at the following address:<br>
+<a href="https://classified.apps.ocp4.example.com">https://classified.apps.ocp4.example.com</a></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application produces output<br>
+A utility script called <code>newcert</code> has been provided on the workbench system to create the CA signed certificate<br>
+You may enter the certificate parameters manually or pass the subject as a parameter.</p>
+</li>
+</ul>
+<p>Your certificate signing request will be uploaded to the CA where it will be immediately signed and then downloaded to your current directory.</p>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 8. </span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; file</span>
+<span class="token comment"># [1/4] passphrase.txt</span>
+<span class="token builtin class-name">printf</span> RedHat123@<span class="token operator">!</span> <span class="token operator">&gt;</span> ~/passphrase.txt
+<span class="token comment"># [2/4] training.ext</span>
+<span class="token function">tee</span> ~/training.ext <span class="token operator">&gt;</span>/dev/null<span class="token operator">&lt;&lt;</span><span class="token string">EOT
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = *.crc.testing
+DNS.2 = *.apps.ocp4.example.com
+EOT</span>
+<span class="token comment"># [3/4] training-CA.pem</span>
+<span class="token function">tee</span> ~/training-CA.pem <span class="token operator">&gt;</span>/dev/null<span class="token operator">&lt;&lt;</span><span class="token string">EOP
+-----BEGIN CERTIFICATE-----
+MIIEqzCCAxOgAwIBAgIUfRY6HYgttNwEGTrEa+Os/i6Ej4swDQYJKoZIhvcNAQEL
+BQAwZTELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYD
+VQQHDAdSYWxlaWdoMRAwDgYDVQQKDAdSZWQgSGF0MRkwFwYDVQQDDBBvY3A0LmV4
+YW1wbGUuY29tMB4XDTI0MDcwMjAyMTk1MVoXDTI5MDcwMTAyMTk1MVowZTELMAkG
+A1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQHDAdSYWxl
+aWdoMRAwDgYDVQQKDAdSZWQgSGF0MRkwFwYDVQQDDBBvY3A0LmV4YW1wbGUuY29t
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAr2LzZyqSnFKuaKFPYXMa
+d/MUbR3AcTlEgu2BaC9rQCpnGJ5ioepcJqI67Y30pHYy1IY//LzeJzvRzZHO8WTi
+yTzSJ6Mjp43o/uYgsXk87u7scHY0z6+zN+IASRFMNNl0Y/VAc3S7bOP4GcS+1a39
+As1Q9YRctGZNE4yv5JsLCzmVwtldguZAOsURMHsb928DalRfr1e17vhqxJbTwxpz
+YdT9Un/kxali0u802qos0QcSQq1LZmz7oVkrFL97Iona2d4fEjioDo3MFJs2HfCr
+lJY1YBW3t1SK554UANBgUCK4RDiF9Z3NhQv6laL6OYrjrLr7IthgYhFrHm3GGPQM
+1nGt8plvoo6CiV0aT1aM4aIRbu5b8T911MvUq0mfANQ1A6WT3SaECLZSJrkV+jmB
+ZiGmV+pA0V35umzVnFn0loEU4/5hFNuFW8ly/Rs+s0Xd9yEDCVMfuyU8OJoccYa9
+zcoNX6FKXqyBbYwJFzHPcqHwgjn1vyXPyrY86XaUGX2JAgMBAAGjUzBRMB0GA1Ud
+DgQWBBTuK3c7LadG/H7n28AfTLxuTJTBzjAfBgNVHSMEGDAWgBTuK3c7LadG/H7n
+28AfTLxuTJTBzjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBgQAP
+KATtPRaeAAgq+Hwslp4dDRcLhnvN4kTWBD+9oiQlO84rUF+OMexXANGdLm0IpFy6
+xzark6KOANB4H4v+YTti6MDfuqOuguzjW9T2amWEA0Dh5HbFncIhciNbXSwN9WEO
+HsITwCQo2uhOpQ/VNQYIBk9aBmngxaAjLhsZ2f8onM93FCjjoLJySJNsXQ+0tYaN
+epegToP3KC1DxLEqbRBbSqecNERvlXaMFr/LB+asAuEJeVbi5hQSxPzmk+on0YF/
+534GiAJt2c3TV0EB9JFpT3vnjtInaceSFPaQExrv+xaZRAGPg0Efqt+FXMU26CnR
+zyMe0La3SIwDdELjxuWw22otsOo7iZaOoZ5p0sFVWu22vQ18MMJ4ux3zMQW4nQi7
+KE5FnfXGoKZlk2MTEO/1H6jowknyAT6RP9z3UECc7tBATFais8a/JjAFv4CFBPAd
+3vbqfuvYfm0dwpyek7UvPlWJe4k30GXs0L6VpCx5EqUiqF1HiOOFt99+ha/TH/c=
+-----END CERTIFICATE-----
+EOP</span>
+<span class="token comment"># [4/4] training-CA.key</span>
+<span class="token function">tee</span> ~/training-CA.key <span class="token operator">&gt;</span>/dev/null<span class="token operator">&lt;&lt;</span><span class="token string">EOY
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: DES-EDE3-CBC,689B7D624F606E79
+
+lpu788Tz75xaPTvSXKS07BUh0DMO1IshX+MAZHmiB+VLVWsXP42KKgSCahywt6AF
+Thy+4ekQeWAtlHJ2Y+7bk2MObA4ODVmgDmPgsMK9PMaUkhieliMGqQVIyXfdjlRV
+oFrJHiUWF8Ho5+4YWGjeU6w/wIyh4yu3xQ51pptMgbBZy8Zt4bQoEu/no2WGk0xX
+A/oc90vuF/D3HI/LIo4xiaPkVLjLhnws8GtGQISADyJFg8Qpq5auBecpiBypnx/z
+zUHSy1yH+k9OJem84pDJ3rj/mOagemUn54UkfjieLISTgFUp0IeKwERN9l2E5zgc
+fFYHpizvlIDShZcdK+rlNgUqQXBwAlguQeXxyZ+LT3CJtVQuT0GdrqtZARYau0c3
+yCJJ6Mw8SdMFav1g7Wdd2b2HUqpDNbARV2Jo7gcFoVy5mTNlY+KD7W1MxtR123s5
+vh4BFBFB5b2/vxHGulW4aBaG/uIiEe6FBQ5U6B6dXR9/TKgPPcLSkgQ9JfRoSFXE
+Bn0fCvuRe4HUO206NmdBX8C6zTTnbrPmiBGOUrDYSUHuEBYLiwxMH6NHA26JyYuK
+PBCM0el5fS3Hfd21w5JTBoWZG0cXdUSL76t3wp5q78HoJqZKXMtPUk5MIovxmp/j
+BRQo902QXVQsA7Hr3NFIT/fiZKkDVwrlQSyXsbYVjn+st9xwWViuJyASDet6y81M
+YDJvz4jqAfRXdOuJw7PpF/Oo6bF3XCOBjhHovr/mu4s0pr1s2c4wvf3HICXZp+3O
+Q4PW+/g0hLLV6mIwO1YQqFz5XKdbDs8VyD2HTmzzWtD2MR6HscA7FnIWcVrJMkjc
+vWmkJOc0HVMM2RAQC2KSJUGenxTB3/CO/QB72ctKtq5HcBnLr5rogQkTG05qXqJc
+oiwWileIe6DLta/Lju9HeZJLNRka88dFYoXE3vBkhVMqCdoHolIwT+csBvmaq22V
+sKE4YESvTOPVoZZ+NnWWf111vs1XlAChy2sBLUPoXfVulII/c4P19p7dumLyc8Uc
+8lZZrXBlA321EX3W8cCvP/vcEOWi406lgjQ5Nbj60yJLK7hTHuRnS87D0a3Xf3Kv
+b53k36+rKa/F+xVE8KE+jIDYVkPvIpCup9iOZX6d5P466FTvAt6cKPl/U2wU9R8o
+1CCLU6J8Ip9auG2sZ1YmiudU8r5pNDC7OQ7klFaTkLH6N8qtzaIIGIkX4/3jdvJ0
+vcWlbn/DBsi8RxproRNF9iQ/ji9CuSFaHy6vPrYPvsgAi73rgy7EwCpps38SDGYJ
+JwP46/gReWcqKJ2jxvULo50FRQglqvRSOgjA3BJCu7FxCE4T3P8EyLK09CDpwh0/
+xU0whtfBjG4hae5S5uQVm6+JzYBCUAeKl3ZNcfslPv5H+LzYVzcq0CTQZN7V/lNu
+4k3bYRmya2OJcPHKaOzWWE7PpUFR1LNxyDHTpN9pIphKX3tV2R91ct8nkTHSz8uY
+iXxzUV593grj4vlWK7Q32vDNgfcB6lqv+fLn899kbKK7rlwM5Iq6hyzSc4NaCihr
+LVx90nPlOg0TKPG01KoxdoTzohEWXgEwgwRKSAlvnbRWQLGSorGalpn5xGSvFU0k
+RUDNLGepQ/DZDF+n2mRLgtDc4mMXC2k97ePiMtbHe55rMUMgPDlb6XrPpylZmlPA
+oMah6neTboX6T9kCMV3xHVSlj2Jfx7fuF7FzDkFvndC+p2k59Xkw8XQqjQF4w4J+
+ZMCATFH9OQAKN2ekVOvcYCW9Y0MAZqUvXe72ef2QYYvCaVsZnGzktIl2wa9vnOlX
+BmPYnrzbYybyDpMTaWfXh3ZR0btjcW+Rn3wAIrN8oN9LqpZg941lsX6eaqYDFEd+
+u7aZqFMhvyk8266bDlion+mdd2m8bFEceuIbgqJYRunhBTpsUF2wlkT38syUAWKy
+Hh5T62GQNiFDJqi4qDFM5gAHv6UEsCkGc2GQi45SFt3XK3xjR1CVtfrK7Op0GdhG
+6EiQuOsk1Y7LIvvZiF8LaE2w1QEugI/4MoaxkmfrWhn0nRM+hG+OqlCcRFKu6pKe
+zCpU965sWOoo4alsLdM+5RS8YKXYmqKr+8z+qnAGtHCWGUayyfk9kS3sWFXqJ2aU
+tU0W4ADvS59sDBwpcMN1wceFmiltYlAf6iBd1JlDUe/lh64dfVHxc6yJ4yMi9HqO
+pvR5gBy4VsAbtPnbUQ6pcA96ZvlmKlqBnsCShaDMh2GHGC2B/97wVy6qTynjiGH/
+3oiMl7A6xL+UfjYwviBvTQviF+XBQGVdRBbG1GRHGi7vgnzjWK5RVvJd0ff/H7W6
++ZB4cZsW+PpHt4oefsHx7z6KJiynZ8hB3WOHDV7J3oMJqUCOj08Gww==
+-----END RSA PRIVATE KEY-----
+EOY</span>
+<span class="token comment"># &gt;&gt;&gt;&gt; update-ca-trust</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> ~/training-CA.pem /etc/pki/ca-trust/source/anchors/training-CA.pem <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null
+<span class="token function">sudo</span> update-ca-trust <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null
+<span class="token comment"># &gt;&gt;&gt;&gt; /usr/local/bin/newcert</span>
+<span class="token function">sudo</span> <span class="token function">tee</span> /usr/local/bin/newcert <span class="token operator">&amp;&gt;</span>/dev/null<span class="token operator">&lt;&lt;</span><span class="token string">EOF
+#!/bin/bash
+CN=classified.apps.ocp4.example.com
+echo "Generating a private key..."
+openssl genrsa -out \<span class="token variable">${CN}</span>.key 4096
+echo -e "<span class="token entity" title="\n">\n</span>Generating a CSR..."
+openssl req -new -key \<span class="token variable">${CN}</span>.key -out \<span class="token variable">${CN}</span>.csr -subj \<span class="token variable">$1</span>
+echo -e "<span class="token entity" title="\n">\n</span>Generating a certificate..."
+openssl x509 -req -in \<span class="token variable">${CN}</span>.csr \
+  -passin file:/home/opsadm/passphrase.txt \
+  -CA ~/training-CA.pem -CAkey ~/training-CA.key -CAcreateserial \
+  -out \<span class="token variable">${CN}</span>.crt -days 1825 -sha256 -extfile ~/training.ext \
+  -clrext
+echo -e "<span class="token entity" title="\n">\n</span>DONE.<span class="token entity" title="\n">\n</span>"
+EOF</span>
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x /usr/local/bin/newcert <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project area51
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> area51 new-app <span class="token parameter variable">--name</span> oxcart <span class="token punctuation">\</span>
+  <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+<span class="token comment"># &gt;&gt;&gt;&gt; route</span>
+oc <span class="token parameter variable">-n</span> area51 expose service/oxcart <span class="token punctuation">\</span>
+	<span class="token parameter variable">--hostname</span> classified.apps.ocp4.example.com
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project area51
+
+*$ newcert /C<span class="token operator">=</span>CN/ST<span class="token operator">=</span>BJ/L<span class="token operator">=</span>beijing/O<span class="token operator">=</span>RedHat/OU<span class="token operator">=</span>RHT/CN<span class="token operator">=</span>classified.apps.ocp4.example.com
+
+*$ oc get route
+ NAME      HOST/PORT                      <span class="token environment constant">PATH</span>   SERVICES   PORT       <span class="token punctuation">..</span>.
+ <span class="token variable"><span class="token variable">`</span>oxcart<span class="token variable">`</span></span>  classified.apps.ocp4.example.com          <span class="token variable"><span class="token variable">`</span>oxcart<span class="token variable">`</span></span>    <span class="token number">8080</span>-tcp   <span class="token punctuation">..</span>.
+
+*$ oc delete route oxcart
+
+*$ oc create route edge <span class="token punctuation">\</span>
+   <span class="token parameter variable">--service</span> oxcart <span class="token punctuation">\</span>
+   <span class="token parameter variable">--hostname</span> classified.apps.ocp4.example.com <span class="token punctuation">\</span>
+   <span class="token parameter variable">--key</span> classified.apps.ocp4.example.com.key <span class="token punctuation">\</span>
+   <span class="token parameter variable">--cert</span> classified.apps.ocp4.example.com.crt
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">curl</span> <span class="token parameter variable">-vI</span> https://classified.apps.ocp4.example.com
+<span class="token punctuation">..</span>.
+* Server certificate:
+*  subject: <span class="token assign-left variable">C</span><span class="token operator">=</span>CN<span class="token punctuation">;</span> <span class="token assign-left variable">ST</span><span class="token operator">=</span>BJ<span class="token punctuation">;</span> <span class="token assign-left variable">L</span><span class="token operator">=</span>beijing<span class="token punctuation">;</span> <span class="token assign-left variable">O</span><span class="token operator">=</span>RedHat<span class="token punctuation">;</span> <span class="token assign-left variable">OU</span><span class="token operator">=</span>RHT<span class="token punctuation">;</span> <span class="token assign-left variable">CN</span><span class="token operator">=</span>classified.apps.ocp4.example.com
+*  start date: Dec  <span class="token number">1</span> <span class="token number">13</span>:02:21 <span class="token number">2024</span> GMT
+*  expire date: Nov <span class="token number">30</span> <span class="token number">13</span>:02:21 <span class="token number">2029</span> GMT
+*  subjectAltName: <span class="token function">host</span> <span class="token string">"classified.apps.ocp4.example.com"</span> matched cert's <span class="token string">"*.apps.ocp4.example.com"</span>
+*  issuer: <span class="token assign-left variable">C</span><span class="token operator">=</span>US<span class="token punctuation">;</span> <span class="token assign-left variable">ST</span><span class="token operator">=</span>North Carolina<span class="token punctuation">;</span> <span class="token assign-left variable">L</span><span class="token operator">=</span>Raleigh<span class="token punctuation">;</span> <span class="token assign-left variable">O</span><span class="token operator">=</span>Red Hat<span class="token punctuation">;</span> <span class="token assign-left variable">CN</span><span class="token operator">=</span>ocp4.example.com
+*  <span class="token variable"><span class="token variable">`</span>SSL certificate verify ok.<span class="token variable">`</span></span>
+<span class="token punctuation">..</span>.
+</code></pre><h3 id="9-deploy-an-application">9. Deploy an application </h3>
+<blockquote>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Deploy the chart named <code>ascii-movie</code> in the project <code>redhat-movie</code> from the repository</li>
+</ul>
+<p><a href="http://helm.ocp4.example.com/charts">http://helm.ocp4.example.com/charts</a> name <code>ex280-repo</code></p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> You may use the <code>telnet</code> or <code>nc</code> commands to validate the deployment</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 9.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project redhat-movie
+<span class="token comment"># &gt;&gt;&gt;&gt; scc</span>
+oc <span class="token parameter variable">-n</span> redhat-movie adm policy add-scc-to-user anyuid <span class="token parameter variable">-z</span> default
+<span class="token comment"># &gt;&gt;&gt;&gt; helm</span>
+<span class="token function">curl</span> https://raw.gitmirror.com/helm/helm/main/scripts/get-helm-3 <span class="token punctuation">\</span>
+<span class="token operator">|</span> <span class="token function">sed</span> <span class="token parameter variable">-e</span> <span class="token string">'s+https://github.com+https://hub.gitmirror.com/https://github.com+'</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">-e</span> <span class="token string">'s+raw.githubusercontent.com+raw.gitmirror.com+'</span> <span class="token punctuation">\</span>
+<span class="token operator">|</span> <span class="token function">bash</span>
+<span class="token builtin class-name">source</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>helm completion <span class="token function">bash</span><span class="token punctuation">)</span>
+helm completion <span class="token function">bash</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/bash_completion.d/helm <span class="token operator">&gt;</span>/dev/null
+
+<span class="token comment"># &gt;&gt;&gt;&gt; 下面完成后，可以使用 EXTERNAL-IP</span>
+<span class="token comment"># Installed Operators: 'MetalLB Operator'</span>
+<span class="token comment">#   'All instances' / 'Create new' / MetaLB</span>
+<span class="token comment">#      metallb				'MetalLB'					metallb-system</span>
+<span class="token comment">#   'All instances' / 'Create new' / IPAddressPool</span>
+<span class="token comment">#			 ip-addresspool	'IPAddressPool'		metallb-system</span>
+<span class="token comment">#				- 192.168.126.110-192.168.126.119</span>
+:<span class="token operator">&lt;&lt;</span><span class="token string">EOF
+$ oc debug -t node/crc -- chroot /host ip a | more
+5: 'eth'10: &lt;BROADCAST,NOARP,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/ether f2:eb:cb:eb:b4:5e brd ff:ff:ff:ff:ff:ff
+    inet '192.168.126'.11/24
+EOF</span>
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project redhat-movie
+
+*$ helm repo <span class="token function">add</span> ex280-repo http://helm.ocp4.example.com/charts
+
+*$ helm search repo
+ NAME                     CHART VERSION	 APP VERSION   DESCRIPTION
+ ex280-repo/ascii-movie   <span class="token number">0.16</span>.1       	 <span class="token number">1.9</span>.3         Star Wars movie SSH and Telnet server
+ <span class="token punctuation">..</span>.
+
+*$ helm <span class="token function">install</span> redhat-movie ex280-repo/ascii-movie
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc get all
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/redhat-movie-ascii-movie-5b8f6548f-bpfcf   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          74s
+
+NAME                                   TYPE           CLUSTER-IP       EXTERNAL-IP     PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>                     AGE
+service/redhat-movie-ascii-movie       LoadBalancer  <span class="token variable"><span class="token variable">`</span><span class="token number">172.30</span>.232.20<span class="token variable">`</span></span>    <span class="token operator">&lt;</span>pending<span class="token operator">&gt;</span>  <span class="token number">22</span>:31626/TCP,23:32322/TCP   74s
+service/redhat-movie-ascii-movie-api   ClusterIP      <span class="token number">172.30</span>.240.198   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>          <span class="token number">1977</span>/TCP                    74s
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/redhat-movie-ascii-movie   <span class="token number">1</span>/1     <span class="token number">1</span>            <span class="token number">1</span>           74s
+
+NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/redhat-movie-ascii-movie-5b8f6548f   <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       74s
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc <span class="token parameter variable">-n</span> default <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> client -- <span class="token function">bash</span>
+
+dnf <span class="token parameter variable">-y</span> <span class="token function">install</span> <span class="token function">nc</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">nc</span> <span class="token number">172.30</span>.232.20 <span class="token number">23</span>
+  <span class="token operator">&lt;</span>Ctrl-C<span class="token operator">&gt;</span>
+  
+$ telnet <span class="token number">172.30</span>.232.20
+  <span class="token operator">&lt;</span>q<span class="token operator">&gt;</span>
+</code></pre><h3 id="10-configure-a-secret">10. Configure a secret </h3>
+<blockquote>
+<p>Configure a secret in the <code>math</code> project with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The name of the secret is: <code>magic</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The secret defines a key with name: <code>decoder_ring</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The secret defines the key with value: <code>6YWN572u5q2j56GuCg==</code></li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 10. </span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project math
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project math
+
+ $ oc create secret generic <span class="token parameter variable">-h</span>
+*$ oc create secret generic magic <span class="token punctuation">\</span>
+   --from-literal <span class="token assign-left variable">decoder_ring</span><span class="token operator">=</span>6YWN572u5q2j56GuCg<span class="token operator">==</span>
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc extract secret/magic <span class="token parameter variable">--to</span><span class="token operator">=</span>-
+<span class="token comment"># decoder_ring</span>
+<span class="token assign-left variable">6YWN572u5q2j56GuCg</span><span class="token operator">==</span>
+</code></pre><h3 id="11-configure-an-application-to-use-a-secret">11. Configure an application to use a secret </h3>
+<blockquote>
+<p>Configure the application called <code>qed</code> in the <code>math</code> project with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The application uses the secret previously created called: <code>magic</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The secret defines an environment variable with name: <code>DECODER_RING</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The application output no longer displays: <code>Sorry, application is not configured correctly.</code></li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code> $ oc project math
+
+*$ oc status
+ <span class="token variable"><span class="token variable">`</span>dc/qed<span class="token variable">`</span></span> deploys <span class="token punctuation">..</span>.
+
+ $ oc <span class="token builtin class-name">set</span> <span class="token function">env</span> <span class="token parameter variable">-h</span>
+*$ oc <span class="token builtin class-name">set</span> <span class="token function">env</span> dc/qed <span class="token parameter variable">--from</span><span class="token operator">=</span>secret/magic
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc rsh dc/qed <span class="token function">env</span> <span class="token operator">|</span> <span class="token function">grep</span> DECODER_RING
+<span class="token assign-left variable">DECODER_RING</span><span class="token operator">=</span>XpWy9KdcP3Tr9FFHGQgZgVRCKukQdrQsbcl0c2ZYhDk<span class="token operator">=</span>
+</code></pre><h3 id="12-configure-a-service-account">12. Configure a service account </h3>
+<blockquote>
+<p>Configure a service account in the <code>apples</code> project to meet the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The name of the service account is <code>ex280sa</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The service account allows pods to be run as any available user</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 12.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project apples
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project apples
+
+*$ oc create serviceaccount ex280sa
+ $ oc get sa
+
+ $ oc get scc
+ NAME                              PRIV    CAPS                   <span class="token punctuation">..</span>.
+ <span class="token variable"><span class="token variable">`</span>anyuid<span class="token variable">`</span></span>                          <span class="token boolean">false</span>   <span class="token operator">&lt;</span>no value<span class="token operator">&gt;</span>             <span class="token punctuation">..</span>.
+ <span class="token punctuation">..</span>.
+*$ oc adm policy add-scc-to-user anyuid <span class="token parameter variable">-z</span> ex280sa（只有这句用命令行）
+
+PS：考试环境中，下题需要用到 cluster-admin
+ $ oc get clusterrole <span class="token operator">|</span> <span class="token function">grep</span> cluster.*admin
+ <span class="token variable"><span class="token variable">`</span>cluster-admin<span class="token variable">`</span></span>   YYYY-MM-DDThh:mm:ssZ
+ <span class="token punctuation">..</span>.
+*$ oc adm policy add-cluster-role-to-user cluster-admin <span class="token parameter variable">-z</span> ex280sa
+
+</code></pre><h3 id="13-uses-the-service-account">13. uses the service account </h3>
+<blockquote>
+<p>Deploy the application called <code>oranges</code> in the <code>apples</code> project so that the following conditions are true:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The application uses the <code>ex280sa</code> service account</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> No configuration components have been added or removed</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The application produces output</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 13.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> apples create <span class="token function">dc</span> oranges <span class="token punctuation">\</span>
+  <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+
+<span class="token comment"># &gt;&gt;&gt;&gt; service</span>
+oc <span class="token parameter variable">-n</span> apples expose dc/oranges <span class="token punctuation">\</span>
+  <span class="token parameter variable">--name</span><span class="token operator">=</span>oranges <span class="token parameter variable">--port</span><span class="token operator">=</span><span class="token number">8080</span> <span class="token parameter variable">--type</span><span class="token operator">=</span>NodePort <span class="token punctuation">\</span>
+  --dry-run<span class="token operator">=</span>client <span class="token parameter variable">-o</span> yaml <span class="token punctuation">\</span>
+  <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'/deployment-config.name/s+s$++'</span> <span class="token punctuation">\</span>
+  <span class="token operator">|</span> oc apply -f-
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project apples
+
+*$ oc status
+<span class="token variable"><span class="token variable">`</span>dc/oranges<span class="token variable">`</span></span> deploys registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:latest
+<span class="token punctuation">..</span>.
+
+*$ oc <span class="token builtin class-name">set</span> sa dc/oranges ex280sa
+
+ $ oc get svc
+ NAME      TYPE       CLUSTER-IP    EXTERNAL-IP  PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>            AGE
+ oranges  <span class="token variable"><span class="token variable">`</span>NodePort<span class="token variable">`</span></span> <span class="token variable"><span class="token variable">`</span><span class="token number">10.217</span>.5.53<span class="token variable">`</span></span>  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>       <span class="token number">8080</span>:<span class="token variable"><span class="token variable">`</span><span class="token number">30651</span><span class="token variable">`</span></span>/TCP   28h
+ $ oc get no <span class="token parameter variable">-o</span> wide
+ NAME  STATUS  ROLES                        AGE   VERSION   INTERNAL-IP    <span class="token punctuation">..</span>.
+ crc   Ready   control-plane,master,worker  21d   v1.30.5  <span class="token variable"><span class="token variable">`</span><span class="token number">192.168</span>.126.11<span class="token variable">`</span></span><span class="token punctuation">..</span>.
+ $ <span class="token function">curl</span> <span class="token number">192.168</span>.126.11:30651
+ curl: <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> Failed to connect to <span class="token number">192.168</span>.126.11 port <span class="token number">30651</span>: Connection refused
+
+ $ oc get po <span class="token parameter variable">-o</span> wide
+ <span class="token punctuation">..</span>.
+ oranges-2-89zcv  <span class="token number">1</span>/1  Running  <span class="token number">0</span>  3m8s  <span class="token variable"><span class="token variable">`</span><span class="token number">10.217</span>.1.165<span class="token variable">`</span></span>  <span class="token punctuation">..</span>.
+ $ oc rsh dc/oranges <span class="token function">curl</span> <span class="token number">10.217</span>.1.165:8080 <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> pod可访问
+ $ oc rsh dc/oranges <span class="token function">curl</span> <span class="token number">10.217</span>.5.53:8080 <span class="token operator">||</span> <span class="token builtin class-name">echo</span> svc不能访问
+
+ $ oc get po --show-labels
+ NAME               READY   STATUS      RESTARTS   AGE   LABELS
+ <span class="token punctuation">..</span>.
+ oranges-2-vgjkv    <span class="token number">1</span>/1     Running     <span class="token number">0</span>          12m   <span class="token variable"><span class="token variable">`</span>deployment-config.name<span class="token operator">=</span>oranges<span class="token variable">`</span></span>,deployment<span class="token operator">=</span>oranges-2,deploymentconfig<span class="token operator">=</span>oranges
+*$ oc edit svc/oranges
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token punctuation">...</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+   <span class="token comment">#deployment-config.name: orange</span>
+    <span class="token key atrule">deployment-config.name</span><span class="token punctuation">:</span> oranges
+    <span class="token punctuation">...</span>
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">curl</span> <span class="token number">192.168</span>.126.11:30651
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>Hello, world from nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>
+  <span class="token operator">&lt;</span>/body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/html<span class="token operator">&gt;</span>
+</code></pre><h3 id="14-request-memory">14. request memory </h3>
+<blockquote>
+<p>Deploy the application called <code>atlas</code> in the <code>mercury</code> project so that the following conditions are true:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> No configuration components have been added or removed</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application produces output</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 14.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project mercury
+
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> mercury new-app <span class="token parameter variable">--name</span> atlas <span class="token punctuation">\</span>
+  <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx <span class="token punctuation">\</span>
+  <span class="token parameter variable">-o</span> yaml <span class="token punctuation">\</span>
+  <span class="token operator">|</span> <span class="token function">sed</span> <span class="token parameter variable">-e</span> <span class="token string">'/resources/s+:.*+:+'</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">-e</span> <span class="token string">'/resources/a\            requests:'</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">-e</span> <span class="token string">'/resources/a\              memory: "100000Mi"'</span> <span class="token punctuation">\</span>
+    <span class="token operator">|</span> oc apply -f-
+
+<span class="token comment"># &gt;&gt;&gt;&gt; router</span>
+oc <span class="token parameter variable">-n</span> mercury expose service/atlas <span class="token punctuation">\</span>
+  <span class="token parameter variable">--hostname</span> atlas-mercury.apps.ocp4.example.com
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project mercury
+
+*$ oc status
+ http://atlas-mercury.apps.ocp4.example.com to pod port <span class="token number">8080</span>-tcp <span class="token punctuation">(</span>svc/atlas<span class="token punctuation">)</span>
+   deployment/atlas deploys istag/atlas:latest
+     <span class="token punctuation">..</span>.
+
+ $ oc describe po atlas<span class="token operator">&lt;</span>Tab<span class="token operator">&gt;</span>
+*$ oc edit deployment/atlas
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token punctuation">...</span>
+        <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+          <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+           <span class="token comment">#memory: 10000Mi</span>
+            <span class="token key atrule">memory</span><span class="token punctuation">:</span> 128Mi
+            <span class="token punctuation">...</span>
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc status
+
+$ <span class="token function">curl</span> http://atlas-mercury.apps.ocp4.example.com
+</code></pre><h3 id="15-configure-application-data">15. Configure application data </h3>
+<blockquote>
+<p>Deploy an application using the <code>registry.ocp4.example.com:8443/redhattraining/hello-world-nginx</code> image that meets the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application is part of a project named: <code>acid</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application is named: <code>phosphoric</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application uses a key named <code>RESPONSE</code> in a configuration map named <code>sedicen</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application is running and available at <a href="http://phosphoric-acid.apps.ocp4.example.com">http://phosphoric-acid.apps.ocp4.example.com</a> and displays the following initial text:<br>
+<code>Soda pop won't stop can't stop</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> Re-deploying the application after making changes to the configuration map results in a corresponding change to the displayed text</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project acid
+
+*$ oc create configmap sedicen <span class="token punctuation">\</span>
+   --from-literal <span class="token assign-left variable">RESPONSE</span><span class="token operator">=</span><span class="token string">"Soda pop won't stop can't stop"</span>
+
+*$ oc new-app <span class="token punctuation">\</span>
+   <span class="token parameter variable">--name</span> phosphoric <span class="token punctuation">\</span>
+   <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+
+*$ oc <span class="token builtin class-name">set</span> <span class="token function">env</span> deployment/phosphoric <span class="token punctuation">\</span>
+   <span class="token parameter variable">--from</span><span class="token operator">=</span>configmap/sedicen
+
+*$ oc expose svc/phosphoric <span class="token punctuation">\</span>
+   <span class="token parameter variable">--hostname</span><span class="token operator">=</span>phosphoric-acid.apps.ocp4.example.com
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">curl</span> phosphoric-acid.apps.ocp4.example.com
+Soda pop won<span class="token string">'t stop can'</span>t stop
+</code></pre><h3 id="16-network-policy">16. network policy </h3>
+<blockquote>
+<p>Configure a network policy using the <code>database</code> and <code>checker</code> projects with the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The <code>database</code> project has network policy with the name <code>db-allow-mysql-conn</code> based on pod selector label <code>network.openshift.io/policy-group</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> Connections to the <code>database</code> project are restricted to deployments from the <code>checker</code> project</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The network policy is filtered by project selector using the <code>team=devsecops</code> label and pod selector using the <code>deployment=web-mysql</code> label</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application can establish a connection to port <code>3306/TCP</code></p>
+</li>
+</ul>
+<p>You can check your work by examining the logs in the <code>checker</code> project</p>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 16.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project checker
+<span class="token comment"># &gt;&gt;&gt;&gt; label</span>
+oc label namespace checker <span class="token assign-left variable">team</span><span class="token operator">=</span>devsecops
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> checker create deployment <span class="token builtin class-name">test</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--image</span> registry.redhat.io/rhel8/mysql-80:latest <span class="token punctuation">\</span>
+    --dry-run<span class="token operator">=</span>client <span class="token parameter variable">-o</span> yaml <span class="token punctuation">\</span>
+    -- <span class="token function">sh</span> <span class="token parameter variable">-c</span> <span class="token string">"while true; do sleep 1; done"</span> <span class="token punctuation">\</span>
+    <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'s+app: test+deployment: web-mysql+'</span> <span class="token punctuation">\</span>
+    <span class="token operator">|</span> oc apply -f-
+
+<span class="token comment"># &gt;&gt;&gt;&gt; project</span>
+oc new-project database
+<span class="token comment"># &gt;&gt;&gt;&gt; app</span>
+oc <span class="token parameter variable">-n</span> database new-app mysql <span class="token punctuation">\</span>
+  <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>redhat <span class="token punctuation">\</span>
+  <span class="token parameter variable">-l</span> network.openshift.io/policy-group<span class="token operator">=</span>database
+
+<span class="token comment"># &gt;&gt;&gt;&gt; NetworkPolicy</span>
+oc apply -f- <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-deny-all
+  namespace: database
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+EOF</span>
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project database
+
+*$ oc get networkpolicies
+ NAME          POD-SELECTOR   AGE
+ db-deny-all   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>         115s
+
+*A$ oc get pod --show-labels
+ B$ oc get pod <span class="token parameter variable">-L</span> network.openshift.io/policy-group
+
+*$ <span class="token function">vim</span> db-networkpolicy.yaml
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.k8s.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> NetworkPolicy
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> db<span class="token punctuation">-</span>allow<span class="token punctuation">-</span>mysql<span class="token punctuation">-</span>conn
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> database
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">network.openshift.io/policy-group</span><span class="token punctuation">:</span> database
+  <span class="token key atrule">policyTypes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> Ingress
+  <span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">podSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+          <span class="token key atrule">deployment</span><span class="token punctuation">:</span> web<span class="token punctuation">-</span>mysql
+      <span class="token key atrule">namespaceSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+          <span class="token key atrule">team</span><span class="token punctuation">:</span> devsecops
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">3306</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc apply <span class="token parameter variable">-f</span> db-networkpolicy.yaml
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token assign-left variable">POD_IP</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>oc get pod <span class="token parameter variable">-n</span> database <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">'{.items[0].status.podIP}'</span><span class="token variable">)</span></span>
+
+$ oc <span class="token parameter variable">-n</span> checker rsh deployments/test <span class="token punctuation">\</span>
+  mysql <span class="token parameter variable">-h</span> <span class="token variable">${POD_IP}</span> <span class="token parameter variable">-uroot</span> <span class="token parameter variable">-predhat</span> <span class="token parameter variable">-e</span> <span class="token string">"show databases;"</span>
++--------------------+
+<span class="token operator">|</span> Database           <span class="token operator">|</span>
++--------------------+
+<span class="token operator">|</span> information_schema <span class="token operator">|</span>
+<span class="token operator">|</span> mysql              <span class="token operator">|</span>
+<span class="token operator">|</span> performance_schema <span class="token operator">|</span>
+<span class="token operator">|</span> sys                <span class="token operator">|</span>
++--------------------+
+</code></pre><h3 id="17-template">17. template </h3>
+<blockquote>
+<p>Configure your OpenShift cluster so that new projects are created with limits using the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The name of the limit range is: <code>PROJECT_NAME-limits</code> where <code>PROJECT_NAME</code> is the name of the project created using oc new-project</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The amount of memory consumed by a single container is between <code>128Mi</code> and <code>1Gi</code> with a default of <code>512Mi</code> and a default request of <code>256Mi</code></p>
+</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code> $ oc adm create-bootstrap-project-template <span class="token parameter variable">-h</span>
+*$ oc adm create-bootstrap-project-template <span class="token parameter variable">-o</span> yaml <span class="token operator">&gt;</span> <span class="token number">17</span>.yml
+
+*$ oc get limitranges <span class="token parameter variable">-A</span> <span class="token parameter variable">-o</span> yaml <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> cpu
+
+*$ <span class="token function">vim</span> <span class="token number">17</span>.yml
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> template.openshift.io/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Template
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> project<span class="token punctuation">-</span>request
+  <span class="token comment"># 增加 1 行</span>
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> openshift<span class="token punctuation">-</span>config
+<span class="token key atrule">objects</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> project.openshift.io/v1
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> Project
+  <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+    <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
+      <span class="token key atrule">openshift.io/description</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_DESCRIPTION<span class="token punctuation">}</span>
+      <span class="token key atrule">openshift.io/display-name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_DISPLAYNAME<span class="token punctuation">}</span>
+      <span class="token key atrule">openshift.io/requester</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_REQUESTING_USER<span class="token punctuation">}</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_NAME<span class="token punctuation">}</span>
+  <span class="token key atrule">spec</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> rbac.authorization.k8s.io/v1
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> RoleBinding
+  <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> admin
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_NAME<span class="token punctuation">}</span>
+  <span class="token key atrule">roleRef</span><span class="token punctuation">:</span>
+    <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+    <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterRole
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> admin
+  <span class="token key atrule">subjects</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">apiGroup</span><span class="token punctuation">:</span> rbac.authorization.k8s.io
+    <span class="token key atrule">kind</span><span class="token punctuation">:</span> User
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_ADMIN_USER<span class="token punctuation">}</span>
+<span class="token comment"># &gt;&gt;&gt;&gt; 添加 BEGIN</span>
+<span class="token punctuation">-</span> <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+  <span class="token key atrule">kind</span><span class="token punctuation">:</span> LimitRange
+  <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+    <span class="token comment"># The name of the limit range</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_NAME<span class="token punctuation">}</span><span class="token punctuation">-</span>limits
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> $<span class="token punctuation">{</span>PROJECT_NAME<span class="token punctuation">}</span>
+  <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+    <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+    <span class="token comment"># a single container</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">type</span><span class="token punctuation">:</span> Container
+      <span class="token key atrule">min</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> 128Mi
+      <span class="token key atrule">max</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> 1Gi
+      <span class="token key atrule">default</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> 512Mi
+      <span class="token key atrule">defaultRequest</span><span class="token punctuation">:</span>
+        <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256Mi
+<span class="token comment"># &lt;&lt;&lt;&lt; 添加 END</span>
+<span class="token key atrule">parameters</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROJECT_NAME
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROJECT_DISPLAYNAME
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROJECT_DESCRIPTION
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROJECT_ADMIN_USER
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PROJECT_REQUESTING_USER
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc apply <span class="token parameter variable">-f</span> <span class="token number">17</span>.yml
+
+*$ oc api-resources <span class="token operator">|</span> <span class="token function">egrep</span> <span class="token parameter variable">-iw</span> <span class="token string">'name|project'</span>
+ $ oc explain <span class="token parameter variable">-h</span>
+*$ oc explain --api-version<span class="token operator">=</span>config.openshift.io/v1 project
+*$ oc explain --api-version<span class="token operator">=</span>config.openshift.io/v1 project.spec
+*$ oc explain --api-version<span class="token operator">=</span>config.openshift.io/v1 project.spec.projectRequestTemplate
+
+*$ oc edit projects.config.openshift.io cluster
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token punctuation">...</span>
+<span class="token comment">#spec: {}</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">projectRequestTemplate</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> project<span class="token punctuation">-</span>request
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">watch</span> oc get pod <span class="token parameter variable">-n</span> openshift-apiserver
+NAME                        READY   STATUS    RESTARTS   AGE
+apiserver-5774cb6f8-j2ndh  <span class="token variable"><span class="token variable">`</span><span class="token number">2</span>/2<span class="token variable">`</span></span>   <span class="token variable"><span class="token variable">`</span>Running<span class="token variable">`</span></span>  <span class="token number">0</span>          2m
+<span class="token operator">&lt;</span>Ctrl+C<span class="token operator">&gt;</span>
+
+$ oc new-project <span class="token builtin class-name">test</span>
+
+$ oc get limitranges
+NAME          CREATED AT
+test-limits   YYYY-MM-DDThh:mm:ssZ
+</code></pre><h3 id="18-operator">18. operator </h3>
+<blockquote>
+<p>Install the file-integrity operator with the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The operator is installed in the <code>openshift-file-integrity</code> project</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The approval strategy is <code>Automatic</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> Cluster monitoring is enabled for the openshift-file-integrity project</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc <span class="token function">whoami</span> --show-console
+https://console-openshift-console.apps.ocp4.example.com
+</code></pre><p><img src="https://www.firefox.com.cn/media/protocol/img/logos/firefox/logo-word-hor.96f28a0f9ae6.svg" width="60"> <a href="https://console-openshift-console.apps.ocp4.example.com">https://console-openshift-console.apps.ocp4.example.com</a></p>
+<p>​	<kbd>Operators</kbd> / <kbd>operatorHub</kbd> /</p>
+<p>​	  🔍 <code>file</code> <kbd>Enter</kbd> /</p>
+<p>​	    <img src="https://gitlab.com/opensu/openshift/-/raw/main/File_Intergrity_Operator.png" width="38"><kbd>File Intergrity Operator</kbd> / <kbd>Install</kbd> /</p>
+<p>​	      Installation mode *<br>
+​ ​   ​  ​ ​  ​ ​ ​ ​ ​ 🔘 A specific namespace on the cluster<br>
+​	      Installed Namespace *​<br>
+​  ​ ​ ​ ​ ​  ​  ​ ​ ​ ​ 🔘 Operator recommended Namespace: Project: openshift-file-integrity<br>
+​                 ☑️ Enable Operator recommended cluster monitoring on this Namespace<br>
+​             Update approval *<br>
+​              🔘 Automatic<br>
+​             <kbd>Install</kbd></p>
+<h3 id="19-cron-job">19. cron job </h3>
+<blockquote>
+<p>Create a cron job using the image at <code>registry.ocp4.example.com:8443/redhattraining/hello-world-nginx</code> with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The cron job name is <code>job-runner</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The cron job runs at <code>04:05</code> on the <code>2nd</code> day of <code>every month</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The successful job history limit is <code>14</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The service account and service account name is <code>magna</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The cron job runs in the project called <code>elementum</code></li>
+</ul>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc new-project elementum
+
+*$ oc create sa magna
+  
+ $ oc explain cronjob.spec <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-i</span> succ
+   successfulJobsHistoryLimit	<span class="token operator">&lt;</span>integer<span class="token operator">&gt;</span>
+   <span class="token punctuation">..</span>.
+*$ oc create cronjob job-runner <span class="token punctuation">\</span>
+   <span class="token parameter variable">--image</span><span class="token operator">=</span>registry.ocp4.example.com:8443/redhattraining/hello-world-nginx <span class="token punctuation">\</span>
+   <span class="token parameter variable">--schedule</span><span class="token operator">=</span><span class="token string">"5 4 2 * *"</span> <span class="token punctuation">\</span>
+   --dry-run<span class="token operator">=</span>client <span class="token punctuation">\</span>
+   <span class="token parameter variable">-o</span> yaml <span class="token operator">&gt;</span> <span class="token number">19</span>.yml
+
+*$ <span class="token function">vim</span> <span class="token number">19</span>.yml
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> batch/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> CronJob
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> job<span class="token punctuation">-</span>runner
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token comment"># 增加 1 行</span>
+  <span class="token key atrule">successfulJobsHistoryLimit</span><span class="token punctuation">:</span> <span class="token number">14</span>
+  <span class="token key atrule">jobTemplate</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> job<span class="token punctuation">-</span>runner
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">template</span><span class="token punctuation">:</span>
+        <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+          <span class="token comment"># A</span>
+          <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> magna
+          <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/redhattraining/hello<span class="token punctuation">-</span>world<span class="token punctuation">-</span>nginx
+            <span class="token key atrule">name</span><span class="token punctuation">:</span> job<span class="token punctuation">-</span>runner
+            <span class="token key atrule">resources</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+          <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> OnFailure
+  <span class="token key atrule">schedule</span><span class="token punctuation">:</span> 5 4 2 * *
+<span class="token key atrule">status</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc create <span class="token parameter variable">-f</span> <span class="token number">19</span>.yml
+
+PS: B
+*$ oc <span class="token builtin class-name">set</span> sa cronjob/job-runner magna
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ oc get all
+NAME                       SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/job-runner   <span class="token number">5</span> <span class="token number">4</span> <span class="token number">2</span> * *   False     <span class="token number">0</span>        <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>          20s
+</code></pre><h3 id="20-collect-the-default-support-information">20. Collect the default support information </h3>
+<blockquote>
+<p>Collect the default support information for your OpenShift cluster with the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The data is stored as a compressed tar archive using: <code>tar cvaf</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The name of the compressed tar archive is: <code>ex280-ocp-clusterID.tar.gz</code></p>
+</li>
+</ul>
+<p>where clusterID is the unique identifier of your OpenShift cluster</p>
+<p>​	The archive has been uploaded for grading</p>
+<p>A utility script has been provided for you to upload the archive as follows:</p>
+<p>​	<code>/usr/local/bin/upload-cluster-data ex280-ocp-clusterID.tar.gz</code></p>
+<p>You may upload the archive as many times as necessary. Each uploaded archive will overwrite any previously uploaded archive.</p>
+</blockquote>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 20.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; var</span>
+<span class="token assign-left variable">UD</span><span class="token operator">=</span>/usr/local/bin/upload-cluster-data
+
+<span class="token comment"># &gt;&gt;&gt;&gt; script file</span>
+<span class="token function">sudo</span> <span class="token function">tee</span> <span class="token variable">${UD}</span> <span class="token operator">&amp;&gt;</span>/dev/null<span class="token operator">&lt;&lt;</span><span class="token string">EOF
+#!/bin/bash
+mkdir ~/must-gather-submit 2&gt;/dev/null
+cp \<span class="token variable">$1</span> ~/must-gather-submit/
+EOF</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; exec</span>
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x <span class="token variable">${UD}</span> <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc adm must-gather
+<span class="token punctuation">..</span>.
+ClusterID: <span class="token variable"><span class="token variable">`</span>b1d661ca-7fb3-42e2-a62a-968b80672189<span class="token variable">`</span></span>
+ClusterVersion: Stable at <span class="token string">"4.17.3"</span>
+ClusterOperators:
+	All healthy and stable
+
+*$ <span class="token function">tar</span> cvaf ex280-ocp-b1d661ca-7fb3-42e2-a62a-968b80672189.tar.gz must<span class="token operator">&lt;</span>Tab<span class="token operator">&gt;</span>
+
+*$ /usr/local/bin/upload-cluster-data ex280-ocp-b1d661ca-7fb3-42e2-a62a-968b80672189.tar.gz
+
+</code></pre><h3 id="21-a-storage-class-has-been-configured-to-provide-nfs-storage">21. A storage class has been configured to provide NFS storage </h3>
+<blockquote>
+<p>Using information from that storage class, configure a persistent volume with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Name: <code>landing-pv</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Access mode: <code>ReadOnlyMany</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Size: <code>1Gi</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The reclaim policy matches the storage class</li>
+</ul>
+<p>Configure a persistent volume claim with the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Name: <code>landing-pvc</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The access mode is the same as the persistent volume</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The size is the same as the persistent volume</li>
+</ul>
+<p>Deploy the application with the following requirements:</p>
+<ul>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application exists in a project called <code>page</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application uses a deployment called <code>landing</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application uses the image hosted at <code>registry.ocp4.example.com:8443/redhattraining/hello-world-nginx</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The nginx mountpoint is <code>/usr/share/nginx/html</code></p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application uses <code>3</code> pods</p>
+</li>
+<li class="task-list-item">
+<p><input type="checkbox" class="task-list-item-checkbox"> The application is accessible at <a href="https://landing-page.apps.ocp4.example.com">https://landing-page.apps.ocp4.example.com</a></p>
+</li>
+</ul>
+</blockquote>
+<p>PS: 建议使用 <img src="https://www.firefox.com.cn/media/protocol/img/logos/firefox/logo-word-hor.96f28a0f9ae6.svg" width="60">网页 完成</p>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<p><strong>prepare</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 21.</span>
+
+<span class="token comment"># &gt;&gt;&gt;&gt; image</span>
+<span class="token assign-left variable">IMG_URL</span><span class="token operator">=</span>registry.redhat.io/ubi8/php-74
+<span class="token assign-left variable">GIT_URL</span><span class="token operator">=</span>https://gitlab.com/opensu/openshift.git
+oc <span class="token parameter variable">-n</span> kube-public new-app <span class="token parameter variable">--name</span> hello-openshift --as-deployment-config <span class="token punctuation">\</span>
+  <span class="token variable">${IMG_URL}</span>~<span class="token variable">${GIT_URL}</span> --context-dir<span class="token operator">=</span>src/hello-openshift
+oc <span class="token parameter variable">-n</span> kube-public policy add-role-to-group system:image-puller <span class="token punctuation">\</span>
+    system:serviceaccounts:page
+    
+<span class="token comment"># &gt;&gt;&gt;&gt; index.html</span>
+oc debug node/crc -- <span class="token function">chroot</span> /host <span class="token function">sh</span> <span class="token parameter variable">-c</span> <span class="token string">"
+  echo Congratulations, you have succeeded! &gt; /var/lib/csi-hostpath-data/index.html
+  semanage fcontext -a -t httpd_sys_content_t /var/lib/csi-hostpath-data/index.html
+  restorecon /var/lib/csi-hostpath-data/index.html"</span>
+
+</code></pre><p><strong>operation</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code> $ oc get storageclasses
+*$ oc get storageclasses crc-csi-hostpath-provisioner <span class="token parameter variable">-o</span> yaml
+ reclaimPolicy: <span class="token variable"><span class="token variable">`</span>Retain<span class="token variable">`</span></span>
+ <span class="token punctuation">..</span>.
+ 
+ $ oc get po <span class="token parameter variable">-A</span> <span class="token operator">|</span> <span class="token function">grep</span> hostpath
+ $ oc <span class="token parameter variable">-n</span> hostpath-provisioner get all
+*$ oc <span class="token parameter variable">-n</span> hostpath-provisioner get daemonset.apps/csi-hostpathplugin <span class="token parameter variable">-o</span> yaml
+ <span class="token punctuation">..</span>.
+      -<span class="token variable"><span class="token variable">`</span>hostPath:<span class="token variable">`</span></span>
+         <span class="token variable"><span class="token variable">`</span>path: /var/lib/csi-hostpath-data/<span class="token variable">`</span></span>
+         <span class="token variable"><span class="token variable">`</span>type: DirectoryOrCreate<span class="token variable">`</span></span>
+        name: csi-data-dir
+          
+*$ <span class="token function">vim</span> pv.yml
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolume
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+ <span class="token comment">#name: example</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> landing<span class="token punctuation">-</span>pv
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">capacity</span><span class="token punctuation">:</span>
+   <span class="token comment">#storage: 5Gi</span>
+    <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+   <span class="token comment">#- ReadWriteOnce</span>
+    <span class="token punctuation">-</span> ReadOnlyMany
+  <span class="token key atrule">persistentVolumeReclaimPolicy</span><span class="token punctuation">:</span> Retain
+ <span class="token comment">#storageClassName: slow</span>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> crc<span class="token punctuation">-</span>csi<span class="token punctuation">-</span>hostpath<span class="token punctuation">-</span>provisioner
+ <span class="token comment">#nfs:</span>
+ <span class="token comment">#  path: /tmp</span>
+ <span class="token comment">#  server: 172.17.0.2</span>
+  <span class="token key atrule">hostPath</span><span class="token punctuation">:</span>
+    <span class="token key atrule">path</span><span class="token punctuation">:</span> /var/lib/csi<span class="token punctuation">-</span>hostpath<span class="token punctuation">-</span>data/
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> DirectoryOrCreate
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc apply <span class="token parameter variable">-f</span> pv.yml
+
+*$ oc project page
+
+*$ <span class="token function">vim</span> pvc.yml
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+ <span class="token comment">#name: example</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> landing<span class="token punctuation">-</span>pvc
+ <span class="token comment">#namespace: default</span>
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> page
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
+   <span class="token comment">#- ReadWriteOnce</span>
+    <span class="token punctuation">-</span> ReadOnlyMany
+  <span class="token key atrule">volumeMode</span><span class="token punctuation">:</span> Filesystem
+  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 1Gi
+  <span class="token comment"># 增加 2 行</span>
+  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> crc<span class="token punctuation">-</span>csi<span class="token punctuation">-</span>hostpath<span class="token punctuation">-</span>provisioner
+  <span class="token key atrule">volumeName</span><span class="token punctuation">:</span> landing<span class="token punctuation">-</span>pv
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc apply <span class="token parameter variable">-f</span> pvc.yml
+
+*$ oc new-app <span class="token punctuation">\</span>
+   <span class="token parameter variable">--name</span> landing <span class="token punctuation">\</span>
+   <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+
+*$ oc <span class="token builtin class-name">set</span> volumes deployment/landing <span class="token punctuation">\</span>
+   <span class="token parameter variable">--add</span> <span class="token punctuation">\</span>
+   <span class="token parameter variable">--name</span> landing-pvc <span class="token punctuation">\</span>
+   <span class="token parameter variable">--type</span> pvc <span class="token punctuation">\</span>
+   --claim-name landing-pvc <span class="token punctuation">\</span>
+   <span class="token parameter variable">-m</span> /opt/app-root/src/
+
+*$ oc scale deployment/landing <span class="token parameter variable">--replicas</span> <span class="token number">3</span>
+
+*$ <span class="token function">rm</span> <span class="token parameter variable">-r</span> classified*
+*$ newcert /C<span class="token operator">=</span>CN/ST<span class="token operator">=</span>BJ/L<span class="token operator">=</span>beijing/O<span class="token operator">=</span>RedHat/OU<span class="token operator">=</span>RHT/CN<span class="token operator">=</span>landing-page.apps.ocp4.example.com
+
+*$ oc create route edge landing <span class="token punctuation">\</span>
+   <span class="token parameter variable">--service</span><span class="token operator">=</span>landing <span class="token punctuation">\</span>
+   <span class="token parameter variable">--hostname</span><span class="token operator">=</span>landing-page.apps.ocp4.example.com <span class="token punctuation">\</span>
+   <span class="token parameter variable">--key</span> classified.apps.ocp4.example.com.key <span class="token punctuation">\</span>
+   <span class="token parameter variable">--cert</span> classified.apps.ocp4.example.com.crt
+
+</code></pre><p><strong>grade</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>$ <span class="token function">curl</span> <span class="token parameter variable">-vI</span> https://landing-page.apps.ocp4.example.com
+</code></pre><h3 id="22-liveness-probe">22. liveness probe </h3>
+<blockquote>
+<p>An application named <code>atlas</code> has been deployed with a single container in the <code>mercury</code> project</p>
+<p>Implement a <code>liveness</code> probe for this container that meets the following requirements:</p>
+<ul>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The probe monitors liveness by performing a <code>TCP</code> socket check on port <code>8080</code></li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> The probe has an initial delay of <code>10</code> seconds and a timeout of <code>30</code> seconds</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox"> Your changes can survive a rebuild</li>
+</ul>
+</blockquote>
+<p>PS: 建议使用 <img src="https://www.firefox.com.cn/media/protocol/img/logos/firefox/logo-word-hor.96f28a0f9ae6.svg" width="60">网页 完成</p>
+<p><strong>[opsadm@workbench ~]</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>*$ oc project mercury
+
+*$ oc status
+  <span class="token variable"><span class="token variable">`</span>deployment/atlas<span class="token variable">`</span></span> deploys istag/atlas:latest
+  <span class="token punctuation">..</span>.
+
+ $ oc <span class="token builtin class-name">set</span> probe <span class="token parameter variable">--help</span>
+*$ oc <span class="token builtin class-name">set</span> probe deployment/atlas <span class="token punctuation">\</span>
+   <span class="token parameter variable">--liveness</span> <span class="token punctuation">\</span>
+   --open-tcp<span class="token operator">=</span><span class="token number">8080</span> <span class="token punctuation">\</span>
+   --initial-delay-seconds<span class="token operator">=</span><span class="token number">10</span> <span class="token punctuation">\</span>
+   --timeout-seconds<span class="token operator">=</span><span class="token number">30</span>
+
+</code></pre></div>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

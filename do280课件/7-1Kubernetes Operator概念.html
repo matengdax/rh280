@@ -1,0 +1,223 @@
+<!DOCTYPE html><html><head>
+      <title>7-1Kubernetes Operator概念</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><h1 id="operator的概念">Operator的概念 </h1>
+<p>Operator 其实就是一种运行在 Kubernetes 上的“智能机器人”。你可以把它想象成一个专门帮你管理应用的“小管家”。它通过扩展 Kubernetes 的 API，来自动完成一些复杂的任务，比如安装、升级、备份、恢复，甚至还能自动修复一些问题。简单来说，它就是把一些原本需要人工操作的事情，用代码的方式自动化完成，让你管理应用的时候更轻松。</p>
+<h2 id="operator-有啥用">Operator 有啥用 </h2>
+<ol>
+<li>
+<p><strong>自动化管理</strong>：这是它最大的好处。比如，你部署了一个数据库应用，平时升级、备份这些事儿，要是手动操作，那可太麻烦了。有了 Operator，它就能自动帮你搞定这些事儿，你啥都不用管，它自己就能运行得很好。</p>
+</li>
+<li>
+<p><strong>保证一致性</strong>：在 Kubernetes 集群里，你可能会部署很多个相同的应用实例。要是手动去配置，很容易出现这儿配置不一样，那儿又不一样。Operator 就能保证这些实例的配置都是一样的，避免出现这种“乱七八糟”的情况。</p>
+</li>
+<li>
+<p><strong>自愈能力</strong>：要是应用出了点小毛病，比如某个容器挂了，Operator 能自动检测到，然后帮你重启它，或者重新调度一个健康的容器，让应用继续正常运行，就像有个“小医生”在时刻盯着一样。</p>
+</li>
+<li>
+<p><strong>扩展功能</strong>：它还能给 Kubernetes 增加一些更高级的功能。比如，有些复杂的监控、日志收集功能，用普通的 Kubernetes 资源定义很难实现，但有了 Operator，就能轻松搞定。</p>
+</li>
+</ol>
+<h2 id="在哪儿用">在哪儿用 </h2>
+<p>Operator 主要用在 Kubernetes 集群里，尤其是那些需要自动化管理、复杂的应用场景。比如，你在公司里用 Kubernetes 部署了一些重要的应用，像数据库、中间件、微服务这些，都可以用 Operator 来管理。它能帮你减少人工操作的麻烦，提高管理效率，还能让应用更稳定。</p>
+<p><strong>Operator举例</strong></p>
+<ol>
+<li>
+<p><strong>数据库管理</strong>：比如 PostgreSQL 数据库，你可以用一个叫 <strong>PostgreSQL Operator</strong> 的工具来管理它。这个 Operator 能帮你自动安装 PostgreSQL 数据库，还能自动帮你做备份。要是数据库出了问题，比如主节点挂了，它还能自动帮你切换到备用节点，保证数据库一直能正常运行。你啥都不用管，它自己就能搞定。</p>
+</li>
+<li>
+<p><strong>中间件管理</strong>：像 Kafka 这种消息中间件，也有对应的 <strong>Kafka Operator</strong>。它能帮你自动管理 Kafka 集群，比如自动帮你创建主题、调整副本数量，还能监控 Kafka 的性能，要是发现有问题，就自动帮你修复。你只需要告诉它你想要什么配置，剩下的事儿它就全包了。</p>
+</li>
+<li>
+<p><strong>微服务管理</strong>：如果你的项目是用微服务架构写的，有很多个小服务需要管理，那也可以用 Operator。比如 <strong>Istio Operator</strong>，它能帮你自动管理 Istio 服务网格，自动帮你配置服务之间的通信、安全策略这些复杂的玩意儿，让你的微服务运行得更顺畅。</p>
+</li>
+</ol>
+<p>总之，Operator 就像是给 Kubernetes 集群里的应用配了个“超级管家”，帮你把那些复杂、麻烦的事情都自动化搞定，让你管理应用的时候轻松多了！</p>
+<h1 id="operator-vs-yaml">Operator vs YAML </h1>
+<h2 id="operator-安装">Operator 安装 </h2>
+<p>Operator 其实就是一种特别厉害的应用管理模式，它就像是给 Kubernetes API 加了个“智能大脑”，专门用来搞定那些复杂的应用生命周期管理。很多社区或者第三方开发者会写这种 Operator，专门用来管理特定的应用或者服务。</p>
+<h3 id="优点">优点 </h3>
+<ul>
+<li>
+<p><strong>自动化管理</strong>：这玩意儿可太省心了！它能自动帮你搞定安装、升级、备份、恢复这些事儿，根本不用你操心，简直不要太方便。</p>
+</li>
+<li>
+<p><strong>一致性</strong>：不管你部署了多少个应用实例，它都能保证这些实例的状态都是一样的，不用担心这儿那儿不一样。</p>
+</li>
+<li>
+<p><strong>自愈能力</strong>：要是应用出了点小毛病，它自己就能发现，然后自动去修复，简直就像有个“小医生”在时刻盯着。</p>
+</li>
+<li>
+<p><strong>扩展功能</strong>：它还能给 Kubernetes 增加一些更高级的功能，让你管理起来更轻松。</p>
+</li>
+</ul>
+<h3 id="缺点">缺点 </h3>
+<ul>
+<li>
+<p><strong>复杂性</strong>：要是你没经验，写和维护这个东西可能会有点儿费劲，毕竟它有点复杂。</p>
+</li>
+<li>
+<p><strong>依赖性</strong>：因为它是第三方写的，有时候可能会出现版本不兼容，或者更新不及时的情况，这就有点烦了。</p>
+</li>
+</ul>
+<h2 id="普通-yaml-安装">普通 YAML 安装 </h2>
+<p>用 YAML 文件来部署资源，这应该是 Kubernetes 和 OpenShift 里最基础、最常用的方法了。你只需要写好 YAML 文件，定义好资源的配置，然后用 <code>kubectl</code> 或 <code>oc</code> 命令一搞，资源就部署好了。</p>
+<h3 id="优点-1">优点 </h3>
+<ul>
+<li>
+<p><strong>简单直接</strong>：写 YAML 文件特别简单，要是你只是想快速部署个简单应用，这方法再合适不过了。</p>
+</li>
+<li>
+<p><strong>灵活性高</strong>：你可以随便定义各种资源配置，想怎么配就怎么配，没有任何约束。</p>
+</li>
+<li>
+<p><strong>透明性</strong>：所有的配置都清清楚楚地写在 YAML 文件里，一看就懂，出了问题也方便调试。</p>
+</li>
+</ul>
+<h3 id="缺点-1">缺点 </h3>
+<ul>
+<li>
+<p><strong>手动管理</strong>：你得自己手动管理应用的整个生命周期，比如升级、备份、故障恢复这些事儿，一个环节都不能少。</p>
+</li>
+<li>
+<p><strong>一致性难以保证</strong>：要是你在多个环境里手动应用配置文件，很容易就出现配置不一致的情况，特别容易出错。</p>
+</li>
+<li>
+<p><strong>缺乏高级功能</strong>：它没啥自动化和高级管理功能，适合那些比较简单、没啥复杂需求的应用场景。</p>
+</li>
+</ul>
+<p><strong>总结</strong></p>
+<ul>
+<li>
+<p><strong>Operator 安装</strong>：要是你的应用比较复杂，又想自动化管理，那它绝对是首选。它能帮你搞定自动化操作、自愈和一致性，虽然有点复杂，还依赖第三方，但好处多多。</p>
+</li>
+<li>
+<p><strong>普通 YAML 安装</strong>：要是你的应用比较简单，没啥复杂的管理需求，那就用 YAML 文件吧。它简单、透明，操作起来很方便，就是得自己手动管理，没啥高级功能。</p>
+</li>
+</ul>
+<p>你觉得哪种更适合你呢？</p>
+<h1 id="operator的核心概念">Operator的核心概念 </h1>
+<ol>
+<li>
+<p><strong>Custom Resource（自定义资源）</strong></p>
+<ul>
+<li>这玩意儿就像是给 Kubernetes API 扩了个“新成员”。你可以自己定义新的资源类型，比如你想在 Kubernetes 里管理一个数据库，就可以定义一个叫 <code>Database</code> 的自定义资源。这就相当于你给 Kubernetes 说：“嘿，我这儿有个新东西，你帮我管管！”</li>
+</ul>
+</li>
+<li>
+<p><strong>Custom Resource Definition（CRD，自定义资源定义）</strong></p>
+<ul>
+<li>CRD 就是给自定义资源“立规矩”的东西。它告诉 Kubernetes，你定义的这个新资源到底是个啥，能干些啥，怎么操作它。有了 CRD，你就可以像操作 Kubernetes 里的其他资源一样，去创建、读取、更新和删除你定义的自定义资源了。</li>
+</ul>
+</li>
+<li>
+<p><strong>Controller（控制器）</strong></p>
+<ul>
+<li>控制器就像是个“小警察”，它在 Kubernetes 里巡逻，看看资源的状态是不是正常。要是发现有啥不对劲的，它就会自动出手，帮你把事情搞定。在 Operator 里，控制器专门盯着自定义资源，要是发现需要部署、更新或者扩缩容，它就自动帮你操作。</li>
+</ul>
+</li>
+<li>
+<p><strong>Operator Lifecycle Manager（OLM）</strong></p>
+<ul>
+<li>OLM 就像是个“大管家”，专门帮你管理 Operator 的事儿。你想安装、升级或者卸载 Operator，OLM 都能帮你搞定，还能确保这些操作靠谱，不会出乱子。</li>
+</ul>
+</li>
+<li>
+<p><strong>Cluster Service Version（CSV）</strong></p>
+<ul>
+<li>CSV 就像是 Operator 的“身份证”，它是个 YAML 文件，里面写了这个 Operator 的版本信息、能干啥、需要啥权限等等。OLM 就靠它来管理 Operator 的。</li>
+</ul>
+</li>
+<li>
+<p><strong>CatalogSource</strong></p>
+<ul>
+<li>CatalogSource 就像是个“超市货架”，上面摆满了各种可用的 Operator。你想找啥 Operator，就去这个货架上看看，然后通过它来安装你需要的那个。</li>
+</ul>
+</li>
+<li>
+<p><strong>InstallPlan</strong></p>
+<ul>
+<li>InstallPlan 就像是个“安装指南”，它告诉 OLM 怎么安装一个 Operator，需要哪些步骤，还有哪些依赖项。OLM 会按照这个指南一步步来，帮你把 Operator 安装好。</li>
+</ul>
+</li>
+<li>
+<p><strong>Subscription</strong></p>
+<ul>
+<li>Subscription 就像是你给 Operator 设了个“自动更新提醒”。你可以告诉它，你想跟踪哪个 Operator，要不要自动更新，多久更新一次。这样，你就不怕错过新版本啦。</li>
+</ul>
+</li>
+<li>
+<p><strong>Cluster Version Operator（CVO）</strong></p>
+<ul>
+<li>CVO 是 OpenShift 集群里一个特别重要的家伙，它负责管理整个集群的版本升级和配置管理，就像是个“总指挥”。</li>
+</ul>
+</li>
+</ol>
+<h2 id="operator-分类">Operator 分类 </h2>
+<ol>
+<li>
+<p><strong>基础 Operator</strong></p>
+<ul>
+<li>基础 Operator 就像是个“专项管家”，它主要管一个特定的应用或者服务。比如，你有个数据库，它就专门帮你管这个数据库；你有个消息队列，它就专门帮你管消息队列。</li>
+</ul>
+</li>
+<li>
+<p><strong>应用 Operator</strong></p>
+<ul>
+<li>应用 Operator 就像是个“全能管家”，它能管一个完整的应用栈。比如，你有个 Web 应用，它不仅能管前端，还能管后端，甚至连数据库都能一起管，把整个应用都搞定。</li>
+</ul>
+</li>
+<li>
+<p><strong>集群 Operator</strong></p>
+<ul>
+<li>集群 Operator 就像是个“基础设施管理员”，它负责管 Kubernetes 集群里的一些底层组件和功能。比如，网络插件、存储解决方案这些事儿，它都能帮你搞定。</li>
+</ul>
+</li>
+</ol>
+<p>这些概念听起来是不是有点复杂？其实你把它想象成一个智能的“管家系统”，每个部分都有自己的职责，帮你把 Kubernetes 里的事儿都管得井井有条！</p>
+<h1 id="使用-web-控制台安装-operator">使用 Web 控制台安装 operator </h1>
+<p>打开控制台，并演示安装：File Integrity Operator，控制台URL如下：</p>
+<p><a href="https://console-openshift-console.apps.ocp4.example.com">https://console-openshift-console.apps.ocp4.example.com</a></p>
+<p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

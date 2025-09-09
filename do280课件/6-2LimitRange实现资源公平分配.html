@@ -1,0 +1,164 @@
+<!DOCTYPE html><html><head>
+      <title>6-2LimitRange实现资源公平分配</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><h1 id="limitrange的概念">LimitRange的概念 </h1>
+<p>Kubernetes 里有个东西叫 <code>LimitRange</code> ，这玩意儿可厉害了，简直就是集群资源的“管家”。</p>
+<p>为啥这么说呢？在咱们用的 Kubernetes 集群里，要是没有个限制，那可就乱套了。比如在一个多租户的环境里，大家共享一个集群，要是有个应用特别“贪心”，把资源都占了，别的应用不就“饿肚子”了？性能肯定差得不行，甚至可能直接挂掉。<code>LimitRange</code> 就是来解决这个问题的，它能给资源设置个“上限”和“下限”，就像给每个应用发了“资源配额”，让大家都公平地分资源。</p>
+<p>举个例子，假设一个命名空间里有好几个应用，要是没有 <code>LimitRange</code>，一个特别吃内存的应用可能会把内存都占光，其他应用就只能“干瞪眼”。但有了 <code>LimitRange</code>，就能给每个应用设定最大能用多少内存，这样大家都能正常运行了。</p>
+<p>而且，<code>LimitRange</code> 还有个超实用的功能，就是能给 Pod 提供默认的资源请求和限制。有时候，用户定义 Pod 的时候，可能没写资源请求和限制，那 Kubernetes 调度器在分配资源的时候就容易“懵圈”，要么给多了，要么给少了，影响整个集群的性能。<code>LimitRange</code> 就能搞定这个事儿，它能给 Pod 设置默认的资源请求和限制，比如默认请求 256Mi 内存，限制 512Mi 内存。这样一来，调度器就能根据这些默认值合理分配资源，保证集群稳稳当当的。</p>
+<p>在 Kubernetes 中，<code>LimitRange</code> 是一种关键的资源类型，用于管理和限制命名空间中的资源使用。通过设置资源的默认请求和限制，<code>LimitRange</code> 确保了集群资源的合理分配和高效利用，避免了资源的浪费和过度使用。以下是 <code>LimitRange</code> 的一些必要性及其示例说明：</p>
+<h2 id="防止资源滥用">防止资源滥用 </h2>
+<p>在多租户环境中，不同团队或应用共享同一个 Kubernetes 集群。如果没有资源限制，某些应用可能会占用过多资源，导致其他应用的性能下降，甚至无法正常运行。<code>LimitRange</code> 通过设置最大和最小资源限制，防止单个容器或 Pod 占用过多资源，从而确保各个应用能够公平地共享集群资源。</p>
+<p><strong>示例</strong>：假设一个命名空间中运行了多个应用，如果没有 <code>LimitRange</code> 限制，一个内存密集型的应用可能会占用大部分内存资源，导致其他应用因资源不足而崩溃。通过设置 <code>LimitRange</code>，可以限制每个应用的最大内存使用量，保证所有应用都能获得足够的资源运行。</p>
+<h2 id="提供合理的默认值">提供合理的默认值 </h2>
+<p>有些用户在定义 Pod 时可能没有指定资源请求和限制。这样一来，Kubernetes 调度器在分配资源时可能会过度或不足分配，影响集群的性能和稳定性。通过设置 <code>LimitRange</code>，可以为资源请求和限制提供合理的默认值，即使用户未显式指定，Kubernetes 也能根据这些默认值进行调度。</p>
+<p><strong>示例</strong>：某个命名空间中的 Pod 没有定义资源请求和限制，导致调度器无法合理分配资源。通过设置 <code>LimitRange</code>，可以为 Pod 设置默认的资源请求（如 256Mi 内存）和限制（如 512Mi 内存），确保调度器能够合理分配资源，保证集群的稳定运行。</p>
+<p><mark>具体来说，LimitRange可以防止资源被不合理的分配或Pod过多的占用资源，LimitRange也会给Pod提供默认的request和limit</mark></p>
+<h1 id="limitrange-案例">LimitRange 案例 </h1>
+<p>我们来做个测试，创建一个deployment，并观察其默认是否有resources的字段，然后设置limitrange，再推出新的pod，继续观察，不过需要注意的是，LimitRange不影响现有的 pod。​</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> deployment.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/redhattraining/hello<span class="token punctuation">-</span>world<span class="token punctuation">-</span>nginx<span class="token punctuation">:</span>latest
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+EOF
+</code></pre><p>创建并观察pod是否会被自动添加resources资源限制，结果是pod跟随deployment要求，并没有添加限制资源</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc create <span class="token parameter variable">-f</span> deployment.yml
+</code></pre><p>看看默认的resources字段，根本就没有这个字段，说明并没有添加限额</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get pod
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-6645d8bb58-5hbzp   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          119s
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc describe pod nginx-deployment-6645d8bb58-5hbzp
+</code></pre><p>我们来创建一个LimitRange</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> limitrange.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> LimitRange
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lixiaohui<span class="token punctuation">-</span>limit
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">default</span><span class="token punctuation">:</span>
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 500m            <span class="token comment"># 默认 CPU 限制为 500 毫核</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 512Mi        <span class="token comment"># 默认内存限制为 512 Mi</span>
+    <span class="token key atrule">defaultRequest</span><span class="token punctuation">:</span>
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 250m            <span class="token comment"># 默认 CPU 请求为 250 毫核</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256Mi        <span class="token comment"># 默认内存请求为 256 Mi</span>
+    <span class="token key atrule">max</span><span class="token punctuation">:</span>
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> <span class="token string">"1"</span>             <span class="token comment"># 最大 CPU 限制为 1 核</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 1Gi          <span class="token comment"># 最大内存限制为 1 Gi</span>
+    <span class="token key atrule">min</span><span class="token punctuation">:</span>
+      <span class="token key atrule">cpu</span><span class="token punctuation">:</span> 125m            <span class="token comment"># 最小 CPU 请求为 125 毫核</span>
+      <span class="token key atrule">memory</span><span class="token punctuation">:</span> 128Mi        <span class="token comment"># 最小内存请求为 128 Mi</span>
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> Container        <span class="token comment"># 适用于容器级别</span>
+EOF
+</code></pre><p><code>min</code> 和 <code>max</code> 的作用</p>
+<ul>
+<li>
+<p><code>min</code>：指定容器或 Pod 可以请求的最小资源量。这个值确保每个容器或 Pod 至少请求一定量的资源，以避免资源不足的问题。</p>
+</li>
+<li>
+<p><code>max</code>：指定容器或 Pod 可以请求的最大资源量。这个值限制了容器或 Pod 不能请求过多的资源，以防止单个容器或 Pod 占用过多的资源。</p>
+</li>
+</ul>
+<p><code>default</code> 和 <code>defaultRequest</code> 的作用</p>
+<ul>
+<li>
+<p><code>default</code>：为没有显式指定资源限制的容器或 Pod 设置默认的资源限制。</p>
+</li>
+<li>
+<p><code>defaultRequest</code>：为没有显式指定资源请求的容器或 Pod 设置默认的资源请求。</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc create <span class="token parameter variable">-f</span> limitrange.yml
+</code></pre><p>创建后，发现pod依然没有resources，那是因为并不影响已有的pod，所以我们删除这个pod，由deployment自动产生一个新的，再describe看看</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc delete pod nginx-deployment-6645d8bb58-5hbzp
+pod <span class="token string">"nginx-deployment-6645d8bb58-5hbzp"</span> deleted
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get pod
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-6645d8bb58-qt42t   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          5s
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc describe pod nginx-deployment-6645d8bb58-qt42t
+<span class="token punctuation">..</span>.
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        250m
+      memory:     256Mi
+</code></pre><p>我们发现虽然deployment本身没有提供限额，但是pod却根据limitrange添加了限额，这样就可以防止资源被过多浪费，不过需要注意的是，limitrange并没有修改deployment，而是直接影响pod，如果需要，我们可以用下面的方式修改deployment的限额</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc <span class="token builtin class-name">set</span> resources deployment nginx-deployment <span class="token parameter variable">--requests</span> <span class="token assign-left variable">cpu</span><span class="token operator">=</span>100m,memory<span class="token operator">=</span>200Mi <span class="token parameter variable">--limits</span> <span class="token assign-left variable">cpu</span><span class="token operator">=</span>150m,memory<span class="token operator">=</span>300Mi
+deployment.apps/nginx-deployment resource requirements updated
+</code></pre><p>CPU 或内存密钥的值必须遵循下列规则：</p>
+<ul>
+<li>
+<p><code>max</code>&nbsp;值必须大于或等于&nbsp;<code>default</code>&nbsp;值。​</p>
+</li>
+<li>
+<p><code>default</code>&nbsp;值必须大于或等于&nbsp;<code>defaultRequest</code>&nbsp;值。​</p>
+</li>
+<li>
+<p><code>defaultRequest</code>&nbsp;值必须大于或等于&nbsp;<code>min</code>&nbsp;值。</p>
+</li>
+</ul>
+<p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

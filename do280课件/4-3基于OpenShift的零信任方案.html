@@ -1,0 +1,380 @@
+<!DOCTYPE html><html><head>
+      <title>4-3基于OpenShift的零信任方案</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><h1 id="零信任环境概念">零信任环境概念 </h1>
+<p>零信任环境就是每次交互都先当它是不受信任的，这样更安全。用户只能访问那些明确被允许的文件或对象，通信还得加密，客户端应用也得验证服务器是不是真的靠谱。而且，零信任环境要求用受信任的证书颁发机构（CA）签名的证书来加密流量，通过引用 CA 证书，应用就能用已签名的证书加密验证另一个应用是不是真的。</p>
+<h1 id="service-ca控制器">service-ca控制器 </h1>
+<p>OpenShift 有个 <code>service-ca</code> 控制器，挺有意思的。它能为内部流量生成并签名服务证书，还会创建一个机密，里面装着已签名的证书和密钥。Deployment 可以把这个机密挂载成卷，然后就能用上已签名的证书啦。不过，客户端应用也得信任 <code>service-ca</code> 控制器的 CA 哦。</p>
+<p><code>service-ca</code> 证书有效期默认是 26 个月，13 个月后会自动轮转。轮转完还有 13 个月的宽限期，原来的 CA 证书在这期间还能用。要是有 pod 是信任老的 CA 证书的，那在宽限期内得找个机会重启一下，重启后服务会自动把新的 CA 捆绑包加进去。</p>
+<p>要是你想手动来轮转证书，操作也挺简单。要是想轮转生成的服务证书，就把现有的机密删掉，service-ca 控制器会自动给你生成一个新的。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc delete secret certificate-secret
+</code></pre><p>要是想手动轮转服务 CA 证书，那就把 openshift-service-ca 命名空间里的 signing-key 机密删掉。不过要注意，这个操作会让之前的服务 CA 证书马上失效，你得赶紧把所有用到它的 pod 都重启一下，不然 TLS 就没法正常工作了。</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc delete secret/signing-key <span class="token parameter variable">-n</span> openshift-service-ca
+</code></pre><h1 id="零信任案例">零信任案例 </h1>
+<p>要是想生成证书和密钥对，只要给服务加上 <code>service.beta.openshift.io/serving-cert-secret-name=your-secret</code> 这个注释就行啦。<code>service-ca</code> 控制器会瞅瞅同一命名空间里有没有 <code>your-secret</code> 这个机密，要是没有，就直接创建一个，然后把服务的已签名证书和密钥对都塞进去。</p>
+<h2 id="创建后端服务">创建后端服务 </h2>
+<p>比如说，我们来为服务生成一个包含证书对的机密：lxh-secret</p>
+<p>第一步，先把服务创建出来</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc project default
+oc new-app <span class="token parameter variable">--name</span> hello <span class="token parameter variable">--image</span> registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:latest
+oc get <span class="token function">service</span>
+
+NAME              TYPE           CLUSTER-IP       EXTERNAL-IP                            PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>           AGE
+hello             ClusterIP      <span class="token number">172.30</span>.141.226   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>                                 <span class="token number">8080</span>/TCP          13s
+</code></pre><p>这个8080端口不方便访问，我们直接给它删了，改成443，下面的8888端口，是我们后期打算让pod工作在这个端口</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc delete <span class="token function">service</span> hello
+oc expose deployment/hello <span class="token parameter variable">--port</span> <span class="token number">443</span> --target-port <span class="token number">8888</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get <span class="token function">service</span> hello
+NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>   AGE
+hello   ClusterIP   <span class="token number">172.30</span>.83.38   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>/TCP   105s
+</code></pre><h2 id="为服务创建tls机密">为服务创建tls机密 </h2>
+<p>第二步，为服务启用证书填充</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>root@workstation ~<span class="token punctuation">]</span><span class="token comment"># oc annotate service hello service.beta.openshift.io/serving-cert-secret-name=lxh-secret</span>
+service/hello annotate
+</code></pre><p>看看服务是否添加了这个注解，看上去多了3个cert相关的注解</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>root@workstation ~<span class="token punctuation">]</span><span class="token comment"># oc describe service hello</span>
+Name:              hello
+Namespace:         default
+Labels:            <span class="token assign-left variable">app</span><span class="token operator">=</span>hello
+                   app.kubernetes.io/component<span class="token operator">=</span>hello
+                   app.kubernetes.io/instance<span class="token operator">=</span>hello
+Annotations:       openshift.io/generated-by: OpenShiftNewApp
+                   service.alpha.openshift.io/serving-cert-signed-by: openshift-service-serving-signer@1706011744
+                   service.beta.openshift.io/serving-cert-secret-name: lxh-secret
+                   service.beta.openshift.io/serving-cert-signed-by: openshift-service-serving-signer@1706011744
+</code></pre><p>我们来研究一下，这个自动生成的机密到底是什么</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>root@workstation ~<span class="token punctuation">]</span><span class="token comment"># oc describe secrets lxh-secret</span>
+Name:         lxh-secret
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  service.alpha.openshift.io/expiry: <span class="token number">2026</span>-12-20T06:39:38Z
+              service.beta.openshift.io/expiry: <span class="token number">2026</span>-12-20T06:39:38Z
+              service.beta.openshift.io/originating-service-name: hello
+              service.beta.openshift.io/originating-service-uid: fc4aafa0-fa9f-4b7b-9d44-e52507b893a4
+
+Type:  kubernetes.io/tls
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+tls.crt:  <span class="token number">2575</span> bytes
+tls.key:  <span class="token number">1675</span> bytes
+</code></pre><p>证书是啥内容看看去</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>root@workstation ~<span class="token punctuation">]</span><span class="token comment"># oc get secrets lxh-secret -o yaml</span>
+apiVersion: v1
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR3VENDQXFtZ0F3SUJBZ0lJQVdmMURucWtFSmN3RFFZSktvWklodmNOQVFFTEJRQXdOakUwTURJR0ExVUUKQXd3cmIzQmxibk5vYVdaMExYTmtcmdkb25aMn
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBb011NGhDU2JvYmE3ZVIreC80MXUxd1Izd0I0aTdnTW82cGU4MTZnR2pGcklFbXJnCmRvbloyenZ1VlVLaG54Rm
+kind: Secret
+metadata:
+  annotations:
+    service.alpha.openshift.io/expiry: <span class="token string">"2026-12-20T06:39:38Z"</span>
+    service.beta.openshift.io/expiry: <span class="token string">"2026-12-20T06:39:38Z"</span>
+    service.beta.openshift.io/originating-service-name: hello
+    service.beta.openshift.io/originating-service-uid: fc4aafa0-fa9f-4b7b-9d44-e52507b893a4
+  creationTimestamp: <span class="token string">"2024-12-20T06:39:38Z"</span>
+  name: lxh-secret
+  namespace: default
+  ownerReferences:
+  - apiVersion: v1
+    kind: Service
+    name: hello
+    uid: fc4aafa0-fa9f-4b7b-9d44-e52507b893a4
+  resourceVersion: <span class="token string">"170877"</span>
+  uid: <span class="token number">51726655</span>-b1cb-407b-8c76-0f2551635b1e
+type: kubernetes.io/tls
+</code></pre><p>可以看到这个自动生成的机密中，的确包括了两个证书，我们只需要把证书挂载到我们的deployment中就可以了，我们先更新一下配置文件来包含tls部分</p>
+<h2 id="为后端服务准备tls配置文件">为后端服务准备tls配置文件 </h2>
+<p>我们要读取的证书位于：/etc/pki/nginx/，让pod工作在8888端口</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">cat</span> <span class="token operator">&gt;</span> nginx.conf <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
+server {
+    listen       8888 ssl http2 default_server;
+    listen       [::]:8888 ssl http2 default_server;
+    server_name  _;
+    root         /usr/share/nginx/html;
+
+    ssl_certificate "/etc/pki/nginx/server.crt";
+    ssl_certificate_key "/etc/pki/nginx/private/server.key";
+    ssl_session_cache shared:SSL:1m;
+    ssl_session_timeout  10m;
+    ssl_ciphers PROFILE=SYSTEM;
+    ssl_prefer_server_ciphers on;
+
+    include /etc/nginx/default.d/*.conf;
+
+    location / {
+    }
+
+    error_page 404 /404.html;
+        location = /40x.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+    }
+}
+EOF</span>
+</code></pre><p>把这个配置文件存为configmap，一会儿让deployment来挂载</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc create configmap lxh-nginx-tls --from-file nginx.conf
+configmap/lxh-nginx-tls created
+</code></pre><p>用补丁文件的方法修改，比手工改更精准</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">cat</span> <span class="token operator">&gt;</span> patch.yml <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
+spec:
+  template:
+    spec:
+      containers:
+        - name: hello
+          ports:
+            - containerPort: 8888
+          volumeMounts:
+            - name: tls-config
+              mountPath: /etc/nginx/conf.d/
+            - name: server-secret
+              mountPath: /etc/pki/nginx/
+      volumes:
+        - name: tls-config
+          configMap:
+            defaultMode: 420
+            name: lxh-nginx-tls
+        - name: server-secret
+          secret:
+            defaultMode: 420
+            secretName: lxh-secret
+            items:
+              - key: tls.crt
+                path: server.crt
+              - key: tls.key
+                path: private/server.key
+EOF</span>
+</code></pre><p>来，打一下补丁，发现我们的pod age很新，是刚创建的</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc patch deployment hello --patch-file patch.yml
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get pod
+NAME                          READY   STATUS             RESTARTS       AGE
+hello-74fbfc9fd-ppzpq         <span class="token number">1</span>/1     Running            <span class="token number">0</span>              28s
+</code></pre><h2 id="测试陌生pod访问">测试陌生pod访问 </h2>
+<p>我们随便找个调试pod，看看能不能访问service</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get <span class="token function">service</span> hello
+NAME    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>   AGE
+hello   ClusterIP   <span class="token number">172.30</span>.83.38   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">443</span>/TCP   105s
+</code></pre><p>发现，随便找个pod是无法建立安全连接的，但是用-k跳过证书验证可以访问</p>
+<p>以下hello.default.svc的格式是k8s自带的</p>
+<ol>
+<li>
+<p>hello是服务名称</p>
+</li>
+<li>
+<p>default是命名空间</p>
+</li>
+<li>
+<p>svc表示这是一个服务</p>
+</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc debug <span class="token parameter variable">-t</span>
+
+sh-4.4<span class="token comment"># curl https://hello.default.svc</span>
+
+curl: <span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">)</span> SSL certificate problem: self signed certificate <span class="token keyword keyword-in">in</span> certificate chain
+More details here: https://curl.haxx.se/docs/sslcerts.html
+
+<span class="token function">curl</span> failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn <span class="token function">more</span> about this situation and
+how to fix it, please visit the web page mentioned above.
+
+sh-4.4<span class="token comment"># curl https://hello.default.svc -k</span>
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>Hello, world from nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>
+  <span class="token operator">&lt;</span>/body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/html<span class="token operator">&gt;</span>
+</code></pre><h2 id="为客户端准备ca证书">为客户端准备CA证书 </h2>
+<p>生成包含服务 CA 捆绑包的configmap，并使用它来创建&nbsp;<code>client</code></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc create configmap ca-file
+configmap/ca-file created
+</code></pre><p>给这个configmap填充ca证书</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc annotate configmap ca-file service.beta.openshift.io/inject-cabundle<span class="token operator">=</span>true
+configmap/ca-file annotate
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc describe configmaps ca-file
+Name:         ca-file
+Namespace:    default
+Labels:       <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:  service.beta.openshift.io/inject-cabundle: <span class="token boolean">true</span>
+
+Data
+<span class="token operator">==</span><span class="token operator">==</span>
+service-ca.crt:
+----
+-----BEGIN CERTIFICATE-----
+MIIDUTCCAjmgAwIBAgIIFAxCe1I9d3swDQYJKoZIhvcNAQELBQAwNjE0MDIGA1UE
+Awwrb3BlbnNoaWZ0LXNlcnZpY2Utc2VydmluZy1zaWduZXJAMTcwNjAxMTc0NDAe
+Fw0yNDAxMjMxMjA5MDNaFw0yNjAzMjMxMjA5MDRaMDYxNDAyBgNVBAMMK29wZW5z
+aGlmdC1zZXJ2aWNlLXNlcnZpbmctc2lnbmVyQDE3MDYwMTE3NDQwggEiMA0GCSqG
+SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBmQBMDkBshSKSBnnPSDOJFx5lN05uj1ij
+QkdMkvZ77UF6+grNK7J2XjMUL7XGV1AB2dylr+/Ze8bv+zgaKVPuz33v5Qkq1Xq3
+sGTCcvEOKFFQpNi2xvvz+SRxE3ZepSn466d8Yl8KAMOwUs41SV1hRWhMjDnQpJFY
+1o6zBSF3NUHrjwpgdaoqxvpAZq0F12ZdjmP6kY64CvYujUxjpZ+WTwkqQHi/RXfL
+F3JkbhX/dmMsMG4lRegMwzcUvrNHV89pqg82urLAXKpEdeaqiDq1rz5ImomTJUyY
+nDFDQWApBS+ds++M364pKGktIIJT4S9bp1+HJWBMlVR3yRcglgD1AgMBAAGjYzBh
+MA4GA1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQbVoak
+nlEWPiZHAj6Dv7RltXKfyDAfBgNVHSMEGDAWgBQbVoaknlEWPiZHAj6Dv7RltXKf
+yDANBgkqhkiG9w0BAQsFAAOCAQEAS3XqN/+utRKusxadlawdR61lDh4CB8mMrhc6
+AVTXqdAaE2j+T4xAXMQWkCAs82UDKuCUK2O+PTf9HrePiKLp3YWi+VoqFUoPiI++
+KFl24z+kcOuTatJJdutZ3UN8bk4T24GINBlQNyN2P3HDGQ1FL2NLNc59xC5qxFGC
+I1j4RwsxmDz2SIlPeselEMS/unqpWTAW4M9ZkMmvg7BeHsUnNtHJPtQwqYkaWlXn
+df5REDU7IkMKuNdlxD5PehUjujGB29PaBubfxBxFlhFyKLWJ72nECEZdJAwku1sf
+L+TYgUQf39c9HNo9tBmDg/XdOXGM0BUjDQ/rTo0mcbSmp6b/dg<span class="token operator">==</span>
+-----END CERTIFICATE-----
+
+
+BinaryData
+<span class="token operator">==</span><span class="token operator">==</span>
+
+Events:  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre><h2 id="验证零信任效果">验证零信任效果 </h2>
+<p>我们来启动一个带有此ca的客户端访问一下看看</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> pod<span class="token punctuation">-</span>with<span class="token punctuation">-</span>ca.yml &lt;&lt;<span class="token punctuation">-</span><span class="token string">'EOF'</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> client
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> client
+      <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/redhattraining/hello<span class="token punctuation">-</span>world<span class="token punctuation">-</span>nginx
+      <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /etc/pki/ca<span class="token punctuation">-</span>trust/extracted/pem
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> trusted<span class="token punctuation">-</span>ca
+  <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">configMap</span><span class="token punctuation">:</span>
+        <span class="token key atrule">defaultMode</span><span class="token punctuation">:</span> <span class="token number">420</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> ca<span class="token punctuation">-</span>file
+        <span class="token key atrule">items</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> service<span class="token punctuation">-</span>ca.crt
+            <span class="token key atrule">path</span><span class="token punctuation">:</span> tls<span class="token punctuation">-</span>ca<span class="token punctuation">-</span>bundle.pem
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> trusted<span class="token punctuation">-</span>ca
+EOF
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc create <span class="token parameter variable">-f</span> pod-with-ca.yml
+</code></pre><p>可以发现，直接访问成功，不需要-k跳过证书验证了</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>sh-4.4$ <span class="token function">curl</span> https://hello.default.svc
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>Hello, world from nginx<span class="token operator">!</span><span class="token operator">&lt;</span>/h<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>
+  <span class="token operator">&lt;</span>/body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>/html<span class="token operator">&gt;</span>
+</code></pre><p>研究一下证书交互过程</p>
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>sh-4.4$ curl https://hello.default.svc -vv -I
+* Rebuilt URL to: https://hello.default.svc/
+*   Trying 172.30.246.118...
+* TCP_NODELAY set
+* Connected to hello.default.svc (172.30.246.118) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, [no content] (0):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: CN=hello.default.svc
+*  start date: Dec 20 08:36:30 2024 GMT
+*  expire date: Dec 20 08:36:31 2026 GMT
+*  subjectAltName: host "hello.default.svc" matched cert's "hello.default.svc"
+*  issuer: CN=openshift-service-serving-signer@1706011744
+*  SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* Using Stream ID: 1 (easy handle 0x561a9eab7a00)
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+&gt; HEAD / HTTP/2
+&gt; Host: hello.default.svc
+&gt; User-Agent: curl/7.61.1
+&gt; Accept: */*
+&gt;
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS app data, [no content] (0):
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* TLSv1.3 (IN), TLS app data, [no content] (0):
+* TLSv1.3 (IN), TLS app data, [no content] (0):
+&lt; HTTP/2 200
+HTTP/2 200
+&lt; server: nginx/1.14.1
+server: nginx/1.14.1
+&lt; date: Fri, 20 Dec 2024 08:52:26 GMT
+date: Fri, 20 Dec 2024 08:52:26 GMT
+&lt; content-type: text/html
+content-type: text/html
+&lt; content-length: 72
+content-length: 72
+&lt; last-modified: Wed, 26 Jun 2019 22:19:37 GMT
+last-modified: Wed, 26 Jun 2019 22:19:37 GMT
+&lt; etag: "5d13ef79-48"
+etag: "5d13ef79-48"
+&lt; accept-ranges: bytes
+accept-ranges: bytes
+
+&lt;
+* Connection #0 to host hello.default.svc left intact
+</code></pre><p>也可以用下面的方法验证过程</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>openssl s_client <span class="token parameter variable">-connect</span> hello.default.svc:443
+</code></pre><p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html><html><head>
+      <title>1-1深入解析声明式资源管理与实战技巧</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><h1 id="管理资源清单">管理资源清单 </h1>
+<p>Kubernetes 集群里的应用一般都是好几个资源一起配合工作的，每个资源都有自己的定义和配置。搞定这些定义和配置，主要有两种方法：</p>
+<ol>
+<li>
+<p><strong>命令式</strong>：这种方式就像直接给 Kubernetes 下命令一样，比如用 <code>kubectl create</code>、<code>kubectl delete</code> 这些命令来直接操作资源。这种方法比较直接，适合快速操作，但要是资源多了，管理起来就有点麻烦，容易乱。</p>
+</li>
+<li>
+<p><strong>声明式</strong>：这种方式就更高级一点，你先写一个 YAML 文件，把资源的最终状态描述清楚，然后用 <code>kubectl apply</code> 命令让 Kubernetes 去实现这个状态。不管资源现在是什么样子，Kubernetes 都会自动调整，让它变成你描述的那个样子。这种方法更适合复杂的系统，管理起来更方便，也更容易维护。</p>
+</li>
+</ol>
+<p>简单来说，命令式就是直接动手操作，声明式就是告诉 Kubernetes 你想要的结果，让 Kubernetes 自己去搞定。</p>
+<h2 id="使用命令式管理">使用命令式管理 </h2>
+<p>Kubernetes CLI 使用命令式和声明式命令。​命令式命令执行基于命令的操作，并且使用与操作密切相关的命令名称</p>
+<p>例如：以下为命令式创建一个pod</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc login <span class="token parameter variable">-u</span> admin <span class="token parameter variable">-p</span> redhatocp https://api.ocp4.example.com:6443
+Login successful.
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc run nginx <span class="token parameter variable">--image</span><span class="token operator">=</span>registry.ocp4.example.com:8443/ubi9/httpd-24:latest
+</code></pre><p>命令式操作虽然有点小毛病，但也挺有用的！</p>
+<p>首先，命令式操作确实有点小问题。比如，它不太好重复操作，每次手动敲命令，很容易出错。而且，它没有版本控制，一旦改错了，很难回溯。还有，它也不太支持 GitOps，现在大家都喜欢用 GitOps 来管理配置，命令式操作就有点跟不上节奏了。</p>
+<p>但是，命令式操作在调试的时候可太有用了！比如在测试环境里，你可以快速给 Deployment 设置一个新的镜像，或者加一个新的环境变量，甚至直接跳进 Pod 里去操作。这些操作虽然简单，但有时候能快速解决问题，特别适合临时调试用。</p>
+<h2 id="使用声明式管理">使用声明式管理 </h2>
+<p>命令式虽然有时候挺方便的，但真的有点小毛病。相比之下，声明式那才是真香！</p>
+<p>声明式操作是通过资源清单来管理资源的，这才是正经路子。<strong>资源清单就是那种 JSON 或 YAML 格式的文件，里面写满了资源的定义和配置信息</strong>。这些清单文件把应用的所有属性都打包在一个文件或者一组文件里，这样一来，管理 Kubernetes 资源就简单多了。Kubernetes 只要读取这些资源清单，然后把清单里定义的状态应用到集群里就行。</p>
+<p>而且，资源清单用的是 YAML 或 JSON 格式，这可太有用了！<strong>它们能做版本控制</strong>，你可以把配置文件放到 Git 仓库里，每次修改都能留下痕迹。要是哪次改坏了，直接回滚到之前的版本就行，这可比命令式方便多了。</p>
+<p>最厉害的是，<strong>资源清单能确保应用的精确再现</strong>。你可以用一个命令就把一大堆资源都部署好，而且每次部署的结果都一样。这种可再现性特别适合持续集成和持续开发（CI/CD）的 GitOps 实践，自动化起来超方便。</p>
+<p>举例来说，以下yaml创建了一个名为lixiaohui的pod，而yaml文件本身是源代码，可以放到git中，用于版本控制和再现</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> pod.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lixiaohuipod
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> hello
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/ubi9/httpd<span class="token punctuation">-</span>24<span class="token punctuation">:</span>latest
+    <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+  <span class="token key atrule">restartPolicy</span><span class="token punctuation">:</span> OnFailure
+EOF
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>oc apply create/apply <span class="token parameter variable">-f</span> pod.yml/URL/DIR
+</code></pre><ol>
+<li>create并不会检查线上资源是否存在，创建资源时如果线上存在同名的资源，会报错</li>
+<li>apply在创建资源时如果线上存在同名的资源，会用yaml中的参数对线上资源进行更改，如果线上不存在同名资源，则自动执行create操作</li>
+</ol>
+<h1 id="k8s-yaml小技巧">k8s yaml小技巧 </h1>
+<p>你可能会觉得上面的yaml较为复杂，结构不清晰，这在初学的时候很正常，以下是了解结构的好方法：</p>
+<h2 id="dry-run">dry-run </h2>
+<p>用 <code>--dry-run</code> 和 <code>-o yaml</code> 这两个选项，就能把命令式操作转换成对应的 YAML 清单。这样就能把临时的命令式操作变成可以保存和版本控制的声明式配置啦。</p>
+<p>讲讲 <code>--dry-run=client</code> 和 <code>--dry-run=server</code> 的区别，这两个选项在 Kubernetes 命令中用来模拟操作，但它们的执行方式和作用范围有所不同。</p>
+<p><code>--dry-run=client</code></p>
+<ul>
+<li>
+<p><strong>执行位置</strong>：在客户端（即你的本地机器上）模拟操作。</p>
+</li>
+<li>
+<p><strong>作用</strong>：</p>
+<ul>
+<li>
+<p><strong>不与集群通信</strong>：命令不会发送到 Kubernetes 集群，只是在本地生成资源的 YAML 或 JSON 表示。</p>
+</li>
+<li>
+<p><strong>生成配置文件</strong>：非常适合用来生成资源清单文件，比如 YAML 文件。你可以用它来查看命令的输出，然后将输出保存为文件，后续可以用 <code>kubectl apply</code> 来应用。</p>
+</li>
+<li>
+<p><strong>快速验证</strong>：可以快速验证命令的语法是否正确，而不会对集群产生任何实际影响。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>
+<p>生成资源清单文件。</p>
+</li>
+<li>
+<p>快速验证命令语法。</p>
+</li>
+<li>
+<p>在本地调试配置，而不影响集群。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><code>--dry-run=server</code></p>
+<ul>
+<li>
+<p><strong>执行位置</strong>：在 Kubernetes 集群的服务器端模拟操作。</p>
+</li>
+<li>
+<p><strong>作用</strong>：</p>
+<ul>
+<li>
+<p><strong>与集群通信</strong>：命令会发送到 Kubernetes 集群，集群会处理这个命令，但不会真正应用更改。</p>
+</li>
+<li>
+<p><strong>验证集群状态</strong>：可以验证命令在当前集群状态下的行为，包括资源的创建、更新或删除。</p>
+</li>
+<li>
+<p><strong>检查权限</strong>：可以检查你是否有足够的权限执行该操作。</p>
+</li>
+<li>
+<p><strong>检查冲突</strong>：可以检查资源是否存在冲突，例如是否已经有相同名称的资源。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>
+<p>在集群环境中验证命令的效果。</p>
+</li>
+<li>
+<p>检查权限和资源冲突。</p>
+</li>
+<li>
+<p>在实际应用更改之前，确保命令在集群中可以正常执行。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>--dry-run=client</code></strong>：在本地模拟，不与集群通信，适合生成配置文件和快速验证语法。</p>
+</li>
+<li>
+<p><strong><code>--dry-run=server</code></strong>：在集群服务器端模拟，与集群通信，适合验证命令在集群环境中的行为，检查权限和冲突。</p>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc create deployment nginx <span class="token parameter variable">--image</span><span class="token operator">=</span>registry.ocp4.example.com:8443/ubi9/httpd-24:latest --dry-run<span class="token operator">=</span>client <span class="token parameter variable">-o</span> yaml --save-config
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: <span class="token operator">|</span>
+      <span class="token punctuation">{</span><span class="token string">"kind"</span><span class="token builtin class-name">:</span><span class="token string">"Deployment"</span>,<span class="token string">"apiVersion"</span><span class="token builtin class-name">:</span><span class="token string">"apps/v1"</span>,<span class="token string">"metadata"</span>:<span class="token punctuation">{</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"nginx"</span>,<span class="token string">"creationTimestamp"</span>:null,<span class="token string">"labels"</span>:<span class="token punctuation">{</span><span class="token string">"app"</span><span class="token builtin class-name">:</span><span class="token string">"nginx"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"spec"</span>:<span class="token punctuation">{</span><span class="token string">"replicas"</span>:1,<span class="token string">"selector"</span>:<span class="token punctuation">{</span><span class="token string">"matchLabels"</span>:<span class="token punctuation">{</span><span class="token string">"app"</span><span class="token builtin class-name">:</span><span class="token string">"nginx"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"template"</span>:<span class="token punctuation">{</span><span class="token string">"metadata"</span>:<span class="token punctuation">{</span><span class="token string">"creationTimestamp"</span>:null,<span class="token string">"labels"</span>:<span class="token punctuation">{</span><span class="token string">"app"</span><span class="token builtin class-name">:</span><span class="token string">"nginx"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"spec"</span>:<span class="token punctuation">{</span><span class="token string">"containers"</span>:<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"httpd-24"</span>,<span class="token string">"image"</span><span class="token builtin class-name">:</span><span class="token string">"registry.ocp4.example.com:8443/ubi9/httpd-24:latest"</span>,<span class="token string">"resources"</span>:<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"strategy"</span>:<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"status"</span>:<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+  creationTimestamp: null
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: <span class="token number">1</span>
+  selector:
+    matchLabels:
+      app: nginx
+  strategy: <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: registry.ocp4.example.com:8443/ubi9/httpd-24:latest
+        name: httpd-24
+        resources: <span class="token punctuation">{</span><span class="token punctuation">}</span>
+status: <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre><p>以下命令将dry-run设置为server，你就可以在不真的创建的前提下，去测试你的命令或yaml服务器是否可以接受并创建</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc run nginx-2 <span class="token parameter variable">--image</span><span class="token operator">=</span>registry.ocp4.example.com:8443/ubi9/httpd-24:latest --dry-run<span class="token operator">=</span>server
+pod/nginx-2 created <span class="token punctuation">(</span>server dry run<span class="token punctuation">)</span>
+</code></pre><p>还需要注意<code>--save-config</code> 选项</p>
+<p>当你在创建或更新 Kubernetes 资源时，使用 <code>--save-config</code> 选项，Kubernetes 会将你通过命令行指定的配置保存到资源的注解中。这些注解会存储在资源的 <code>metadata.annotations</code> 字段中，通常以 <code>kubectl.kubernetes.io/last-applied-configuration</code> 为键。</p>
+<h2 id="yaml的图形化视图">YAML的图形化视图 </h2>
+<p>打开Web控制台--工作负载--Pod--创建pod</p>
+<p><img src=".%5Cimages%5Cchapter1%5Cwebview-yaml.png" alt=""></p>
+<h2 id="explain">Explain </h2>
+<p><code>explain</code> 命令在 Kubernetes 和 OpenShift 中超级有用！它能帮你深入了解资源清单中任何字段的详细信息，就像是一个在线的“字段说明书”。</p>
+<p>你可以用 <code>kubectl explain</code> 或 <code>oc explain</code>（在 OpenShift 环境中）来查看资源清单中各个字段的详细描述。比如你想了解 Deployment 的某个字段，就可以用这个命令<code>oc explain deployment.spec.template.spec</code>。</p>
+<p>下面的例子查看了pod以及pod下一级的字段列表和解释</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc explain pod
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc explain pod.metadata
+</code></pre><h2 id="diff">diff </h2>
+<p><code>oc diff</code> 是一个超实用的命令，它可以帮助你快速对比线上资源和本地 YAML 文件之间的差异。这在开发和运维过程中特别有用，能让你清楚地看到哪些地方有变化，避免不小心改错了配置。</p>
+<p>我们先来创建一个deployment</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> deployment.yml &lt;&lt;EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lixiaohui<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/ubi9/httpd<span class="token punctuation">-</span>24<span class="token punctuation">:</span>latest
+        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+EOF
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc apply <span class="token parameter variable">-f</span> deployment.yml
+</code></pre><p>完成创建后，我们稍微修改以下deployment.yml文件内容，比如将镜像改为nginx，之后我们运行oc diff</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc <span class="token function">diff</span> <span class="token parameter variable">-f</span> deployment.yml
+Warning: would violate PodSecurity <span class="token string">"restricted:latest"</span><span class="token builtin class-name">:</span> allowPrivilegeEscalation <span class="token operator">!=</span> <span class="token boolean">false</span> <span class="token punctuation">(</span>container <span class="token string">"nginx"</span> must <span class="token builtin class-name">set</span> <span class="token assign-left variable">securityContext.allowPrivilegeEscalation</span><span class="token operator">=</span>false<span class="token punctuation">)</span>, unrestricted capabilities <span class="token punctuation">(</span>container <span class="token string">"nginx"</span> must <span class="token builtin class-name">set</span> <span class="token assign-left variable">securityContext.capabilities.drop</span><span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"ALL"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>, runAsNonRoot <span class="token operator">!=</span> <span class="token boolean">true</span> <span class="token punctuation">(</span>pod or container <span class="token string">"nginx"</span> must <span class="token builtin class-name">set</span> <span class="token assign-left variable">securityContext.runAsNonRoot</span><span class="token operator">=</span>true<span class="token punctuation">)</span>, seccompProfile <span class="token punctuation">(</span>pod or container <span class="token string">"nginx"</span> must <span class="token builtin class-name">set</span> securityContext.seccompProfile.type to <span class="token string">"RuntimeDefault"</span> or <span class="token string">"Localhost"</span><span class="token punctuation">)</span>
+<span class="token function">diff</span> <span class="token parameter variable">-u</span> <span class="token parameter variable">-N</span> /tmp/LIVE-394511264/apps.v1.Deployment.default.lixiaohui-deployment /tmp/MERGED-3914567848/apps.v1.Deployment.default.lixiaohui-deployment
+--- /tmp/LIVE-394511264/apps.v1.Deployment.default.lixiaohui-deployment <span class="token number">2025</span>-05-08 <span class="token number">12</span>:33:26.311873580 +0800
++++ /tmp/MERGED-3914567848/apps.v1.Deployment.default.lixiaohui-deployment      <span class="token number">2025</span>-05-08 <span class="token number">12</span>:33:26.311873580 +0800
+@@ -4,7 +4,7 @@
+   annotations:
+     deployment.kubernetes.io/revision: <span class="token string">"1"</span>
+   creationTimestamp: <span class="token string">"2025-05-08T04:32:50Z"</span>
+-  generation: <span class="token number">1</span>
++  generation: <span class="token number">2</span>
+   labels:
+     app: nginx
+   name: lixiaohui-deployment
+@@ -30,7 +30,7 @@
+         app: nginx
+     spec:
+       containers:
+-      - image: registry.ocp4.example.com:8443/ubi9/httpd-24:latest
++      - image: nginx
+         imagePullPolicy: IfNotPresent
+         name: nginx
+         ports:
+</code></pre><p>从输出看，很容易能看出我们如果apply的话，会发生哪些变化，非常实用吧~</p>
+<p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

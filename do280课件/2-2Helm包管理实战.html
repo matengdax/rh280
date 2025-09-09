@@ -1,0 +1,343 @@
+<!DOCTYPE html><html><head>
+      <title>2-2Helm包管理实战</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><h1 id="helm基本概念">Helm基本概念 </h1>
+<p>Helm 是 Kubernetes 的包管理工具，它能够简化 Kubernetes 应用程序的部署和管理。在 Kubernetes 中，一个应用程序可能由多个资源组成，比如 Deployment、Service、ConfigMap、Ingress 等。Helm 可以将这些资源打包成一个 Helm Chart（包），方便用户进行安装、升级、回滚和删除等操作，就和系统里的YUM/DNF/APT非常的类似。</p>
+<h2 id="主要组件">主要组件 </h2>
+<ol>
+<li>
+<p><strong>Helm Client</strong></p>
+<ul>
+<li>这是用户与 Helm 交互的客户端工具。用户通过在本地机器上运行 Helm 命令来操作 Helm Chart，例如安装、升级、查询等操作。它会直接与 Kubernetes API 服务器交互，客户端可以直接从它的官方GitHub下载，地址是：<a href="https://github.com/helm/helm/releases">https://github.com/helm/helm/releases</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Helm Chart</strong></p>
+<ul>
+<li>
+<p>Helm Chart 是一个打包的 Kubernetes 应用程序，包含所有必要的资源定义和配置文件。它类似于软件包管理工具中的“包”，用于简化 Kubernetes 应用的部署和管理。一个 Helm Chart 包含以下部分：</p>
+<ul>
+<li>
+<p><strong>Chart.yaml</strong>：</p>
+<ul>
+<li>
+<p>定义：这是 Helm Chart 的元数据文件，包含 Chart 的基本信息。大概内容：</p>
+<ul>
+<li>name：Chart 的名称。</li>
+<li>version：Chart 的版本号（遵循语义化版本规范）。</li>
+<li>description：Chart 的简要描述。</li>
+<li>dependencies：依赖的其他 Chart（可选）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>values.yaml</strong>：它是 Chart 的默认配置文件。用户可以通过修改这个文件或者在安装时覆盖其中的值来定制 Chart 的行为。比如，它可能包含应用的副本数量、镜像版本、资源限制等配置项。</p>
+</li>
+<li>
+<p><strong>templates/</strong>：包含 Kubernetes 资源的模板文件，这些模板文件在安装或升级时会被渲染成实际的 Kubernetes 资源，渲染的时候，将用values.yaml里的值替换掉templates模板里的变量，例如，一个 Deployment 的模板文件可以根据 values.yaml 中定义的副本数量和镜像版本来生成对应的 Deployment 资源，具体渲染的命令是：<code>helm template</code>，可以用--help等方式获取语法，不过需要注意的是，这会渲染出实际的 Kubernetes 资源文件，但不会实际部署到集群中。</p>
+</li>
+<li>
+<p><strong>charts/</strong>：如果当前 Chart 依赖其他 Chart，这些依赖的 Chart 会存放在这个目录下。这样可以实现 Chart 之间的组合和复用。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Helm Repository（仓库）</strong></p>
+<ul>
+<li>它是一个存储 Helm Chart 的仓库，可以是本地的，也可以是远程的。远程仓库通常是一个 HTTP 服务器，用户可以从仓库中搜索、下载和更新 Helm Chart。例如，Helm 官方维护了一个默认的公共仓库，里面包含了许多常用的 Helm Chart，用户可以通过 Helm 命令将这些 Chart 添加到本地的 Chart 仓库列表中，然后进行安装等操作。</li>
+</ul>
+</li>
+</ol>
+<p>官方网址 <a href="http://helm.sh">http://helm.sh</a></p>
+<h2 id="helm安装">Helm安装 </h2>
+<p>下载安装Helm</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">wget</span> https://get.helm.sh/helm-v3.17.3-linux-amd64.tar.gz
+<span class="token function">tar</span> xf helm-v3.17.3-linux-amd64.tar.gz
+<span class="token function">mv</span> linux-amd64/helm /usr/local/bin/helm
+helm completion <span class="token function">bash</span> <span class="token operator">&gt;</span> /etc/bash_completion.d/helm
+</code></pre><p>默认情况下，helm内置了一个hub，用于软件搜索和安装，搜索软件是否可被安装，用以下格式命令：</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>helm search hub Packages
+</code></pre><p>命令行显示有点奇怪，也不够丰富，可以考虑用浏览器打开搜索：<a href="https://hub.helm.sh">https://hub.helm.sh</a></p>
+<h2 id="添加仓库">添加仓库 </h2>
+<p>官方仓库网速慢，可以考虑一下以下仓库或自己部署仓库</p>
+<pre data-role="codeBlock" data-info="textile" class="language-textile textile"><code><span class="token phrase">http://mirror.azure.cn/kubernetes/charts/
+</span></code></pre><p>添加方式</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>helm repo <span class="token function">add</span> azurerepo http://mirror.azure.cn/kubernetes/charts/
+</code></pre><h1 id="helm-实验案例">Helm 实验案例 </h1>
+<h2 id="wordpress安装">wordpress安装 </h2>
+<h3 id="手工定制安装">手工定制安装 </h3>
+<p>本次安装一个wordpress</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>helm search repo wordpress
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+azurerepo/wordpress     <span class="token number">9.0</span>.3           <span class="token number">5.3</span>.2           DEPRECATED Web publishing platform <span class="token keyword keyword-for">for</span> building<span class="token punctuation">..</span>.
+</code></pre><p>ok，发现一个wordpress包，那这个包里有什么？把包下出来研究研究</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~<span class="token comment"># helm pull azurerepo/wordpress</span>
+root@k8s-master:~<span class="token comment"># ls</span>
+wordpress-9.0.3.tgz
+</code></pre><p>下完是一个压缩包，解压看看</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~<span class="token comment"># tar xf wordpress-9.0.3.tgz</span>
+root@k8s-master:~<span class="token comment"># ls</span>
+wordpress  wordpress-9.0.3.tgz
+root@k8s-master:~<span class="token comment"># cd wordpress/</span>
+root@k8s-master:~/wordpress<span class="token comment"># ls</span>
+charts  Chart.yaml  README.md  requirements.lock  requirements.yaml  templates  values.schema.json  values.yaml
+</code></pre><p>果然看到了<code>Chart.yaml</code> <code>templates</code>  <code>values.yaml</code></p>
+<p>看看都有哪些模板</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># ls templates/</span>
+deployment.yaml  externaldb-secrets.yaml  _helpers.tpl  ingress.yaml  NOTES.txt  pvc.yaml  secrets.yaml  servicemonitor.yaml  svc.yaml  tests  tls-secrets.yaml
+</code></pre><p>模板里面都是各种变量，稍后需要用values.yml来填充</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># head templates/deployment.yaml</span>
+apiVersion: <span class="token punctuation">{</span><span class="token punctuation">{</span> template <span class="token string">"wordpress.deployment.apiVersion"</span> <span class="token builtin class-name">.</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+kind: Deployment
+metadata:
+  name: <span class="token punctuation">{</span><span class="token punctuation">{</span> template <span class="token string">"wordpress.fullname"</span> <span class="token builtin class-name">.</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  labels: <span class="token punctuation">{</span><span class="token punctuation">{</span>- include <span class="token string">"wordpress.labels"</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> nindent <span class="token number">4</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+spec:
+  selector:
+    matchLabels: <span class="token punctuation">{</span><span class="token punctuation">{</span>- include <span class="token string">"wordpress.matchLabels"</span> <span class="token builtin class-name">.</span> <span class="token operator">|</span> nindent <span class="token number">6</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span>- <span class="token keyword keyword-if">if</span> .Values.updateStrategy <span class="token punctuation">}</span><span class="token punctuation">}</span>
+  strategy: <span class="token punctuation">{</span><span class="token punctuation">{</span> toYaml .Values.updateStrategy <span class="token operator">|</span> nindent <span class="token number">4</span> <span class="token punctuation">}</span><span class="token punctuation">}</span>
+</code></pre><p>ok，模板看到了，我们试试用values.yml里的变量来渲染模板，生成最终的yaml文件</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># helm template --version 9.0.3 azurerepo/wordpress</span>
+</code></pre><p>从仓库中读出values.yml，将templates目录里的模板渲染成功</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token punctuation">---</span>
+<span class="token comment"># Source: wordpress/charts/mariadb/templates/secrets.yaml</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> release<span class="token punctuation">-</span>name<span class="token punctuation">-</span>mariadb
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> <span class="token string">"mariadb"</span>
+    <span class="token key atrule">chart</span><span class="token punctuation">:</span> <span class="token string">"mariadb-7.3.12"</span>
+    <span class="token key atrule">release</span><span class="token punctuation">:</span> <span class="token string">"release-name"</span>
+    <span class="token key atrule">heritage</span><span class="token punctuation">:</span> <span class="token string">"Helm"</span>
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">mariadb-root-password</span><span class="token punctuation">:</span> <span class="token string">"QmhiblBvMXJmZQ=="</span>
+
+  <span class="token key atrule">mariadb-password</span><span class="token punctuation">:</span> <span class="token string">"VWZxWm5CbnVicA=="</span>
+<span class="token punctuation">---</span>
+<span class="token comment"># Source: wordpress/templates/secrets.yaml</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+</code></pre><p>如果有一个值不满意怎么办？可以手工指定某一个参数，或者干脆用本地的values.yaml</p>
+<p>先试试手工指定，我们看了一下仓库里的value，要用这个镜像，那我来随便改一个看看</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># helm show values azurerepo/wordpress | grep ^image: -A 10</span>
+image:
+  registry: docker.io
+  repository: bitnami/wordpress
+  tag: <span class="token number">5.3</span>.2-debian-10-r32
+  <span class="token comment">## Specify a imagePullPolicy</span>
+  <span class="token comment">## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'</span>
+  <span class="token comment">## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</span>
+  <span class="token comment">##</span>
+  pullPolicy: IfNotPresent
+  <span class="token comment">## Optionally specify an array of imagePullSecrets.</span>
+  <span class="token comment">## Secrets must be manually created in the namespace.</span>
+</code></pre><p>渲染时手工指定某个参数，比如替换一个镜像的registry</p>
+<p>我通过--set参数指定了镜像的registry，并且生成了模板</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># helm template --version 9.0.3 azurerepo/wordpress --set image.registry=linuxcenter.cn &gt; custom.yml</span>
+WARNING: This chart is deprecated
+root@k8s-master:~/wordpress<span class="token comment"># grep linuxcenter custom.yml</span>
+          image: linuxcenter.cn/bitnami/wordpress:5.3.2-debian-10-r32
+      image: linuxcenter.cn/bitnami/wordpress:5.3.2-debian-10-r32
+</code></pre><p>当然，我上面的set是瞎写的，镜像仓库不存在，只是为了演示参数而已</p>
+<p>我们重新用默认参数渲染出最终的yaml，然后向集群部署</p>
+<p><strong>这一步将安装mariadb和wordpress，我们这里用的是存储章节设置的默认存储类，所以会自动创建pv以及pvc，你要是还没有默认存储类，往上翻，重新做一下存储类并标记为默认即可</strong></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># helm template --version 9.0.3 azurerepo/wordpress &gt; lixiaohui.yml</span>
+WARNING: This chart is deprecated
+root@k8s-master:~/wordpress<span class="token comment"># kubectl apply -f lixiaohui.yml</span>
+secret/release-name-mariadb created
+secret/release-name-wordpress created
+configmap/release-name-mariadb created
+configmap/release-name-mariadb-tests created
+persistentvolumeclaim/release-name-wordpress created
+service/release-name-mariadb created
+service/release-name-wordpress created
+deployment.apps/release-name-wordpress created
+statefulset.apps/release-name-mariadb created
+pod/release-name-mariadb-test-8u7uw created
+pod/release-name-credentials-test created
+</code></pre><p>不需要看到pod工作正常，我们只研究helm自身，如果你需要它工作正常，需要搞定镜像、机器内存需要再加一下，不然数据库起不来</p>
+<p>以上就是研究的过程，其实一般来说，不用这么麻烦，比如我们最后实际上就是用的默认value，如果默认value你就满意，可以用下面的方法直接让helm来管理，我们不用改东西，如果你并不是用的<code>helm install</code>，后面就不受helm管理，因为当你使用 <code>helm template</code> 命令生成 Kubernetes 资源清单文件并手动将其部署到集群中时，这些资源不会被 Helm 的生命周期管理所跟踪。因此，当你运行 <code>helm list</code> 命令时，不会看到任何相关的 Helm Release，因为 Helm 的 Release 管理机制没有被触发。</p>
+<h3 id="helm仓库直接安装">helm仓库直接安装 </h3>
+<p>这一步将安装mariadb和wordpress，我们这里用的是存储章节设置的默认存储类，所以会自动创建pv以及pvc，你要是还没有默认存储类，往上翻，重新做一下存储类并标记为默认即可</p>
+<p><code>helm install</code> 也是只是<code>--set</code>参数的，不一定非要用默认的值</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~/wordpress<span class="token comment"># helm install wordpress azurerepo/wordpress</span>
+WARNING: This chart is deprecated
+NAME: wordpress
+LAST DEPLOYED: Thu Apr <span class="token number">24</span> <span class="token number">13</span>:10:09 <span class="token number">2025</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span class="token number">1</span>
+</code></pre><pre data-role="codeBlock" data-info="helm" class="language-helm helm"><code>root@k8s-master:~/wordpress# helm list
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+wordpress       default         1               2025-04-24 13:10:09.708968227 +0800 CST deployed        wordpress-9.0.3 5.3.2
+</code></pre><p>ok，安装完毕，现在来看看这个服务怎么样了</p>
+<p>查询服务端口</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>kubectl get <span class="token function">service</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>NAME                TYPE           CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>                      AGE
+wordpress           LoadBalancer   <span class="token number">10.102</span>.156.226   <span class="token operator">&lt;</span>pending<span class="token operator">&gt;</span>     <span class="token number">80</span>:31194/TCP,443:30386/TCP   3m42s
+wordpress-mariadb   ClusterIP      <span class="token number">10.106</span>.8.85      <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">3306</span>/TCP                     3m42s
+</code></pre><p>查询pod所在节点</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>root@k8s-master:~<span class="token comment"># kubectl get pod -o wide</span>
+</code></pre><p>不需要看到pod工作正常，我们只研究helm自身，如果你需要它工作正常，需要搞定镜像、机器内存需要再加一下，不然数据库起不来</p>
+<p>以上案例都是基于自己安装的k8s，我们来看一下教材上的helm操作</p>
+<h1 id="添加charts仓库">添加Charts仓库 </h1>
+<p>helm必须要将仓库添加到本地，才能从仓库中安装软件</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm repo <span class="token function">add</span> do280-repo   http://helm.ocp4.example.com/charts
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm repo list
+NAME            URL
+do280-repo      http://helm.ocp4.example.com/charts
+</code></pre><h1 id="搜索仓库中的helm包">搜索仓库中的helm包 </h1>
+<p>如果不加--versions，同一个软件有不同版本时，只显示最新版</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm search repo <span class="token parameter variable">--versions</span>
+</code></pre><h1 id="查询charts基本信息与values">查询Charts基本信息与values </h1>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm show chart do280-repo/etherpad
+apiVersion: v2
+appVersion: latest
+description: A Helm chart <span class="token keyword keyword-for">for</span> etherpad lite
+home: https://github.com/redhat-cop/helm-charts
+icon: https://pbs.twimg.com/profile_images/1336377123964145665/2gTadaDt_400x400.jpg
+maintainers:
+- name: eformat
+name: etherpad
+type: application
+version: <span class="token number">0.0</span>.7
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm show values do280<span class="token punctuation">-</span>repo/etherpad
+<span class="token comment"># Default values for etherpad.</span>
+<span class="token key atrule">replicaCount</span><span class="token punctuation">:</span> <span class="token number">1</span>
+
+<span class="token key atrule">defaultTitle</span><span class="token punctuation">:</span> <span class="token string">"Labs Etherpad"</span>
+<span class="token key atrule">defaultText</span><span class="token punctuation">:</span> <span class="token string">"✍️ Assign yourself a user and share your ideas! ✍️"</span>
+
+<span class="token key atrule">image</span><span class="token punctuation">:</span>
+  <span class="token key atrule">repository</span><span class="token punctuation">:</span> etherpad
+  <span class="token key atrule">name</span><span class="token punctuation">:</span>
+  <span class="token key atrule">tag</span><span class="token punctuation">:</span>
+  <span class="token key atrule">pullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+
+<span class="token key atrule">imagePullSecrets</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token key atrule">nameOverride</span><span class="token punctuation">:</span> <span class="token string">""</span>
+<span class="token key atrule">fullnameOverride</span><span class="token punctuation">:</span> <span class="token string">""</span>
+
+<span class="token key atrule">podSecurityContext</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token key atrule">securityContext</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token key atrule">service</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> ClusterIP
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9001</span>
+
+<span class="token key atrule">ingress</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> etherpad.organization.com
+  <span class="token key atrule">annotations</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> <span class="token null important">null</span>
+  <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> http
+</code></pre><h1 id="安装helm-chart">安装Helm Chart </h1>
+<p>安装helm包，需要创建values.yaml文件为软件提供参数值</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> values.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">image</span><span class="token punctuation">:</span>
+  <span class="token key atrule">repository</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/etherpad
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> etherpad
+  <span class="token key atrule">tag</span><span class="token punctuation">:</span> 1.8.18
+<span class="token key atrule">route</span><span class="token punctuation">:</span>
+  <span class="token key atrule">host</span><span class="token punctuation">:</span> development<span class="token punctuation">-</span>etherpad.apps.ocp4.example.com
+EOF
+</code></pre><p>安装0.0.6版本</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm <span class="token function">install</span> lixiaohui-app do280-repo/etherpad <span class="token parameter variable">-f</span> values.yaml <span class="token parameter variable">--version</span> <span class="token number">0.0</span>.6
+NAME: lixiaohui-app
+LAST DEPLOYED: Thu Dec <span class="token number">19</span> 01:24:44 <span class="token number">2024</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span class="token number">1</span>
+TEST SUITE: None
+</code></pre><p>看看部署的效果</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm list
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+lixiaohui-app   default         <span class="token number">1</span>               <span class="token number">2024</span>-12-19 01:24:44.705048565 <span class="token parameter variable">-0500</span> EST deployed        etherpad-0.0.6  latest
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get route
+NAME                     HOST/PORT                                    <span class="token environment constant">PATH</span>   SERVICES                 PORT    TERMINATION     WILDCARD
+lixiaohui                lixiaohui-default.apps.ocp4.example.com             lixiaohui                <span class="token operator">&lt;</span>all<span class="token operator">&gt;</span>                   None
+lixiaohui-app-etherpad   development-etherpad.apps.ocp4.example.com          lixiaohui-app-etherpad   http    edge/Redirect   None
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">curl</span> <span class="token parameter variable">-s</span> https://development-etherpad.apps.ocp4.example.com <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-i</span> Labs
+        <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span>Labs Etherpad<span class="token operator">&lt;</span>/title<span class="token operator">&gt;</span>
+</code></pre><h1 id="升级chart">升级Chart </h1>
+<p>helm upgrade 命令可以将更改应用到现有发行版，例如更新值或图表版本。这里我们升级到0.0.7</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm list
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+lixiaohui-app   default         <span class="token number">1</span>               <span class="token number">2024</span>-12-19 01:24:44.705048565 <span class="token parameter variable">-0500</span> EST deployed        etherpad-0.0.6  latest
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm upgrade lixiaohui-app do280-repo/etherpad   <span class="token parameter variable">-f</span> values.yaml <span class="token parameter variable">--version</span> <span class="token number">0.0</span>.7
+Release <span class="token string">"lixiaohui-app"</span> has been upgraded. Happy Helming<span class="token operator">!</span>
+NAME: lixiaohui-app
+LAST DEPLOYED: Thu Dec <span class="token number">19</span> 01:33:01 <span class="token number">2024</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span class="token number">2</span>
+TEST SUITE: None
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm list
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+lixiaohui-app   default         <span class="token number">2</span>               <span class="token number">2024</span>-12-19 01:33:01.298788916 <span class="token parameter variable">-0500</span> EST deployed        etherpad-0.0.7  latest
+</code></pre><p>服务照样在线</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">curl</span> <span class="token parameter variable">-s</span> https://development-etherpad.apps.ocp4.example.com <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-i</span> Labs
+        <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span>Labs Etherpad<span class="token operator">&lt;</span>/title<span class="token operator">&gt;</span>
+</code></pre><h1 id="回滚chart">回滚Chart </h1>
+<p>天有不测风云，有时候需要回退，我们回到上一版</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm <span class="token function">history</span> lixiaohui-app
+REVISION        UPDATED                         STATUS          CHART           APP VERSION     DESCRIPTION
+<span class="token number">1</span>               Thu Dec <span class="token number">19</span> 01:24:44 <span class="token number">2024</span>        superseded      etherpad-0.0.6  latest          Install complete
+<span class="token number">2</span>               Thu Dec <span class="token number">19</span> 01:33:01 <span class="token number">2024</span>        deployed        etherpad-0.0.7  latest          Upgrade complete
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ helm rollback lixiaohui-app <span class="token number">1</span>
+Rollback was a success<span class="token operator">!</span> Happy Helming<span class="token operator">!</span>
+</code></pre><p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

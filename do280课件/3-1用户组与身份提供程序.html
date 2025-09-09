@@ -1,0 +1,379 @@
+<!DOCTYPE html><html><head>
+      <title>3-1用户组与身份提供程序</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><h1 id="openshift-用户和组">OpenShift 用户和组 </h1>
+<h2 id="用户">用户 </h2>
+<ul>
+<li><strong>简单说</strong>：用户就是能和 OpenShift 里的 API 服务器打交道的家伙。</li>
+<li><strong>权限咋整</strong>：想给用户权限，就直接把角色加到用户或者用户所在的组里。</li>
+</ul>
+<h2 id="身份">身份 </h2>
+<ul>
+<li><strong>啥玩意儿</strong>：身份资源就是记录用户从身份提供程序那儿成功登录的信息。</li>
+<li><strong>存啥数据</strong>：身份验证来源的所有数据都存在身份里。</li>
+</ul>
+<h2 id="服务帐户">服务帐户 </h2>
+<ul>
+<li><strong>有啥用</strong>：当应用没法拿到用户凭据，但又得和 API 通信时，服务帐户就派上用场了。</li>
+<li><strong>好处</strong>：用服务帐户能控制 API 访问，不用借普通用户的证。</li>
+</ul>
+<h2 id="组">组 </h2>
+<ul>
+<li><strong>定义</strong>：组就是把一些用户凑一块儿。</li>
+<li><strong>为啥用</strong>：授权策略用组来一次性给多个用户分配权限，方便得很。</li>
+<li><strong>系统组</strong>：OpenShift 还有系统自动弄好的系统组或者虚拟组。</li>
+</ul>
+<h2 id="角色">角色 </h2>
+<ul>
+<li><strong>定义</strong>：角色就是定义用户在特定资源上能干啥。</li>
+<li><strong>权限分配</strong>：把角色分配给用户、组或者服务帐户，就能给权限。</li>
+</ul>
+<h2 id="资源创建">资源创建 </h2>
+<ul>
+<li><strong>自动搞定</strong>：一般情况下，用户和身份资源不会提前准备好，OpenShift 会在用户通过 OAuth 成功登录后自动创建。</li>
+</ul>
+<h1 id="对-api-请求进行身份验证">对 API 请求进行身份验证 </h1>
+<h2 id="身份验证和授权">身份验证和授权 </h2>
+<ul>
+<li><strong>身份验证层</strong>：就是验证用户是不是真的。</li>
+<li><strong>授权层</strong>：用基于角色的访问控制（RBAC）策略来决定用户能不能干啥，接受或者拒绝请求。</li>
+</ul>
+<h2 id="身份验证方法">身份验证方法 </h2>
+<ul>
+<li><strong>OAuth 访问令牌</strong>：一种验证方法。</li>
+<li><strong>X.509 客户端证书</strong>：另一种验证方法。</li>
+<li><strong>匿名用户</strong>：要是请求啥令牌或者证书都没有，身份验证层就会把它当成匿名用户，分配到未认证的虚拟组里，也就是会为其分配&nbsp;<code>system:anonymous</code>&nbsp;虚拟用户，以及&nbsp;<code>system:unauthenticated</code>&nbsp;虚拟组。</li>
+</ul>
+<h1 id="身份验证-operator">身份验证 Operator </h1>
+<h2 id="作用">作用 </h2>
+<ul>
+<li><strong>OAuth 服务器</strong>：由身份验证 Operator 运行，给用户提供 OAuth 访问令牌。</li>
+<li><strong>身份提供程序</strong>：必须配置好身份提供程序，交给 OAuth 服务器，用来验证请求者的身份。</li>
+</ul>
+<h2 id="身份提供程序类型">身份提供程序类型 </h2>
+<ul>
+<li><strong>HTPasswd</strong>：通过机密文件验证用户名和密码。</li>
+<li><strong>Keystone</strong>：用 OpenStack Keystone v3 服务器进行身份验证。</li>
+<li><strong>LDAP</strong>：配置 LDAP 身份提供程序，用简单的绑定身份验证对 LDAPv3 服务器验证用户名和密码。</li>
+<li><strong>GitHub 或 GitHub Enterprise</strong>：根据 GitHub 或 GitHub Enterprise 的 OAuth 身份验证服务器来验证用户名和密码。</li>
+<li><strong>OpenID Connect</strong>：用授权代码流和 OpenID Connect 身份提供程序集成。</li>
+</ul>
+<h2 id="集群管理员">集群管理员 </h2>
+<p>​新安装的 OpenShift 集群提供了两种方法来通过集群管理员特权来验证 API 请求。​一种方法是<mark>使用&nbsp;<code>kubeconfig</code>&nbsp;文件，其中嵌入了永不过期的 X.509 客户端证书</mark>。​另一种方法是作为&nbsp;<code>kubeadmin</code>&nbsp;虚拟用户进行身份验证。​成功的身份验证会授予 OAuth 访问令牌。​</p>
+<ol>
+<li>
+<p>在课堂环境中，<code>utility</code>&nbsp;计算机将&nbsp;<code>kubeconfig</code>&nbsp;文件存储在&nbsp;<code>/home/lab/ocp4/auth/kubeconfig</code>&nbsp;中。​</p>
+</li>
+<li>
+<p>在课堂环境中，<code>utility</code>&nbsp;计算机将&nbsp;<code>kubeadmin</code>&nbsp;用户的密码存储在&nbsp;<code>/home/lab/ocp4/auth/kubeadmin-password</code>&nbsp;文件中。​</p>
+</li>
+</ol>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>root@utility ~<span class="token punctuation">]</span><span class="token comment"># export KUBECONFIG=/home/lab/ocp4/auth/kubeconfig</span>
+<span class="token punctuation">[</span>root@utility ~<span class="token punctuation">]</span><span class="token comment"># oc get nodes</span>
+NAME       STATUS   ROLES                         AGE    VERSION
+master01   Ready    control-plane,master,worker   447d   v1.25.4+77bec7a
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>root@utility ~<span class="token punctuation">]</span><span class="token comment"># oc login -u kubeadmin -p 8UgkW-u7pMu-223kK-PmNZH https://api.ocp4.example.com:6443</span>
+The server uses a certificate signed by an unknown authority.
+You can bypass the certificate check, but any data you send to the server could be intercepted by others.
+Use insecure connections? <span class="token punctuation">(</span>y/n<span class="token punctuation">)</span>: y
+
+WARNING: Using insecure TLS client config. Setting this option is not supported<span class="token operator">!</span>
+
+Login successful.
+
+You have access to <span class="token number">72</span> projects, the list has been suppressed. You can list all projects with <span class="token string">'oc projects'</span>
+
+Using project <span class="token string">"default"</span><span class="token builtin class-name">.</span>
+Welcome<span class="token operator">!</span> See <span class="token string">'oc help'</span> to get started.
+
+<span class="token punctuation">[</span>root@utility ~<span class="token punctuation">]</span><span class="token comment"># oc get nodes</span>
+NAME       STATUS   ROLES                         AGE    VERSION
+master01   Ready    control-plane,master,worker   447d   v1.25.4+77bec7a
+</code></pre><p><mark>这里要注意kubeadmin这个用户，这个是临时的超级管理员，在我们至少提供了一种身份认证提供程序后，这个用户最好删除，避免风险</mark>，不过在课程中，<strong>切勿</strong>&nbsp;删除&nbsp;<code>kubeadmin</code>&nbsp;用户。​<code>kubeadmin</code>&nbsp;用户对于课程实验架构至关重要。​删除&nbsp;<code>kubeadmin</code>&nbsp;用户会损坏实验环境</p>
+<h2 id="配置-htpasswd-身份提供程序">配置 HTPasswd 身份提供程序 </h2>
+<p>在我们的课程中，我们用的是HTPasswd类型，HTPasswd 身份提供程序依照机密对用户进行验证，该机密中包含通过 Apache HTTP Server 项目中的&nbsp;<code>htpasswd</code>&nbsp;命令生成的用户名和密码。​只有集群管理员可以更改 HTPasswd 机密内的数据。​普通用户不能更改自己的密码。​</p>
+<p>我们需要创建一些HTPasswd用户，然后给用户授予权限，并更新oauth服务器以便于使用HTPasswd类型</p>
+<h3 id="新建htpasswd用户">新建htpasswd用户 </h3>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ htpasswd <span class="token parameter variable">--help</span>
+ <span class="token parameter variable">-c</span>  Create a new file.
+ <span class="token parameter variable">-b</span>  Use the password from the <span class="token builtin class-name">command</span> line rather than prompting <span class="token keyword keyword-for">for</span> it.
+ <span class="token parameter variable">-B</span>  Force bcrypt encryption of the password <span class="token punctuation">(</span>very secure<span class="token punctuation">)</span>.
+</code></pre><p>这里创建了一个new-htpasswd.txt的文件，里面包含两个用户</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ htpasswd <span class="token parameter variable">-c</span> <span class="token parameter variable">-B</span> <span class="token parameter variable">-b</span> new-htpasswd.txt lxh-admin lxhpass
+Adding password <span class="token keyword keyword-for">for</span> user lxh-admin
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ htpasswd <span class="token parameter variable">-B</span> <span class="token parameter variable">-b</span> new-htpasswd.txt zhangsan zhangsanpass
+Adding password <span class="token keyword keyword-for">for</span> user zhangsan
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> new-htpasswd.txt
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+</code></pre><h3 id="分配集群超级管理员">分配集群超级管理员 </h3>
+<p>分配权限之前，我们用创建机密的方式，先把这两个用户建出来</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc login <span class="token parameter variable">-u</span> admin <span class="token parameter variable">-p</span> redhatocp https://api.ocp4.example.com:6443
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc create secret generic my-htpass --from-file <span class="token assign-left variable">htpasswd</span><span class="token operator">=</span>new-htpasswd.txt <span class="token parameter variable">-n</span> openshift-config
+secret/my-htpass created
+</code></pre><p>分配超级管理员</p>
+<p>由于我们还没有将身份提供程序改为htpasswd，所以提示没有用户很正常，忽略即可</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc adm policy add-cluster-role-to-user cluster-admin lxh-admin
+Warning: User <span class="token string">'lxh-admin'</span> not found
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: <span class="token string">"lxh-admin"</span>
+</code></pre><h3 id="添加htpasswd认证方式">添加HTPasswd认证方式 </h3>
+<p>我们先导出服务器上正在生效的配置，稍微改改就行</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get oauth cluster <span class="token parameter variable">-o</span> yaml <span class="token operator">&gt;</span> my-oauth.yml
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> my-oauth.yml
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  annotations:
+    include.release.openshift.io/ibm-cloud-managed: <span class="token string">"true"</span>
+    include.release.openshift.io/self-managed-high-availability: <span class="token string">"true"</span>
+    include.release.openshift.io/single-node-developer: <span class="token string">"true"</span>
+    kubectl.kubernetes.io/last-applied-configuration: <span class="token operator">|</span>
+      <span class="token punctuation">{</span><span class="token string">"apiVersion"</span><span class="token builtin class-name">:</span><span class="token string">"config.openshift.io/v1"</span>,<span class="token string">"kind"</span><span class="token builtin class-name">:</span><span class="token string">"OAuth"</span>,<span class="token string">"metadata"</span>:<span class="token punctuation">{</span><span class="token string">"annotations"</span>:<span class="token punctuation">{</span><span class="token punctuation">}</span>,<span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"cluster"</span><span class="token punctuation">}</span>,<span class="token string">"spec"</span>:<span class="token punctuation">{</span><span class="token string">"identityProviders"</span>:<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"challenge"</span>:true,<span class="token string">"htpasswd"</span>:<span class="token punctuation">{</span><span class="token string">"fileData"</span>:<span class="token punctuation">{</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"htpasswd-secret"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"login"</span>:true,<span class="token string">"mappingMethod"</span><span class="token builtin class-name">:</span><span class="token string">"claim"</span>,<span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"htpasswd_provider"</span>,<span class="token string">"type"</span><span class="token builtin class-name">:</span><span class="token string">"HTPasswd"</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+    release.openshift.io/create-only: <span class="token string">"true"</span>
+  creationTimestamp: <span class="token string">"2023-09-28T14:08:46Z"</span>
+  generation: <span class="token number">3</span>
+  name: cluster
+  ownerReferences:
+  - apiVersion: config.openshift.io/v1
+    kind: ClusterVersion
+    name: version
+    uid: 72d0e456-95f1-4410-926d-04980c8ba544
+  resourceVersion: <span class="token string">"332963"</span>
+  uid: c8ba3aad-8360-4c1b-9049-00410bc5d2eb
+spec:
+  identityProviders:
+  - ldap:
+      attributes:
+        email:
+        - mail
+        id:
+        - dn
+        name:
+        - cn
+        preferredUsername:
+        - uid
+      bindDN: <span class="token assign-left variable">uid</span><span class="token operator">=</span>admin,cn<span class="token operator">=</span>users,cn<span class="token operator">=</span>accounts,dc<span class="token operator">=</span>ocp4,dc<span class="token operator">=</span>example,dc<span class="token operator">=</span>com
+      bindPassword:
+        name: ldap-secret
+      ca:
+        name: ca-config-map
+      insecure: <span class="token boolean">false</span>
+      url: ldap://idm.ocp4.example.com/cn<span class="token operator">=</span>users,cn<span class="token operator">=</span>accounts,dc<span class="token operator">=</span>ocp4,dc<span class="token operator">=</span>example,dc<span class="token operator">=</span>com?uid
+    mappingMethod: claim
+    name: Red Hat Identity Management
+    type: LDAP
+</code></pre><p>在spec下的identityProviders中，添加新的类型</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> my-oauth.yml
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  annotations:
+    include.release.openshift.io/ibm-cloud-managed: <span class="token string">"true"</span>
+    include.release.openshift.io/self-managed-high-availability: <span class="token string">"true"</span>
+    include.release.openshift.io/single-node-developer: <span class="token string">"true"</span>
+    kubectl.kubernetes.io/last-applied-configuration: <span class="token operator">|</span>
+      <span class="token punctuation">{</span><span class="token string">"apiVersion"</span><span class="token builtin class-name">:</span><span class="token string">"config.openshift.io/v1"</span>,<span class="token string">"kind"</span><span class="token builtin class-name">:</span><span class="token string">"OAuth"</span>,<span class="token string">"metadata"</span>:<span class="token punctuation">{</span><span class="token string">"annotations"</span>:<span class="token punctuation">{</span><span class="token punctuation">}</span>,<span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"cluster"</span><span class="token punctuation">}</span>,<span class="token string">"spec"</span>:<span class="token punctuation">{</span><span class="token string">"identityProviders"</span>:<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"challenge"</span>:true,<span class="token string">"htp                                                                                                                                                               asswd"</span>:<span class="token punctuation">{</span><span class="token string">"fileData"</span>:<span class="token punctuation">{</span><span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"htpasswd-secret"</span><span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token string">"login"</span>:true,<span class="token string">"mappingMethod"</span><span class="token builtin class-name">:</span><span class="token string">"claim"</span>,<span class="token string">"name"</span><span class="token builtin class-name">:</span><span class="token string">"htpasswd_provider"</span>,<span class="token string">"type"</span><span class="token builtin class-name">:</span><span class="token string">"HTPasswd"</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+    release.openshift.io/create-only: <span class="token string">"true"</span>
+  creationTimestamp: <span class="token string">"2023-09-28T14:08:46Z"</span>
+  generation: <span class="token number">3</span>
+  name: cluster
+  ownerReferences:
+  - apiVersion: config.openshift.io/v1
+    kind: ClusterVersion
+    name: version
+    uid: 72d0e456-95f1-4410-926d-04980c8ba544
+  resourceVersion: <span class="token string">"332963"</span>
+  uid: c8ba3aad-8360-4c1b-9049-00410bc5d2eb
+spec:
+  identityProviders: <span class="token comment"># 下面的htpasswd是新加的，一直到ldap</span>
+  - htpasswd:
+      fileData:
+        name: my-htpass
+    mappingMethod: claim
+    name: Lxh-Users
+    type: HTPasswd
+  - ldap:
+      attributes:
+        email:
+        - mail
+        id:
+        - dn
+        name:
+        - cn
+        preferredUsername:
+        - uid
+      bindDN: <span class="token assign-left variable">uid</span><span class="token operator">=</span>admin,cn<span class="token operator">=</span>users,cn<span class="token operator">=</span>accounts,dc<span class="token operator">=</span>ocp4,dc<span class="token operator">=</span>example,dc<span class="token operator">=</span>com
+      bindPassword:
+        name: ldap-secret
+      ca:
+        name: ca-config-map
+      insecure: <span class="token boolean">false</span>
+      url: ldap://idm.ocp4.example.com/cn<span class="token operator">=</span>users,cn<span class="token operator">=</span>accounts,dc<span class="token operator">=</span>ocp4,dc<span class="token operator">=</span>example,dc<span class="token operator">=</span>com?uid
+    mappingMethod: claim
+    name: Red Hat Identity Management
+    type: LDAP
+</code></pre><p>这个会触发operator的更新，不会那么快，观察一下内容，确认更新过程已经完成</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             <span class="token number">4.12</span>.0    True        True          False      2s      OAuthServerDeploymentProgressing: deployment/oauth-openshift.openshift-authentication: observed generation is <span class="token number">13</span>, desired generation is <span class="token number">14</span>.
+</code></pre><h3 id="验证权限分配">验证权限分配 </h3>
+<p>经过验证，发现lxh-admin有权限获取节点，而zhangsan没有权限</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc login <span class="token parameter variable">-u</span> lxh-admin <span class="token parameter variable">-p</span> lxhpass https://api.ocp4.example.com:6443
+Login successful.
+
+You have access to <span class="token number">72</span> projects, the list has been suppressed. You can list all projects with <span class="token string">'oc projects'</span>
+
+Using project <span class="token string">"default"</span><span class="token builtin class-name">.</span>
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get nodes
+NAME       STATUS   ROLES                         AGE    VERSION
+master01   Ready    control-plane,master,worker   447d   v1.25.4+77bec7a
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get <span class="token function">users</span>
+NAME        <span class="token environment constant">UID</span>                                    FULL NAME       IDENTITIES
+admin       bc98d46a-dd9f-4917-8246-089f10f95e75   Administrator   Red Hat Identity Management:dWlkPWFkbWluLGNuPXVzZXJzLGNuPWFjY291bnRzLGRjPW9jcDQsZGM9ZXhhbXBsZSxkYz1jb20
+developer   <span class="token number">12724778</span>-65ba-411a-aa80-a9634228e116   <span class="token builtin class-name">.</span> developer     Red Hat Identity Management:dWlkPWRldmVsb3Blcixjbj11c2Vycyxjbj1hY2NvdW50cyxkYz1vY3A0LGRjPWV4YW1wbGUsZGM9Y29t
+lxh-admin   693dfbd1-5721-4ffe-b569-fa346675cf61                   Lxh-Users:lxh-admin
+zhangsan    6563b503-367e-47fe-8a40-62dcb37e344a                   Lxh-Users:zhangsan
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get identities.user.openshift.io
+NAME                                                                                                           IDP NAME                      IDP <span class="token environment constant">USER</span> NAME                                                                      <span class="token environment constant">USER</span> NAME   <span class="token environment constant">USER</span> <span class="token environment constant">UID</span>
+Lxh-Users:lxh-admin                                                                                            Lxh-Users                     lxh-admin                                                                          lxh-admin   693dfbd1-5721-4ffe-b569-fa346675cf61
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc login <span class="token parameter variable">-u</span> zhangsan <span class="token parameter variable">-p</span> zhangsanpass https://api.ocp4.example.com:6443
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <span class="token operator">&lt;</span>projectname<span class="token operator">&gt;</span>
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get nodes
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: nodes is forbidden: User <span class="token string">"zhangsan"</span> cannot list resource <span class="token string">"nodes"</span> <span class="token keyword keyword-in">in</span> API group <span class="token string">""</span> at the cluster scope
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get nodes
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: nodes is forbidden: User <span class="token string">"zhangsan"</span> cannot list resource <span class="token string">"nodes"</span> <span class="token keyword keyword-in">in</span> API group <span class="token string">""</span> at the cluster scope
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get <span class="token function">users</span>
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: users.user.openshift.io is forbidden: User <span class="token string">"zhangsan"</span> cannot list resource <span class="token string">"users"</span> <span class="token keyword keyword-in">in</span> API group <span class="token string">"user.openshift.io"</span> at the cluster scope
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get identities.user.openshift.io
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: identities.user.openshift.io is forbidden: User <span class="token string">"zhangsan"</span> cannot list resource <span class="token string">"identities"</span> <span class="token keyword keyword-in">in</span> API group <span class="token string">"user.openshift.io"</span> at the clu
+</code></pre><h3 id="添加新用户到htpasswd用户列表">添加新用户到HTPasswd用户列表 </h3>
+<p>添加用户，需要先把线上现有的用户导出来，然后新增，我们是模拟本地没有txt文件的情况下如何新增</p>
+<p>这个--to可以不用加，默认是当前路径，--confirm如果不加，而当前路径存在有htpasswd文件时，会失败</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc extract secret/my-htpass <span class="token parameter variable">-n</span> openshift-config <span class="token parameter variable">--to</span><span class="token operator">=</span>/home/student/ <span class="token parameter variable">--confirm</span>
+/home/student/htpasswd
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> /home/student/htpasswd
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+</code></pre><p>添加一个wangwu用户</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ htpasswd <span class="token parameter variable">-b</span> <span class="token parameter variable">-B</span> htpasswd wangwu wangwupass
+Adding password <span class="token keyword keyword-for">for</span> user wangwu
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> htpasswd
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+wangwu:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$AJorPPbJ1Z3cVci8IAV5zuQln4XBrwPrS5qQqfXpk3IGmd3w1CxOm</span>
+</code></pre><p>触发一次secret数据更新</p>
+<p>供 HTPasswd 身份提供程序使用的机密需要在指定文件的路径之前添加 htpasswd= 前缀</p>
+<p>--from-file后面的htpasswd是secret的key，后面的一个是文件名</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc <span class="token builtin class-name">set</span> data secret/my-htpass --from-file <span class="token assign-left variable">htpasswd</span><span class="token operator">=</span>htpasswd <span class="token parameter variable">-n</span> openshift-config
+</code></pre><p>确认wangwu用户登录成功</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc login <span class="token parameter variable">-u</span> wangwu <span class="token parameter variable">-p</span> wangwupass https://api.ocp4.example.com:6443
+Login successful.
+</code></pre><h3 id="更新用户密码">更新用户密码 </h3>
+<p>更新wangwu用户的密码</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc extract secret/my-htpass <span class="token parameter variable">-n</span> openshift-config <span class="token parameter variable">--to</span><span class="token operator">=</span>/home/student/ <span class="token parameter variable">--confirm</span>
+/home/student/htpasswd
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> htpasswd
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+wangwu:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$AJorPPbJ1Z3cVci8IAV5zuQln4XBrwPrS5qQqfXpk3IGmd3w1CxOm</span>
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ htpasswd <span class="token parameter variable">-b</span> <span class="token parameter variable">-B</span> htpasswd wangwu lixiaohuipass
+Updating password <span class="token keyword keyword-for">for</span> user wangwu
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> htpasswd
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+wangwu:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$HoT</span>.vyizHJotzDCQ1qjDLuJc7K3noHVyEej9UgFADcRrBc4VPOOf.
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc <span class="token builtin class-name">set</span> data secret/my-htpass --from-file <span class="token assign-left variable">htpasswd</span><span class="token operator">=</span>htpasswd <span class="token parameter variable">-n</span> openshift-config
+</code></pre><p>别忘了观察oc get co</p>
+<h3 id="删除用户">删除用户 </h3>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc extract secret/my-htpass <span class="token parameter variable">-n</span> openshift-config <span class="token parameter variable">--to</span><span class="token operator">=</span>/home/student/ <span class="token parameter variable">--confirm</span>
+/home/student/htpasswd
+</code></pre><p>删除用户可以手工vim删除这一条，或者用</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> htpasswd
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+wangwu:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$HoT</span>.vyizHJotzDCQ1qjDLuJc7K3noHVyEej9UgFADcRrBc4VPOOf.
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ htpasswd <span class="token parameter variable">-D</span> htpasswd wangwu
+Deleting password <span class="token keyword keyword-for">for</span> user wangwu
+
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> htpasswd
+lxh-admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$hGcuccbY8BGrmq5G58f3zOP2hz2w1</span>/WqNPepJZ1oXsL9pUHoPOKzK
+zhangsan:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$JFwYSQdeZmU1p1vv8vKweO9g2pApGcH8E7UHC7PwH5eZ6joLG4aua</span>
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc <span class="token builtin class-name">set</span> data secret/my-htpass --from-file <span class="token assign-left variable">htpasswd</span><span class="token operator">=</span>htpasswd <span class="token parameter variable">-n</span> openshift-config
+</code></pre><p>当出现需要删除用户的情形时，仅从身份提供程序中删除该用户是不够的。​还必须删除用户和身份资源</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc delete identities.user.openshift.io Lxh-Users:
+lxh-admin  wangwu     zhangsan
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc delete identities.user.openshift.io Lxh-Users:wangwu
+identity.user.openshift.io <span class="token string">"Lxh-Users:wangwu"</span> deleted
+<span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc delete user wangwu
+user.user.openshift.io <span class="token string">"wangwu"</span> deleted
+</code></pre><p>别忘了观察oc get co</p>
+<h3 id="新建组">新建组 </h3>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc adm <span class="token function">groups</span> new lxh-group
+group.user.openshift.io/lxh-group created
+</code></pre><h3 id="添加用户到组">添加用户到组 </h3>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc adm <span class="token function">groups</span> add-users lxh-group lxh-admin
+group.user.openshift.io/lxh-group added: <span class="token string">"lxh-admin"</span>
+</code></pre><p>查一下大家在哪个组</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ oc get group
+NAME                USERS
+Default SMB Group
+admins              Administrator
+developer
+editors
+lxh-group           lxh-admin
+ocpadmins           Administrator
+ocpdevs             <span class="token builtin class-name">.</span> developer
+</code></pre><p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

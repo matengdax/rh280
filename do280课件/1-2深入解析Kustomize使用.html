@@ -1,0 +1,456 @@
+<!DOCTYPE html><html><head>
+      <title>1-2深入解析Kustomize使用</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Xiaohui\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>作者：李晓辉
+
+联系方式：
+
+1. 微信：Lxh_Chat
+
+2. 邮箱：939958092@qq.com 
+</code></pre><p>你知道 Kustomize 吗？超好用的配置管理工具！咱平时创建 deployment、service 这些资源，不就是改改镜像、名称、标签啥的嘛。以前每次都得写一长串 YAML，麻烦得很。现在有了 Kustomize，咱们先写好常用的 YAML 模板，以后有新需求，直接用它把新参数覆盖到模板里，就能搞定新部署啦，再也不用重复造轮子，省心多了！</p>
+<p>Kustomize 的文件结构主要围绕 <strong>base</strong> 和 <strong>overlay</strong> 两个核心概念展开。每个 Kustomization 文件夹（无论是 base 还是 overlay）都必须包含一个 <code>kustomization.yaml</code> 文件，这个文件是 Kustomize 的核心配置文件。</p>
+<ul>
+<li>
+<p><code>base/</code> 文件夹存放通用的基础模板。</p>
+</li>
+<li>
+<p><code>overlays/</code> 文件夹存放针对不同环境（如开发环境 <code>dev</code> 和生产环境 <code>prod</code>）的覆盖配置。</p>
+</li>
+</ul>
+<h1 id="base-目录">Base 目录 </h1>
+<p><strong>Base</strong> 是通用模板，包含了所有资源的通用部分。<code>base</code> 目录通常包含以下内容：</p>
+<ol>
+<li>
+<p><strong>资源文件</strong>：这些是 Kubernetes 资源的 YAML 文件，比如 <code>deployment.yaml</code>、<code>service.yaml</code> 等。</p>
+</li>
+<li>
+<p><strong><code>kustomization.yaml</code> 文件</strong>：这个文件定义了如何组合和管理这些资源文件。</p>
+</li>
+</ol>
+<p><code>kustomization.yaml</code>&nbsp;文件的作用</p>
+<p><code>kustomization.yaml</code> 文件在 <code>base</code> 目录中的作用主要包括以下几点：</p>
+<ol>
+<li>
+<p><strong>列出资源文件</strong>：通过 <code>resources</code> 字段，指定 <code>base</code> 目录中包含的所有资源文件。</p>
+</li>
+<li>
+<p><strong>定义通用配置</strong>：可以定义一些通用的配置，比如通用的标签（<code>commonLabels</code>）、注解（<code>commonAnnotations</code>）等。</p>
+</li>
+<li>
+<p><strong>定义生成的资源名称前缀或后缀</strong>：通过 <code>namePrefix</code> 或 <code>nameSuffix</code> 字段，为所有资源名称添加前缀或后缀。</p>
+</li>
+</ol>
+<p>下面是base目录的基本结构：</p>
+<pre data-role="codeBlock" data-info="textile" class="language-textile textile"><code><span class="token phrase">base
+├── configmap.yaml
+├── deployment.yaml
+├── secret.yaml
+├── service.yaml
+├── route.yaml
+└── kustomization.yaml
+</span></code></pre><p>base目录中的<code>kustomization.yaml</code>&nbsp;文件内容示例如下：</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kustomize.config.k8s.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Kustomization
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> configmap.yaml
+<span class="token punctuation">-</span> deployment.yaml
+<span class="token punctuation">-</span> secret.yaml
+<span class="token punctuation">-</span> service.yaml
+<span class="token punctuation">-</span> route.yaml
+</code></pre><h1 id="base案例">base案例 </h1>
+<p>创建出base目录，并在目录中，创建出通用的模板以及kustomization.yaml</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">mkdir</span> base
+<span class="token builtin class-name">cd</span> base
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> Secret.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> QUJDYWJjMTIz
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlpass
+EOF
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> Deployment.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">3</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+      <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlname
+          <span class="token key atrule">image</span><span class="token punctuation">:</span> registry.ocp4.example.com<span class="token punctuation">:</span>8443/rhel8/mysql<span class="token punctuation">-</span>80<span class="token punctuation">:</span>latest
+          <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> IfNotPresent
+          <span class="token key atrule">env</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> MYSQL_ROOT_PASSWORD
+              <span class="token key atrule">valueFrom</span><span class="token punctuation">:</span>
+                <span class="token key atrule">secretKeyRef</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">name</span><span class="token punctuation">:</span> mysqlpass
+                  <span class="token key atrule">key</span><span class="token punctuation">:</span> password
+EOF
+</code></pre><pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> Service.yml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nodeservice
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> NodePort
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8000</span>
+      <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">nodePort</span><span class="token punctuation">:</span> <span class="token number">31788</span>
+EOF
+</code></pre><p>最后创建出kustomization.yaml，在这个文件中，我们包含上我们刚创建的3个资源</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> kustomization.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kustomize.config.k8s.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Kustomization
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>base<span class="token punctuation">-</span>kustomization
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> Secret.yml
+<span class="token punctuation">-</span> Deployment.yml
+<span class="token punctuation">-</span> Service.yml
+EOF
+</code></pre><p>查看一下目前base目录的结构</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation base<span class="token punctuation">]</span>$ <span class="token builtin class-name">pwd</span>
+/home/student/base
+<span class="token punctuation">[</span>student@workstation base<span class="token punctuation">]</span>$ tree <span class="token builtin class-name">.</span>
+<span class="token builtin class-name">.</span>
+├── Deployment.yml
+├── kustomization.yaml
+├── Secret.yml
+└── Service.yml
+
+<span class="token number">0</span> directories, <span class="token number">4</span> files
+</code></pre><p>以上在base目录中的文件将用于生成：</p>
+<ol>
+<li>
+<p>一个名为mysqlpass的机密</p>
+</li>
+<li>
+<p>一个名为nginx-deployment的部署，此部署的pod将具有app: nginx标签，并引用mysqlpass机密作为密码，密码值为ABCabc123</p>
+</li>
+<li>
+<p>一个名为nodeservice的服务，监听在8000端口，收到请求后，转发给具有app: nginx标签的pod，并启用了31788的nodePort</p>
+</li>
+</ol>
+<p>至此，我们的三种类型的通用模板就完成了，可以开始overlay的参数覆盖部分了</p>
+<h1 id="overlay目录">overlay目录 </h1>
+<p>Kustomize 可以通过覆盖（Overlay）来修改基础（Base）里的配置，但完全不会动到基础里的原始文件。这就像是给基础模板“穿了个外套”，只改变外表，内核还是那个内核。</p>
+<p>每个覆盖目录里都有个 <code>kustomization.yaml</code> 文件，这个文件就像是指挥官，它能指定一个或多个基础目录。也就是说，你可以有一个通用的基础模板，然后针对不同的需求（比如开发环境、测试环境、生产环境）创建不同的覆盖目录。每个覆盖目录都可以用同一个基础目录，然后通过自己的 <code>kustomization.yaml</code> 文件来定义怎么修改基础里的东西，比如改改镜像版本、副本数量之类的。</p>
+<p>举个例子，你有个基础模板，里面定义了一个应用的基本配置。然后你创建了一个开发环境的覆盖目录，在这个目录的 <code>kustomization.yaml</code> 文件里，你可以指定用那个基础模板，然后再加上一些开发环境特有的配置，比如把副本数量改成 2，或者给资源名称加上 <code>dev-</code> 前缀。这样一来，开发环境就有了自己的配置，但基础模板还是原封不动的。</p>
+<p>这样做的好处是，不管你有多少个环境，基础模板都保持一致，方便管理和更新。而且，每个环境的覆盖目录都是独立的，互不干扰，想改哪里就改哪里，超灵活！</p>
+<p>具体来说，加入overlay之后的文件结构如下：</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation ~<span class="token punctuation">]</span>$ tree <span class="token builtin class-name">.</span>
+base
+├── configmap.yaml
+├── deployment.yaml
+├── secret.yaml
+├── service.yaml
+├── route.yaml
+└── kustomization.yaml
+overlay
+└── development
+    └── kustomization.yaml
+└── testing
+    └── kustomization.yaml
+└── production
+    ├── kustomization.yaml
+    └── patch.yaml
+</code></pre><p>overlay的<code>kustomization.yaml</code>&nbsp;文件中必须写明，对哪类资源做哪些必要的更改</p>
+<h1 id="overlay案例">overlay案例 </h1>
+<p><strong>创建开发环境</strong></p>
+<h2 id="kustomization">kustomization </h2>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token builtin class-name">cd</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> overlays/development
+<span class="token builtin class-name">cd</span> overlays/development
+</code></pre><p>创建开发环境的kustomization.yaml 文件：</p>
+<p>Kustomize 功能特性列表参阅：</p>
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>https://kubernetes.io/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/#kustomize-feature-list
+</code></pre><ol>
+<li>patchesStrategicMerge补丁将会更新nginx-deployment这个Deployment</li>
+<li>patchesJson6902补丁也会更新nginx-deployment这个Deployment</li>
+<li>overlay的对象是刚创建的base目录下的内容</li>
+<li>全体对象添加env: dev</li>
+<li>禁止添加hash后缀</li>
+<li>产生两个新的configmap和secret</li>
+</ol>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> kustomization.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> kustomize.config.k8s.io/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Kustomization
+<span class="token key atrule">namespace</span><span class="token punctuation">:</span> lxh<span class="token punctuation">-</span>dev
+<span class="token key atrule">patches</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> patchesStrategicMerge<span class="token punctuation">-</span>demo.yaml
+    <span class="token key atrule">target</span><span class="token punctuation">:</span>
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+    <span class="token key atrule">options</span><span class="token punctuation">:</span>
+      <span class="token key atrule">allowNameChange</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> patchesJson6902<span class="token punctuation">-</span>demo.yaml
+    <span class="token key atrule">target</span><span class="token punctuation">:</span>
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+    <span class="token key atrule">options</span><span class="token punctuation">:</span>
+      <span class="token key atrule">allowNameChange</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ../../base
+<span class="token key atrule">commonLabels</span><span class="token punctuation">:</span>
+  <span class="token key atrule">env</span><span class="token punctuation">:</span> dev
+<span class="token key atrule">generatorOptions</span><span class="token punctuation">:</span>
+  <span class="token key atrule">disableNameSuffixHash</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">configMapGenerator</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cmusername
+  <span class="token key atrule">files</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> configmap<span class="token punctuation">-</span>1.yml
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> cmage
+  <span class="token key atrule">literals</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> cmage=18
+<span class="token key atrule">secretGenerator</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> username
+  <span class="token key atrule">files</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> secret<span class="token punctuation">-</span>1.yml
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> secrettest
+  <span class="token key atrule">literals</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> password=LiXiaoHui
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+EOF
+</code></pre><h2 id="生成器generator">生成器Generator </h2>
+<p>在kustomization.yaml，如果用文件来生成configmap和secret，会将文件名也作为数据的一部分，建议用literals</p>
+<p>生成configmap和secret的文件</p>
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>cat &gt; configmap-1.yml &lt;&lt;-EOF
+username=lixiaohui
+EOF
+</code></pre><pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">cat</span> <span class="token operator">&gt;</span> secret-1.yml <span class="token operator">&lt;&lt;-</span><span class="token string">EOF
+username=admin
+password=secret
+EOF</span>
+</code></pre><h2 id="策略性合并与json补丁">策略性合并与JSON补丁 </h2>
+<p>在 Kustomize 里，<code>patchesStrategicMerge</code> 和 <code>patchesJson6902</code> 都是用来改 Kubernetes 资源的，但它们的风格和用法有点不一样。</p>
+<p>1.&nbsp;<strong>patchesStrategicMerge</strong></p>
+<p>这种方式就是用 YAML 文件来改东西，特别直白。你可以直接在 YAML 文件里找到要改的地方，然后像平时写 Kubernetes 配置一样改它。如果你对 Kubernetes 的配置挺熟悉，用这个就特别顺手。比如，你想把一个 Deployment 的副本数从 1 改成 3，或者给 Pod 加个环境变量，直接在 YAML 里改就行，一眼就能看明白。</p>
+<p>2.&nbsp;<strong>patchesJson6902</strong></p>
+<p>这个就有点高级了，用的是 JSON 补丁。它遵循一个叫 JSON Patch（RFC 6902）的规范，能干的事更多。你可以用它来添加、删除、替换字段，甚至还能测试字段的值。不过，它用的是 JSON 格式，看起来可能会比 YAML 稍微复杂一点。不过，要是你遇到一些特别复杂的修改，比如要根据条件动态改字段，或者要改嵌套很深的字段，<code>patchesJson6902</code> 就能大显身手了。</p>
+<p>简单来说，<code>patchesStrategicMerge</code> 就像用笔在纸上直接改东西，直观又方便；<code>patchesJson6902</code> 就像用一把瑞士军刀，功能强大，但可能需要多花点时间熟悉怎么用。</p>
+<h2 id="生成策略性合并补丁">生成策略性合并补丁 </h2>
+<p>这里的名字一定要和已有的资源的名称一致</p>
+<p>更新deployment的replicas为4</p>
+<pre data-role="codeBlock" data-info="yaml" class="language-yaml yaml"><code>cat <span class="token punctuation">&gt;</span> patchesStrategicMerge<span class="token punctuation">-</span>demo.yaml &lt;&lt;<span class="token punctuation">-</span>EOF
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx<span class="token punctuation">-</span>deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">4</span>
+EOF
+</code></pre><h2 id="生成json补丁">生成JSON补丁 </h2>
+<p>新增deployment下的pod标签为dev: release1</p>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>cat &gt; patchesJson6902-demo.yaml &lt;&lt;-EOF
+<span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span>
+    <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/spec/template/metadata/labels/dev"</span><span class="token punctuation">,</span>
+    <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"release1"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+EOF
+</code></pre><p>目前的文件列表：</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ tree <span class="token builtin class-name">.</span>
+<span class="token builtin class-name">.</span>
+├── configmap-1.yml
+├── kustomization.yaml
+├── patchesJson6902-demo.yaml
+├── patchesStrategicMerge-demo.yaml
+└── secret-1.yml
+
+<span class="token number">0</span> directories, <span class="token number">5</span> files
+</code></pre><h2 id="验证overlay最终成果">验证overlay最终成果 </h2>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ kubectl kustomize ./
+</code></pre><p>输出</p>
+<pre data-role="codeBlock" data-info="text" class="language-text text"><code>apiVersion: v1
+data:
+  cmage: "18"
+kind: ConfigMap
+metadata:
+  labels:
+    env: dev
+  name: cmage
+  namespace: lxh-dev
+---
+apiVersion: v1
+data:
+  configmap-1.yml: |
+    username=lixiaohui
+kind: ConfigMap
+metadata:
+  labels:
+    env: dev
+  name: cmusername
+  namespace: lxh-dev
+---
+apiVersion: v1
+data:
+  password: QUJDYWJjMTIz
+kind: Secret
+metadata:
+  labels:
+    env: dev
+  name: mysqlpass
+  namespace: lxh-dev
+---
+apiVersion: v1
+data:
+  password: TGlYaWFvSHVp
+kind: Secret
+metadata:
+  labels:
+    env: dev
+  name: secrettest
+  namespace: lxh-dev
+type: Opaque
+---
+apiVersion: v1
+data:
+  secret-1.yml: dXNlcm5hbWU9YWRtaW4KcGFzc3dvcmQ9c2VjcmV0Cg==
+kind: Secret
+metadata:
+  labels:
+    env: dev
+  name: username
+  namespace: lxh-dev
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    env: dev
+  name: nodeservice
+  namespace: lxh-dev
+spec:
+  ports:
+  - nodePort: 31788
+    port: 8000
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+    env: dev
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+    env: dev
+  name: nginx-deployment
+  namespace: lxh-dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+      env: dev
+  template:
+    metadata:
+      labels:
+        app: new-label
+        env: dev
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: mysqlpass
+        image: registry.ocp4.example.com:8443/rhel8/mysql-80:latest
+        imagePullPolicy: IfNotPresent
+        name: mysqlname
+</code></pre><h2 id="发布开发环境">发布开发环境 </h2>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>kubectl create namespace lxh-dev
+kubectl apply <span class="token parameter variable">-k</span> <span class="token builtin class-name">.</span>
+</code></pre><pre data-role="codeBlock" data-info="text" class="language-text text"><code>configmap/cmage created
+configmap/cmusername created
+secret/mysqlpass created
+secret/secrettest created
+secret/username created
+service/nodeservice created
+deployment.apps/nginx-deployment created
+</code></pre><p>查询创建的内容</p>
+<p>发现我们新configmap和secret已经生效，两个补丁也都生效了，一个补丁将deployment的pod数量该为4，一个补丁添加了dev=release1的标签</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ kubectl get configmaps <span class="token parameter variable">-n</span> lxh-dev
+NAME               DATA   AGE
+cmage              <span class="token number">1</span>      41s
+cmusername         <span class="token number">1</span>      41s
+kube-root-ca.crt   <span class="token number">1</span>      11m
+<span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ kubectl get secrets <span class="token parameter variable">-n</span> lxh-dev
+NAME         TYPE     DATA   AGE
+mysqlpass    Opaque   <span class="token number">1</span>      47s
+secrettest   Opaque   <span class="token number">1</span>      47s
+username     Opaque   <span class="token number">1</span>      47s
+
+<span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ kubectl get <span class="token function">service</span> <span class="token parameter variable">-n</span> lxh-dev
+NAME          TYPE       CLUSTER-IP       EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>          AGE
+nodeservice   NodePort   <span class="token number">10.106</span>.128.145   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">8000</span>:31788/TCP   51s
+
+<span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ kubectl get deployments.apps <span class="token parameter variable">-n</span> lxh-dev
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   <span class="token number">4</span>/4     <span class="token number">4</span>            <span class="token number">4</span>           55s
+
+<span class="token punctuation">[</span>student@workstation development<span class="token punctuation">]</span>$ kubectl get pod --show-labels  <span class="token parameter variable">-n</span> lxh-dev
+NAME                                READY   STATUS    RESTARTS   AGE   LABELS
+nginx-deployment-6f86fd678b-bv688   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          64s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>6f86fd678b
+nginx-deployment-6f86fd678b-wpk49   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          64s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>6f86fd678b
+nginx-deployment-6f86fd678b-wr94h   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          64s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>6f86fd678b
+nginx-deployment-6f86fd678b-xxkbw   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          64s   <span class="token assign-left variable">app</span><span class="token operator">=</span>nginx,dev<span class="token operator">=</span>release1,env<span class="token operator">=</span>dev,pod-template-hash<span class="token operator">=</span>6f86fd678b
+</code></pre><p>本文档在线版本：<a href="https://www.linuxcenter.cn">https://www.linuxcenter.cn</a></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
