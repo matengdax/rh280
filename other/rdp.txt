@@ -1,8 +1,9 @@
 rds.easthome.com:25413
-ruitong\brhce18
-P@ssw0rd
-
 
 10.30.13.73
+
+ruitong\brhce18
+
 admin
+
 P@ssw0rd
